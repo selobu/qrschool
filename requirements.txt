@@ -1,0 +1,9 @@
+flask==2.3.2
+flask-restx==1.1.0
+flask-cors
+sqlalchemy==2.0.17
+PyMysql
+flask-sqlalchemy
+cryptography
+# pydantic
+flask_jwt_extended
