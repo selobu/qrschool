@@ -5,6 +5,7 @@ sqlalchemy==2.0.17
 PyMysql
 flask-sqlalchemy
 cryptography
-# pydantic
 flask_jwt_extended
+# testing libraries
 pytest
+pydantic
