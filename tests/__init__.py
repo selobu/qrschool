@@ -3,6 +3,6 @@ from pathlib import Path
 from os.path import abspath, join
 
 # Add current path to sys.path
-cp = Path(__file__).parent
+cp = Path(__file__).parent.parent
 if abspath(cp) not in path:
     path.append(abspath(cp))
