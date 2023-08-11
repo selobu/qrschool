@@ -37,4 +37,4 @@ class Grado(Base):
 
     matricula: Mapped["Matricula"] = relationship(back_populates="grado")
     estudiante: Mapped["User"] = relationship(back_populates="grado")
-    asignatura: Mapped["Asignatura"] = relationship(back_populates='grado')
+    asignatura: Mapped["Asignatura"] = relationship(back_populates="grado")

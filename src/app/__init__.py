@@ -18,12 +18,13 @@ def create_app(
     # making app globally available by calling settings
     settings.app = app
     setattr(app, "Tb", Tb)
-    
+
     app.config["JWT_SECRET_KEY"] = settings.jwt_key
-    
+
     with app.app_context():
         from . import modules
         from . import routes
+
         setattr(app, "api", modules.api)
 
         jwt = JWTManager(app)
@@ -34,19 +35,19 @@ def create_app(
                 return user
             elif isinstance(user, Tb.User):
                 return user.correo
+
         @jwt.user_lookup_loader
         def user_lookup_callback(_jwt_header, jwt_data):
             identity = jwt_data["sub"]
             with app.Session() as session:
-                res =  select(Tb.User).\
-                    filter(Tb.User.correo==identity)
+                res = select(Tb.User).filter(Tb.User.correo == identity)
                 return session.execute(res).one()[0]
 
         modules.init_app(app)
-        
+
         # setting up additional routes
         routes.init_app(app)
-        
+
         if "db" not in app.config:
             app.config["db"] = db
         if "tb" not in app.config:
@@ -62,6 +63,7 @@ def create_app(
         setattr(app, "engine", engine)
         Session = sessionmaker(engine, expire_on_commit=False)
         setattr(app, "Session", Session)
+
         # @app.shell_context_processor
         def make_shell_context():
             return dict(db=db, Tb=Tb, Session=Session)

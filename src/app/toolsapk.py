@@ -37,8 +37,8 @@ def map_name_to_table(cls):
     @staticmethod
     def register(**kwargs):
         commit = False
-        if 'commit' in kwargs:
-            commit = kwargs.pop('commit')
+        if "commit" in kwargs:
+            commit = kwargs.pop("commit")
         primary_keys = class_mapper(cls).primary_key
         primary_key_names = []
         found_primary_key = False
@@ -52,8 +52,11 @@ def map_name_to_table(cls):
             # se busca para modificarlo
             with app.Session() as session:
                 res = select(cls).filter_by(
-                    **dict((primary_key_name, kwargs[primary_key_name]) \
-                           for primary_key_name in primary_key_names))
+                    **dict(
+                        (primary_key_name, kwargs[primary_key_name])
+                        for primary_key_name in primary_key_names
+                    )
+                )
                 res = session.execute(res).all()
             if len(res) == 0:
                 model = cls()
@@ -61,12 +64,12 @@ def map_name_to_table(cls):
                 model = res[0][0]
         for primary_key in primary_keys:
             if primary_key.name in kwargs:
-                setattr(model, primary_key.name,
-                        kwargs.pop(primary_key.name))
+                setattr(model, primary_key.name, kwargs.pop(primary_key.name))
             # TODO check if the primary_key is required
         inspected = inspect(cls)
-        columns = dict((fieldname, col)
-                       for fieldname, col in cls.__table__.columns.items())
+        columns = dict(
+            (fieldname, col) for fieldname, col in cls.__table__.columns.items()
+        )
         for key, value in kwargs.items():
             if hasattr(model, key) and key in columns:
                 # Se identifica si la columna es de tipo Date o DateTime
@@ -76,8 +79,11 @@ def map_name_to_table(cls):
                 elif isinstance(columns[key].type, db.DateTime):
                     if isinstance(value, (str, bytearray)):
                         # se trata de hacer la conversion del valor
-                        posibleformats = ['%Y-%m-%dT%H:%M:%S.%fZ',
-                                          '%Y-%m-%dT%H:%M:%S', '%Y-%m-%d %H:%M:%S']
+                        posibleformats = [
+                            "%Y-%m-%dT%H:%M:%S.%fZ",
+                            "%Y-%m-%dT%H:%M:%S",
+                            "%Y-%m-%d %H:%M:%S",
+                        ]
                         for formato in posibleformats:
                             try:
                                 value = datetime.strptime(value, formato)
@@ -88,7 +94,9 @@ def map_name_to_table(cls):
             elif key not in columns:
                 try:
                     relationitems = dict(
-                        (key, value) for key, value in inspect(cls).relationships.items())
+                        (key, value)
+                        for key, value in inspect(cls).relationships.items()
+                    )
                 except:
                     # db.session.rollback()
                     relationitems = []
@@ -102,23 +110,27 @@ def map_name_to_table(cls):
                         # se consulta la llave primaria
                         filters[_keys[0]] = value
                     else:
-                        print(f'{key} - omititda. Basemodel no puede registrar multiples llaves')
+                        print(
+                            f"{key} - omititda. Basemodel no puede registrar multiples llaves"
+                        )
                         continue
                     value = select(table).filter_by(**filters).one()
                     # select(getattr(tb)
                 setattr(model, key, value)
             else:
                 raise f"<{model.__table__.name}> Invalid parameter {key}"
-        #db.session.add(model)
-        #if commit:
+        # db.session.add(model)
+        # if commit:
         #    db.session.commit()
         return model
-    if 'register' not in cls.__dict__:
-        setattr(cls, 'register', register)
-    else:
-        setattr(cls, '_register', register)
 
-    if 'delete' not in cls.__dict__:
+    if "register" not in cls.__dict__:
+        setattr(cls, "register", register)
+    else:
+        setattr(cls, "_register", register)
+
+    if "delete" not in cls.__dict__:
+
         @staticmethod
         def delete(primary_key_value):
             # no se borra el proyecto solo se hace inactivo
@@ -128,15 +140,18 @@ def map_name_to_table(cls):
                 db.session.commit()
             except:
                 db.session.rollback()
-                raise Exception(f'{model.__repr__} no se pudo eliminar')
-        setattr(cls, 'delete', delete)
+                raise Exception(f"{model.__repr__} no se pudo eliminar")
+
+        setattr(cls, "delete", delete)
 
     def repr(self):
         primary_key = class_mapper(cls).primary_key[0].name
-        return f'<{self.__tablename__} :>  {primary_key}: {getattr(self, primary_key)}'
-    if 'function Model' in str(cls.__repr__):
-        setattr(cls, '__repr__', repr)
+        return f"<{self.__tablename__} :>  {primary_key}: {getattr(self, primary_key)}"
+
+    if "function Model" in str(cls.__repr__):
+        setattr(cls, "__repr__", repr)
     return cls
+
 
 def uuidgenerator():
     return str(uuid4())
@@ -153,10 +168,10 @@ class Base(DeclarativeBase):
     pass
 
 
-def gethash(password:str)->str:
+def gethash(password: str) -> str:
     """Returns a hash value of the given password"""
-    m= hashlib.sha256()
-    m.update(bytes('Colegio2023!'+password,'utf-8'))
+    m = hashlib.sha256()
+    m.update(bytes("Colegio2023!" + password, "utf-8"))
     m.digest()
     return m.hexdigest()
 
@@ -167,6 +182,7 @@ def is_admin():
     except:
         return False
 
+
 @jwt_required()
 def admin_required(proyectIdKeyName=None):
     def newadmin(func):
@@ -175,9 +191,12 @@ def admin_required(proyectIdKeyName=None):
             proy = Tb.Proyecto.query.get_or_404(kwargs[proyectIdKeyName])
             if proy.isUserAdmin(current_user().id):
                 return func(*args, **kwargs)
-            abort(400, 'admin required')
+            abort(400, "admin required")
+
         return func_wrapper
+
     return newadmin
+
 
 @jwt_required()
 def activeuser_required(proyectIdKeyName=None):
@@ -188,6 +207,8 @@ def activeuser_required(proyectIdKeyName=None):
             currusr = current_user()
             if proy.isUserAdmin(currusr.id) or proy.isActiveUser(currusr.id):
                 return func(*args, **kwargs)
-            abort(400, 'active user required')
+            abort(400, "active user required")
+
         return func_wrapper
+
     return newadmin

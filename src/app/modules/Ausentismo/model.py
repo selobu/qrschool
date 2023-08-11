@@ -17,11 +17,11 @@ from sqlalchemy import ForeignKey
 
 @map_name_to_table
 class Ausentismo(Base):
-    __tablename__ = 'ausentismo'
+    __tablename__ = "ausentismo"
     id: Mapped[int] = mapped_column(primary_key=True)
     fecha: Mapped[date]
     timestamp: Mapped[datetime]
-    userausente_id: Mapped[int] = mapped_column(ForeignKey('user.id'))
+    userausente_id: Mapped[int] = mapped_column(ForeignKey("user.id"))
     responsableRegistro: Mapped[str] = mapped_column(String(200))
-    comentario: Mapped[str] = mapped_column(String(1200)) 
-    userausente: Mapped["User"] = relationship(back_populates='ausente')
+    comentario: Mapped[str] = mapped_column(String(1200))
+    userausente: Mapped["User"] = relationship(back_populates="ausente")

@@ -24,7 +24,6 @@ class Evaluacion(Base):
     comentario: Mapped[str] = mapped_column(String(800))
     aprobado: Mapped[bool]
     periodo: Mapped[int]
-    evaluado_id: Mapped[int] = mapped_column(ForeignKey('user.id'))
-    
+    evaluado_id: Mapped[int] = mapped_column(ForeignKey("user.id"))
+
     evaluado: Mapped["User"] = relationship(back_populates="evaluacion")
-    

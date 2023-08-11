@@ -132,8 +132,12 @@ def _get_res(
 
 
 def createApiModel(
-    api, table, modelname: str = None, readonlyfields: list = [], show: list = [],
-    additionalfields:dict={}
+    api,
+    table,
+    modelname: str = None,
+    readonlyfields: list = [],
+    show: list = [],
+    additionalfields: dict = {},
 ) -> Model:
     """Create a basic Flask-restx ApiModel by given an sqlachemy Table and a flask-restx api.
     Requires sqlalchemy
@@ -149,9 +153,8 @@ def createApiModel(
     res = _get_res(table, modelname, readonlyfields, show)
     if len(additionalfields) > 0:
         # adding more fields
-        for key,value in additionalfields.items():
+        for key, value in additionalfields.items():
             if key in res:
                 continue
             res[key] = value
     return api.model(modelname, res)
-

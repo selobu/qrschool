@@ -18,6 +18,7 @@ from src.config import settings
 
 app = create_app()
 
+
 # needs to be called outside this cicle and just run once.
 def createdb(engine):
     Base.metadata.create_all(engine)

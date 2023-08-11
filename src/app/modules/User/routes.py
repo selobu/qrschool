@@ -9,16 +9,23 @@ from app.toolsapk import uuidgenerator, gethash
 api = settings.app.api
 ns_usrs = api.namespace("usuario", description="Gestionar usuarios")
 
-usr = createApiModel(api, Tb.User, "Usuario",readonlyfields=['active'])
-usr_post = createApiModel(api, Tb.User, "Usuario", 
-    readonlyfields=['timestamp','perfil_id','grado_id','grupoetnico_id','active'],
-    additionalfields={"password":fields.String(description="contraseña", 
-        required=True, 
-        min_length=9, 
-        default="***")})
+usr = createApiModel(api, Tb.User, "Usuario", readonlyfields=["active"])
+usr_post = createApiModel(
+    api,
+    Tb.User,
+    "Usuario",
+    readonlyfields=["timestamp", "perfil_id", "grado_id", "grupoetnico_id", "active"],
+    additionalfields={
+        "password": fields.String(
+            description="contraseña", required=True, min_length=9, default="***"
+        )
+    },
+)
 
-usr_register_list = api.model('UsersResList',
-    {'usrs': fields.List(fields.Nested(usr_post))})
+usr_register_list = api.model(
+    "UsersResList", {"usrs": fields.List(fields.Nested(usr_post))}
+)
+
 
 @ns_usrs.route("/")
 class UserList(Resource):
@@ -41,7 +48,7 @@ class UserList(Resource):
     @ns_usrs.marshal_list_with(usr, code=201)
     def post(self):
         """Registra un usuario nuevo"""
-        userlist = api.payload['usrs']
+        userlist = api.payload["usrs"]
         # Session.begin() set automatically the commit once it takes out the with statement
         res = list()
         with app.Session.begin() as session:
@@ -49,13 +56,15 @@ class UserList(Resource):
                 res.append(Tb.User.register(**user))
             session.add_all(res)
             session.commit()
-        with app.Session.begin() as session: 
+        with app.Session.begin() as session:
             # Se generan los códigos qr de todos los usuarios agregados y se registra la contraseña
             qrs = list()
             passwords = list()
             for user in res:
                 qrs.append(Tb.Qr.register(usuario_id=user.id, code=uuidgenerator()))
-                passwords.append(Tb.Auth.register(hash=gethash(user.password), usuario_id=user.id))
+                passwords.append(
+                    Tb.Auth.register(hash=gethash(user.password), usuario_id=user.id)
+                )
             session.add_all(qrs)
             session.add_all(passwords)
             session.commit()
@@ -87,7 +96,9 @@ class User(Resource):
             session.add(user)
             session.commit()
         return user
+
     if False:
+
         @ns_usrs.doc("Elimina la información del usuario")
         @ns_usrs.response(204, "Ususario eliminado")
         def delete(self, user_id):

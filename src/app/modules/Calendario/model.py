@@ -25,9 +25,7 @@ class Calendario(Base):
     propietario_id: Mapped[int] = mapped_column(ForeignKey("user.id"))
 
     propietario: Mapped["User"] = relationship(back_populates="calendario")
-    evento: Mapped["Evento"] = relationship(
-        back_populates="calendario"
-    )
+    evento: Mapped["Evento"] = relationship(back_populates="calendario")
 
 
 @map_name_to_table

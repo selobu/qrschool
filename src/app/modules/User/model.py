@@ -15,6 +15,7 @@ from sqlalchemy.orm import relationship
 from sqlalchemy import ForeignKey
 from flask import current_app as app
 
+
 # limita el uso del proyecto segun el servicio contratado
 @map_name_to_table
 class User(Base):
@@ -35,29 +36,26 @@ class User(Base):
     direccion: Mapped[String] = mapped_column(String(500))
     telefono: Mapped[String] = mapped_column(String(20))
     grupoetnico_id: Mapped[Optional[int]] = mapped_column(ForeignKey("grupoetnico.id"))
-    
+
     qr_id: Mapped["Qr"] = relationship(back_populates="usuario")
     password_id: Mapped["Auth"] = relationship(back_populates="usuario")
 
-    perfil: Mapped["Perfil"] = relationship(
-        uselist=False, back_populates="user"
-    )
+    perfil: Mapped["Perfil"] = relationship(uselist=False, back_populates="user")
     calendario: Mapped["Calendario"] = relationship(
         uselist=False, back_populates="propietario"
     )
     grado: Mapped["Grado"] = relationship(back_populates="estudiante")
     grupoetnico: Mapped["GrupoEtnico"] = relationship(back_populates="usuario")
-    ausente: Mapped["Ausentismo"] = relationship(back_populates='userausente')
+    ausente: Mapped["Ausentismo"] = relationship(back_populates="userausente")
     docente: Mapped["Asignatura"] = relationship(back_populates="docente")
     evaluacion: Mapped["Evaluacion"] = relationship(back_populates="evaluado")
 
     def generateqr(self, session=None):
-        """Generate the qr code
-        """
+        """Generate the qr code"""
         if self.qr_id is not None:
             return self.qr_id
         return Tb.Qr.register(code=uuidgenerator())
-        
+
 
 @map_name_to_table
 class Perfil(Base):
@@ -68,20 +66,25 @@ class Perfil(Base):
     user: Mapped["User"] = relationship(back_populates="perfil")
     modulo: Mapped["PerfilModuloLnk"] = relationship(back_populates="perfil")
 
+
 @map_name_to_table
 class Module(Base):
     __tablename__ = "module"
     modulename: Mapped[str] = mapped_column(String(200), primary_key=True)
     perfil: Mapped["PerfilModuloLnk"] = relationship(back_populates="modulo")
 
+
 @map_name_to_table
 class PerfilModuloLnk(Base):
-    __tablename__="perfilmodulolnk"
+    __tablename__ = "perfilmodulolnk"
     perfil_id: Mapped[int] = mapped_column(ForeignKey("perfil.id"), primary_key=True)
-    modulo_id: Mapped[str] = mapped_column(ForeignKey("module.modulename"), primary_key=True)
+    modulo_id: Mapped[str] = mapped_column(
+        ForeignKey("module.modulename"), primary_key=True
+    )
 
     perfil: Mapped["Perfil"] = relationship(back_populates="modulo")
     modulo: Mapped["Module"] = relationship(back_populates="perfil")
+
 
 @map_name_to_table
 class GrupoEtnico(Base):

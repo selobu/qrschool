@@ -10,18 +10,18 @@ api = settings.app.api
 ns_qrs = api.namespace("qr", description="Gestionar códigos")
 
 qr = createApiModel(api, Tb.Qr, "Código Qr")
-qr_list = api.model('QrList',{'qrs':fields.List(fields.Nested(qr))})
+qr_list = api.model("QrList", {"qrs": fields.List(fields.Nested(qr))})
 
-qr_register = createApiModel(api, Tb.Qr, "Código Qr", 
-    readonlyfields=['timestamp'])
-qr_register_list = api.model('QrList', {'qrs': fields.List(fields.Nested(qr_register))})
+qr_register = createApiModel(api, Tb.Qr, "Código Qr", readonlyfields=["timestamp"])
+qr_register_list = api.model("QrList", {"qrs": fields.List(fields.Nested(qr_register))})
 usr = createApiModel(api, Tb.User, "Usuario")
+
 
 @ns_qrs.route("/")
 class QrList(Resource):
     """Listado de qr"""
 
-    @ns_qrs.response(500,"Missing autorization header")
+    @ns_qrs.response(500, "Missing autorization header")
     @ns_qrs.doc("Consulta el codigo qr de los usuarios")
     @ns_qrs.marshal_list_with(qr, code=200)
     @jwt_required()
@@ -34,13 +34,15 @@ class QrList(Resource):
             res = select(Tb.Qr).limit(50)
             qrs = session.execute(res).all()
         return [u[0] for u in qrs]
+
     if False:
+
         @ns_qrs.doc("Registra un codigo qr")
         @ns_qrs.expect(qr_register_list)
         @ns_qrs.marshal_list_with(qr, code=201)
         def post(self):
             """Registra un qr nuevo"""
-            qrlist = api.payload['qrs']
+            qrlist = api.payload["qrs"]
             # Session.begin() set automatically the commit once it takes out the with statement
             res = list()
             with app.Session.begin() as session:
@@ -50,12 +52,13 @@ class QrList(Resource):
                 session.commit()
             return res
 
+
 @ns_qrs.route("/usergetqr/<int:user_id>")
 @ns_qrs.response(404, "Qr not found")
 class UserGetQr(Resource):
     """Lee el código QR del usuario dado el id del usuario"""
 
-    @ns_qrs.response(500,"Missing autorization header")
+    @ns_qrs.response(500, "Missing autorization header")
     @ns_qrs.doc("Información del qr dado su user_id")
     @jwt_required()
     def get(self, user_id):
@@ -66,18 +69,19 @@ class UserGetQr(Resource):
             usr = session.execute(user).one()[0]
             if usr.qr_id is None:
                 # se genera un nuevo código QR
-                qr= usr.generateqr()
-                qr.usuario=usr
+                qr = usr.generateqr()
+                qr.usuario = usr
                 session.add(qr)
                 session.commit()
             return usr.qr_id.code
+
 
 @ns_qrs.route("/<string:qr_id>")
 @ns_qrs.response(404, "Qr not found")
 class Qr(Resource):
     """Qr administracion"""
-    
-    @ns_qrs.response(500,"Missing autorization header")
+
+    @ns_qrs.response(500, "Missing autorization header")
     @ns_qrs.doc("Información del qr")
     @ns_qrs.marshal_with(usr)
     @jwt_required()
@@ -89,6 +93,7 @@ class Qr(Resource):
             return qr.usuario
 
     if False:
+
         @ns_qrs.doc("Genera un nuevo código QR del usuario")
         @ns_qrs.expect(qr_register)
         @ns_qrs.marshal_with(qr)

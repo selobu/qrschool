@@ -4,6 +4,7 @@ import pkgutil
 import importlib
 from app import modules
 
+
 def _import_submodules(module, item="model"):
     """Import all submodules of a module, recursively."""
     res = []

@@ -20,9 +20,9 @@ class Asignatura(Base):
     __tablename__ = "asignatura"
     id: Mapped[int] = mapped_column(primary_key=True)
     nombre: Mapped[str] = mapped_column(String(255))
-    grado_id: Mapped[int] = mapped_column(ForeignKey('grado.id'))
-    docente_id: Mapped[int] = mapped_column(ForeignKey('user.id'))
-    
-    grado: Mapped["Grado"]= relationship(back_populates='asignatura') 
-    docente: Mapped["User"] = relationship(back_populates='docente')
+    grado_id: Mapped[int] = mapped_column(ForeignKey("grado.id"))
+    docente_id: Mapped[int] = mapped_column(ForeignKey("user.id"))
+
+    grado: Mapped["Grado"] = relationship(back_populates="asignatura")
+    docente: Mapped["User"] = relationship(back_populates="docente")
     horario: Mapped["Horario"] = relationship(back_populates="asignatura")

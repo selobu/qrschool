@@ -5,14 +5,13 @@ from os import environ
 
 adminpassword = environ.get("MYSQL_ROOT_PASSWORD")
 adminuser = environ.get("MYSQL_ROOT_USER")
-port = environ.get("MYSQL_PORT",'3306')
-database = environ.get(
-    "MYSQL_DATABASE", 'colegio2023'
-)
-host = environ.get("MYSQL_HOST",'localhost')
-user = environ.get("MYSQL_USER",'root')
-userpassword = environ.get("MYSQL_PASSWORD",'Sebaspassword')
-jwt_key = environ.get('JWT_SECRET_KEY', 'superSecretpasswordneeds2BeChanged')
+port = environ.get("MYSQL_PORT", "3306")
+database = environ.get("MYSQL_DATABASE", "colegio2023")
+host = environ.get("MYSQL_HOST", "localhost")
+user = environ.get("MYSQL_USER", "root")
+userpassword = environ.get("MYSQL_PASSWORD", "Sebaspassword")
+jwt_key = environ.get("JWT_SECRET_KEY", "superSecretpasswordneeds2BeChanged")
+
 
 class Settings(BaseSettings):
     api_name: str = "Schoolar backend api"
@@ -25,7 +24,7 @@ class Settings(BaseSettings):
         "name": "lteam",
         "email": "sebastian.lopez@gestionhseq.com",
         "url": "https://lteam.gestionhseq.com",
-        "telegram": "https://t.me/selopez"
+        "telegram": "https://t.me/selopez",
     }
     database_uri: str = (
         f"mysql+pymysql://{user}:{userpassword}@{host}:{port}/{database}"

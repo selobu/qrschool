@@ -14,15 +14,16 @@ from sqlalchemy import String, DateTime, Date
 from sqlalchemy.orm import relationship
 from sqlalchemy import ForeignKey
 
+
 @map_name_to_table
 class Horario(Base):
     __tablename__ = "horario"
     id: Mapped[int] = mapped_column(primary_key=True)
-    diasemana: Mapped[int] # domingo día 1
+    diasemana: Mapped[int]  # domingo día 1
     horaInicio: Mapped[int]
     minutoInicio: Mapped[int]
     horaFinal: Mapped[int]
     minutoFinal: Mapped[int]
     asignatura_id: Mapped[int] = mapped_column(ForeignKey("asignatura.id"))
-    
-    asignatura: Mapped["Asignatura"] = relationship(back_populates='horario')
+
+    asignatura: Mapped["Asignatura"] = relationship(back_populates="horario")
