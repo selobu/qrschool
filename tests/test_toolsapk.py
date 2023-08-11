@@ -1,5 +1,5 @@
 import pytest
-from src.app import toolsapk
+from app import toolsapk
 from json import dumps
 
 
