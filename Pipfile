@@ -1,0 +1,22 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+flask = "==2.3.2"
+flask-restx = "==1.1.0"
+flask-cors = "*"
+sqlalchemy = "==2.0.17"
+pymysql = "*"
+flask-sqlalchemy = "*"
+cryptography = "*"
+flask-jwt-extended = "*"
+pytest = "*"
+pydantic = "*"
+black = "*"
+
+[dev-packages]
+
+[requires]
+python_version = "3.10"
