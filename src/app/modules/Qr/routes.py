@@ -1,20 +1,21 @@
 from flask import current_app as app
-from flask_restx import Resource, fields
-from src.config import settings
-from app.apitools import createApiModel
-from app.toolsapk import Tb, authorizations
-from sqlalchemy import select
 from flask_jwt_extended import jwt_required
+from flask_restx import Resource, fields
+from sqlalchemy import select
 
-api = settings.app.api
+from app.apitools import createApiModel
+from app.config import settings
+from app.toolsapk import Tb
+
+api = settings.app.api  # type: ignore
 ns_qrs = api.namespace("qr", description="Gestionar códigos")
 
-qr = createApiModel(api, Tb.Qr, "Código Qr")
+qr = createApiModel(api, Tb.Qr, "Código Qr")  # type: ignore
 qr_list = api.model("QrList", {"qrs": fields.List(fields.Nested(qr))})
 
-qr_register = createApiModel(api, Tb.Qr, "Código Qr", readonlyfields=["timestamp"])
+qr_register = createApiModel(api, Tb.Qr, "Código Qr", readonlyfields=["timestamp"])  # type: ignore
 qr_register_list = api.model("QrList", {"qrs": fields.List(fields.Nested(qr_register))})
-usr = createApiModel(api, Tb.User, "Usuario")
+usr = createApiModel(api, Tb.User, "Usuario")  # type: ignore
 
 
 @ns_qrs.route("/")

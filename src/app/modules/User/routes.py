@@ -1,18 +1,18 @@
 from flask import current_app as app
 from flask_restx import Resource, fields
-from src.config import settings
-from app.apitools import createApiModel
-from app.toolsapk import Tb, authorizations
 from sqlalchemy import select
-from app.toolsapk import uuidgenerator, gethash
 
-api = settings.app.api
+from app.apitools import createApiModel
+from app.config import settings
+from app.toolsapk import Tb, gethash, uuidgenerator
+
+api = settings.app.api  # type: ignore
 ns_usrs = api.namespace("usuario", description="Gestionar usuarios")
 
-usr = createApiModel(api, Tb.User, "Usuario", readonlyfields=["active"])
+usr = createApiModel(api, Tb.User, "Usuario", readonlyfields=["active"])  # type: ignore
 usr_post = createApiModel(
     api,
-    Tb.User,
+    Tb.User,  # type: ignore
     "Usuario",
     readonlyfields=["timestamp", "perfil_id", "grado_id", "grupoetnico_id", "active"],
     additionalfields={

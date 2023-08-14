@@ -1,4 +1,4 @@
-version:  "1.0"
+version: "1.0"
 name: "schoolapi"
 services:
   mysql:
@@ -11,5 +11,5 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    ports: 
+    ports:
       - "3307:3306"

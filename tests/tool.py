@@ -1,8 +1,8 @@
 __all__ = ["icludepath"]
 
-from sys import path as syspath
-from pathlib import Path
 from os.path import abspath
+from pathlib import Path
+from sys import path as syspath
 
 
 def icludepath():

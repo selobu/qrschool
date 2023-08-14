@@ -1,19 +1,17 @@
 from flask import current_app as app
-from flask import request
-from flask import jsonify
 from flask_jwt_extended import (
     create_access_token,
     create_refresh_token,
-    jwt_required,
     current_user,
+    jwt_required,
 )
-from app.toolsapk import gethash
 from flask_restx import Resource, fields
-from src.config import settings
-from app.toolsapk import Tb
 from sqlalchemy import select
 
-api = settings.app.api
+from app.config import settings
+from app.toolsapk import Tb, gethash
+
+api = settings.app.api  # type: ignore
 ns_login = api.namespace("login", description="autenticacion")
 
 auth = api.model(

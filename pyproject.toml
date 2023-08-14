@@ -1,14 +1,17 @@
 [tool.poetry]
-authors = ["Sebastian Lopez <selobu@gmail.com>"]
-description = "Read qr codes"
 name = "qrschool"
-version = "1.0.0"
+version = "0.1.0"
+description = "Read QR code"
+authors = ["Sebastian Lopez Buritica <selobu@gmail.com>"]
+license = "BSD 3"
+readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.8.0"
 aniso8601="9.0.1"
 annotated-types="0.5.0"
 attrs="23.1.0"
+black="23.7.0"
 blinker="1.6.2"
 cffi="1.15.1"
 cfgv="3.4.0"
@@ -39,6 +42,7 @@ pluggy="1.2.0"
 pre-commit="3.3.3"
 pycparser="2.21"
 pydantic="2.1.1"
+pydantic-settings="2.0.2"
 pydantic_core="2.4.0"
 PyJWT="2.8.0"
 PyMySQL="1.1.0"
@@ -54,63 +58,7 @@ virtualenv="20.24.3"
 Werkzeug="2.3.6"
 
 
-[tool.poetry.group.dev.dependencies]
-black = {version = "^23.7.0", python = "^3.9.0"}
-coverage = [
-  {extras = [
-    "toml",
-  ], version = "^6.0", python = ">=3.6,<3.7"},
-  {extras = [
-    "toml",
-  ], version = ">=6.5", python = ">=3.7"},
-]
-flake8 = "^5.0.4"
-mypy = "^0.971"
-pre-commit = {version = "^2.15.0", python = "^3.6.1"}
-pytest = "^6.2"
-pytest-cov = "^4.0.0"
-types-PyYAML = "^6.0.1"
-
-[tool.poetry.scripts]
-swp = "sync_with_poetry.swp:main"
-
-[tool.pytest.ini_options]
-addopts = "-svv"
-testpaths = ["tests"]
-
-[tool.black]
-exclude = '''
-/(
-    \.eggs
-  | \.git
-  | \.github
-  | \.hg
-  | \.mypy_cache
-  | \.pytest_cache
-  | \.venv
-  | _build
-  | buck-out
-  | build
-  | dist
-  | docs
-  | tests/.*/setup.py
-)/
-'''
-include = '\.pyi?$'
-line-length = 88
-
-[tool.mypy]
-disallow_incomplete_defs = true
-disallow_untyped_defs = true
-explicit_package_bases = true
-files = ["**/*.py"]
-namespace_packages = true
-show_error_codes = true
-
-[tool.isort]
-profile = "black"
-src_paths = ["sync_with_poetry", "tests"]
 
 [build-system]
-build-backend = "poetry.core.masonry.api"
 requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

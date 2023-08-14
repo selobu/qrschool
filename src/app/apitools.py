@@ -1,9 +1,8 @@
 # coding:utf-8
 __all__ = ["createApiModel"]
-from sqlalchemy.inspection import inspect
-from flask_restx import fields
+from flask_restx import Model, fields
 from sqlalchemy import types
-from flask_restx import Model
+from sqlalchemy.inspection import inspect
 
 _not_allowed = ["TypeEngine", "TypeDecorator", "UserDefinedType", "PickleType"]
 conversion = {
@@ -84,8 +83,8 @@ def _get_res(
         if not col.nullable and (not fieldnameinreadonly) and (not isprimarykey):
             params["required"] = True
         if col.default is not None:
-            if isinstance(col.default.arg, (str, float, int, bytearray, bytes)):
-                params["default"] = col.default.arg
+            # if isinstance(col.default.arg, (str, float, int, bytearray, bytes)):
+            params["default"] = col.default.arg
         _tipo = str(tipo).split("(")[0]
         if _tipo in fieldtypes:
             if hasattr(tipo, "length"):
@@ -95,11 +94,11 @@ def _get_res(
             res[fieldname] = getattr(fields, conversion[_tipo])(**params)
     # cheking for relationships
     relationitems = []
-    try:
-        relationitems = inspect(table).relationships.items()
-    except:
-        # It could faild in composed primary keys
-        pass
+    # try:
+    relationitems = inspect(table).relationships.items()
+    # except:
+    # It could faild in composed primary keys
+    #    pass
     # implementing relationship columns
     for field, relationship in relationitems:
         if relationship.backref != table.__tablename__:
@@ -124,7 +123,7 @@ def _get_res(
                     for key, value in outparams.items():
                         params[key] = value
                     res[field] = getattr(fields, conversion[_tipo])(**params)
-        except:
+        except Exception:
             continue
     if modelname in ("", None):
         modelname = table.__tablename__.lower().capitalize()

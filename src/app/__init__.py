@@ -1,19 +1,18 @@
 # coding:utf-8
-from os import getenv
-import sys
 from flask import Flask
-from src.config import Settings, settings
-from .toolsapk import Tb, db
-from .imp_modules import modulesResolver
+from flask_jwt_extended import JWTManager
 from sqlalchemy import create_engine, select
 from sqlalchemy.orm import sessionmaker
-from flask_jwt_extended import JWTManager
+
+from app.config import Settings, settings
+from app.imp_modules import modulesResolver
+from app.toolsapk import Tb, db
 
 
 def create_app(
     settings: Settings = settings,
 ):
-    """Construct the core application."""
+    """Contruct the core application."""
     app = Flask(__name__, static_folder="static", template_folder="templates")
     # making app globally available by calling settings
     settings.app = app
@@ -22,8 +21,7 @@ def create_app(
     app.config["JWT_SECRET_KEY"] = settings.jwt_key
 
     with app.app_context():
-        from . import modules
-        from . import routes
+        from . import modules, routes
 
         setattr(app, "api", modules.api)
 

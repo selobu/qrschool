@@ -4,16 +4,6 @@ ci:
 minimum_pre_commit_version: 2.15.0
 
 repos:
-  # sync (use this repo code)
-  - repo: local
-    hooks:
-      - id: sync
-        name: sync with poetry
-        entry: poetry run swp
-        language: system
-        # need to be explicit with `files`, since we are not using the .pre-commit-hooks.yaml here
-        files: poetry.lock
-
   # general checks (see here: https://pre-commit.com/hooks.html)
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v4.3.0
@@ -34,12 +24,6 @@ repos:
     hooks:
       - id: black
 
-  # isort - sorting imports
-  - repo: https://github.com/pycqa/isort
-    rev: 5.12.0
-    hooks:
-      - id: isort
-
   # flake8 - linting
   - repo: https://github.com/pycqa/flake8
     rev: 5.0.4
@@ -51,7 +35,7 @@ repos:
     rev: v0.971
     hooks:
       - id: mypy
-        additional_dependencies: [types-pyyaml==6.0.1]
+        additional_dependencies: [types-pyyaml==6.0.12]
 
   # prettier - formatting JS, CSS, JSON, Markdown, ...
   - repo: https://github.com/pre-commit/mirrors-prettier
