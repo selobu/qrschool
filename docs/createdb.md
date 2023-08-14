@@ -7,7 +7,8 @@ $ cd src
 $ flask shell
 ```
 
-En este punto debe haber ingresado a la consola interactiva de python 
+En este punto debe haber ingresado a la consola interactiva de python
+
 ```python
 >> createdb()
 ```

@@ -16,6 +16,8 @@ pytest = "*"
 pydantic = "*"
 black = "*"
 pre-commit = "*"
+poetry = "*"
+pydantic-settings = "*"
 
 [dev-packages]
 

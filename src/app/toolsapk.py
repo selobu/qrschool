@@ -1,14 +1,16 @@
 __all__ = ["db", "Tb", "select", "uuidgenerator", "now", "Base"]
-from flask_sqlalchemy import SQLAlchemy
-from uuid import uuid4
-from datetime import datetime, timedelta
-from sqlalchemy import select
-from sqlalchemy.orm import class_mapper
-from sqlalchemy.inspection import inspect
-from flask import current_app as app, abort
-from flask_jwt_extended import current_user, jwt_required
 import hashlib
+from datetime import datetime, timedelta
 from functools import wraps
+from uuid import uuid4
+
+from flask import abort
+from flask import current_app as app
+from flask_jwt_extended import current_user, jwt_required
+from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy import select
+from sqlalchemy.inspection import inspect
+from sqlalchemy.orm import DeclarativeBase, class_mapper
 
 db = SQLAlchemy(
     engine_options={"pool_recycle": 280}, session_options={"autoflush": False}
@@ -16,9 +18,8 @@ db = SQLAlchemy(
 
 authorizations = {"Bearer": {"type": "apiKey", "in": "header", "name": "Authorization"}}
 
-
-def select(*args, **kwargs):
-    return db.session.query(*args, **kwargs)
+# def select(*args, **kwargs):
+#    return db.session.query(*args, **kwargs)
 
 
 class TbContainer(object):
@@ -66,7 +67,7 @@ def map_name_to_table(cls):
             if primary_key.name in kwargs:
                 setattr(model, primary_key.name, kwargs.pop(primary_key.name))
             # TODO check if the primary_key is required
-        inspected = inspect(cls)
+        # inspected = inspect(cls)
         columns = dict(
             (fieldname, col) for fieldname, col in cls.__table__.columns.items()
         )
@@ -88,7 +89,7 @@ def map_name_to_table(cls):
                             try:
                                 value = datetime.strptime(value, formato)
                                 break
-                            except:
+                            except Exception:
                                 continue
                 setattr(model, key, value)
             elif key not in columns:
@@ -97,7 +98,7 @@ def map_name_to_table(cls):
                         (key, value)
                         for key, value in inspect(cls).relationships.items()
                     )
-                except:
+                except Exception:
                     # db.session.rollback()
                     relationitems = []
                 if key in relationitems:
@@ -120,8 +121,8 @@ def map_name_to_table(cls):
             else:
                 raise f"<{model.__table__.name}> Invalid parameter {key}"
         # db.session.add(model)
-        # if commit:
-        #    db.session.commit()
+        if commit:
+            db.session.commit()
         return model
 
     if "register" not in cls.__dict__:
@@ -138,7 +139,7 @@ def map_name_to_table(cls):
             db.session.delete(model)
             try:
                 db.session.commit()
-            except:
+            except Exception:
                 db.session.rollback()
                 raise Exception(f"{model.__repr__} no se pudo eliminar")
 
@@ -161,9 +162,6 @@ def now():
     return datetime.utcnow() - timedelta(hours=5)
 
 
-from sqlalchemy.orm import DeclarativeBase
-
-
 class Base(DeclarativeBase):
     pass
 
@@ -179,7 +177,7 @@ def gethash(password: str) -> str:
 def is_admin():
     try:
         return current_user().rol == 1
-    except:
+    except Exception:
         return False
 
 

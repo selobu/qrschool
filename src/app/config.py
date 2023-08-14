@@ -1,7 +1,8 @@
 # coding:utf-8
 
-from pydantic import BaseSettings
 from os import environ
+
+from pydantic_settings import BaseSettings
 
 adminpassword = environ.get("MYSQL_ROOT_PASSWORD")
 adminuser = environ.get("MYSQL_ROOT_USER")
@@ -30,7 +31,7 @@ class Settings(BaseSettings):
         f"mysql+pymysql://{user}:{userpassword}@{host}:{port}/{database}"
     )
     # database_uri: str = "sqlite:///database.db"
-    jwt_key = jwt_key
+    jwt_key: str = jwt_key
     app: object = {}
     engine: object = {}
 

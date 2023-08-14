@@ -1,19 +1,12 @@
 # coding:utf-8
-from app.toolsapk import db, Tb
-from app.toolsapk import map_name_to_table
-from app.toolsapk import uuidgenerator, now, Base
-from flask import url_for, abort
+# from flask_sqlalchemy import sqlalchemy
+from datetime import date, datetime
 from typing import Optional
 
-# from flask_sqlalchemy import sqlalchemy
-from datetime import timedelta, date, datetime
+from sqlalchemy import Boolean, ForeignKey, String
+from sqlalchemy.orm import Mapped, mapped_column, relationship
 
-from sqlalchemy.orm import DeclarativeBase
-from sqlalchemy.orm import Mapped, mapped_column
-from sqlalchemy import String, DateTime, Date, Boolean
-from sqlalchemy.orm import relationship
-from sqlalchemy import ForeignKey
-from flask import current_app as app
+from app.toolsapk import Base, Tb, map_name_to_table, now, uuidgenerator
 
 
 # limita el uso del proyecto segun el servicio contratado

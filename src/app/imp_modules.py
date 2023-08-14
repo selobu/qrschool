@@ -1,7 +1,8 @@
 # coding: utf-8
 __all__ = ["modulesResolver"]
-import pkgutil
 import importlib
+import pkgutil
+
 from app import modules
 
 
