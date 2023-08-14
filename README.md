@@ -14,5 +14,5 @@ Item   | status | missing | Due date MM/DD/YYYY
 GitHub Actions |  ![100%](https://progress-bar.dev/100) | done | 08/11/2023
 Api | ![55%](https://progress-bar.dev/55) | Doing | 05/05/2023
 Api test | ![0%](https://progress-bar.dev/0) | - | -
-Documentation | ![5%](https://progress-bar.dev/5) | - | - 
+Documentation | ![7%](https://progress-bar.dev/7) | - | - 
 Frontend | ![0%](https://progress-bar.dev/0) | - | -
