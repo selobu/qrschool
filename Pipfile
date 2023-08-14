@@ -15,6 +15,7 @@ flask-jwt-extended = "*"
 pytest = "*"
 pydantic = "*"
 black = "*"
+pre-commit = "*"
 
 [dev-packages]
 
