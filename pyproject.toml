@@ -5,8 +5,7 @@ name = "qrschool"
 version = "1.0.0"
 
 [tool.poetry.dependencies]
-python = ">=3.8.0, <4.0.0"
-
+python = "^3.8.0"
 aniso8601=="9.0.1"
 annotated-types=="0.5.0"
 attrs=="23.1.0"
