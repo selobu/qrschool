@@ -7,12 +7,12 @@ repos:
   # sync (use this repo code)
   - repo: local
     hooks:
-      - id: sync
-        name: sync with poetry
-        entry: poetry run swp
+      - id: check-ast
+        description: Simply checks whether the files parse as valid python.
+        entry: check-ast
+        name: Check python syntax
         language: system
-        # need to be explicit with `files`, since we are not using the .pre-commit-hooks.yaml here
-        files: poetry.lock
+        types: [python]
 
   # general checks (see here: https://pre-commit.com/hooks.html)
   - repo: https://github.com/pre-commit/pre-commit-hooks
