@@ -33,7 +33,7 @@ sponsors</a>
 
 Python 3.8+
 
-FastAPI stands on the shoulders of giants:
+Some dependecies:
 
 - <a href="https://flask.palletsprojects.com/en/2.3.x/" class="external-link" target="_blank">Flask</a>
   for the web parts.
