@@ -1,5 +1,11 @@
 # Qrschool
 
+<p align="center">
+  <a href="https://qrschool.gestionhseq.com">
+    <img src="https://github.com/selobu/qrschool/master/.github/assets/logo.svg" width="320" alt="QRSCHOOL">
+  </a>
+</p>
+
 Attendance student list by reading QR codes
 
 ![Codestyle](https://img.shields.io/badge/code%20style-black-000000.svg)
@@ -10,11 +16,11 @@ Attendance student list by reading QR codes
 
 Project status
 
-| Item           | status                                | missing | Due date MM/DD/YYYY |
-| -------------- | ------------------------------------- | ------- | ------------------- |
-| GitHub Actions | ![100%](https://progress-bar.dev/100) | done    | 08/11/2023          |
-| precommit checks | ![100%](https://progress-bar.dev/100) | done   | 08/14/2023          |
-| Api            | ![55%](https://progress-bar.dev/55)   | Doing   | 05/05/2023          |
-| Api test       | ![0%](https://progress-bar.dev/0)     | -       | -                   |
-| Documentation  | ![10%](https://progress-bar.dev/10)     | -       | -                   |
-| Frontend       | ![0%](https://progress-bar.dev/0)     | -       | -                   |
+| Item             | status                                | missing | Due date MM/DD/YYYY |
+| ---------------- | ------------------------------------- | ------- | ------------------- |
+| GitHub Actions   | ![100%](https://progress-bar.dev/100) | done    | 08/11/2023          |
+| precommit checks | ![100%](https://progress-bar.dev/100) | done    | 08/14/2023          |
+| Api              | ![55%](https://progress-bar.dev/55)   | Doing   | 05/05/2023          |
+| Api test         | ![0%](https://progress-bar.dev/0)     | -       | -                   |
+| Documentation    | ![10%](https://progress-bar.dev/10)   | -       | -                   |
+| Frontend         | ![0%](https://progress-bar.dev/0)     | -       | -                   |
