@@ -16,7 +16,7 @@ class User(Base):
     id: Mapped[Optional[int]] = mapped_column(primary_key=True)
     # idPadre: Mapped["User"] = relationship(remote_side=["id"], backref="acudiente")
     active: Mapped[bool] = mapped_column(Boolean, default=False)
-    timestamp: Mapped[Optional[datetime]] = mapped_column(default=now)
+    timestamp: Mapped[Optional[datetime]] = mapped_column(default=now())
     nombres: Mapped[str] = mapped_column(String(255))
     apellidos: Mapped[str] = mapped_column(String(255))
     numeroidentificacion: Mapped[str] = mapped_column(String(255))

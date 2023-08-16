@@ -26,6 +26,12 @@ class TbContainer(object):
     pass
 
 
+# needs to be called outside this cicle and just run once.
+def createdb():
+    engine = app.engine
+    Base.metadata.create_all(engine)
+
+
 Tb = TbContainer()
 
 
