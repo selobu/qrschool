@@ -6,6 +6,7 @@ from typing import Optional
 from sqlalchemy import Boolean, ForeignKey, String
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from sqlalchemy import func
+from enum import Enum
 
 from app.toolsapk import Base, Tb, map_name_to_table, uuidgenerator
 
@@ -51,11 +52,18 @@ class User(Base):
         return Tb.Qr.register(code=uuidgenerator())
 
 
+class PerfilSchool(Enum):
+    ESTUDIANTE = "estudiante"
+    DOCENTE = "docente"
+    ACUDIENTE = "acudiente"
+    ADMINISTRADOR = "administrador"
+
+
 @map_name_to_table
 class Perfil(Base):
     __tablename__ = "perfil"
     id: Mapped[int] = mapped_column(primary_key=True)
-    nombreperfil: Mapped[str] = mapped_column(String(255), unique=True)
+    nombreperfil: Mapped[PerfilSchool]
 
     user: Mapped["User"] = relationship(back_populates="perfil")
     modulo: Mapped["PerfilModuloLnk"] = relationship(back_populates="perfil")
