@@ -26,7 +26,9 @@ class User(Base):
     rh: Mapped[str] = mapped_column(String(3))
     telefonoContacto: Mapped[Optional[str]] = mapped_column(String(15))
     correo: Mapped[Optional[str]] = mapped_column(String(100), unique=True)
-    perfil_id: Mapped[Optional[int]] = mapped_column(ForeignKey("perfil.id"))
+    perfil_nombre: Mapped[Optional[int]] = mapped_column(
+        ForeignKey("perfil.nombreperfil")
+    )
     grado_id: Mapped[Optional[int]] = mapped_column(ForeignKey("grado.id"))
     direccion: Mapped[String] = mapped_column(String(500))
     telefono: Mapped[String] = mapped_column(String(20))
@@ -62,8 +64,7 @@ class PerfilSchool(Enum):
 @map_name_to_table
 class Perfil(Base):
     __tablename__ = "perfil"
-    id: Mapped[int] = mapped_column(primary_key=True)
-    nombreperfil: Mapped[PerfilSchool]
+    nombreperfil: Mapped[PerfilSchool] = mapped_column(primary_key=True)
 
     user: Mapped["User"] = relationship(back_populates="perfil")
     modulo: Mapped["PerfilModuloLnk"] = relationship(back_populates="perfil")
@@ -79,7 +80,9 @@ class Module(Base):
 @map_name_to_table
 class PerfilModuloLnk(Base):
     __tablename__ = "perfilmodulolnk"
-    perfil_id: Mapped[int] = mapped_column(ForeignKey("perfil.id"), primary_key=True)
+    perfil_id: Mapped[PerfilSchool] = mapped_column(
+        ForeignKey("perfil.nombreperfil"), primary_key=True
+    )
     modulo_id: Mapped[str] = mapped_column(
         ForeignKey("module.modulename"), primary_key=True
     )
