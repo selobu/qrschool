@@ -27,6 +27,7 @@ pyyaml = "<7.0.0,>=5.3.1"
 jieba = "==0.42.1"
 pillow = "==9.5.0"
 cairosvg = "==2.7.0"
+flask-admin = "==1.6.1"
 
 [dev-packages]
 

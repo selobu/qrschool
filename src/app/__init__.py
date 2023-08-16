@@ -19,9 +19,12 @@ def create_app(
     setattr(app, "Tb", Tb)
 
     app.config["JWT_SECRET_KEY"] = settings.jwt_key
+    # admin bootswatch theme
+    app.config["FLASK_ADMIN_SWATCH"] = "cerulean"
 
     with app.app_context():
         from . import modules, routes
+        from . import admin
 
         setattr(app, "api", modules.api)
 
@@ -61,6 +64,8 @@ def create_app(
         setattr(app, "engine", engine)
         Session = sessionmaker(engine, expire_on_commit=False)
         setattr(app, "Session", Session)
+
+        admin.init_app(app)
 
         # @app.shell_context_processor
         def make_shell_context():
