@@ -6,7 +6,7 @@ from sqlalchemy.orm import sessionmaker
 
 from app.config import Settings, settings
 from app.imp_modules import modulesResolver
-from app.toolsapk import Tb, db
+from app.toolsapk import Tb, db, createdb
 
 
 def create_app(
@@ -64,7 +64,7 @@ def create_app(
 
         # @app.shell_context_processor
         def make_shell_context():
-            return dict(db=db, Tb=Tb, Session=Session)
+            return dict(db=db, Tb=Tb, Session=Session, createdb=createdb)
 
         app.shell_context_processor(make_shell_context)
 

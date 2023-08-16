@@ -14,7 +14,7 @@ from app.toolsapk import Base, map_name_to_table, now
 class Qr(Base):
     __tablename__ = "qr"
     id: Mapped[Optional[int]] = mapped_column(primary_key=True)
-    timestamp: Mapped[Optional[datetime]] = mapped_column(default=now)
+    timestamp: Mapped[Optional[datetime]] = mapped_column(default=now())
     code: Mapped[str] = mapped_column(String(55))
 
     usuario_id: Mapped[int] = mapped_column(ForeignKey("user.id"))
