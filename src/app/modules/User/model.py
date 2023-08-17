@@ -5,10 +5,9 @@ from typing import Optional
 
 from sqlalchemy import Boolean, ForeignKey, String
 from sqlalchemy.orm import Mapped, mapped_column, relationship
-from sqlalchemy import func
 from enum import Enum
 
-from app.toolsapk import Base, Tb, map_name_to_table, uuidgenerator
+from app.toolsapk import Base, Tb, map_name_to_table, uuidgenerator, now
 
 
 # limita el uso del proyecto segun el servicio contratado
@@ -18,7 +17,7 @@ class User(Base):
     id: Mapped[Optional[int]] = mapped_column(primary_key=True)
     # idPadre: Mapped["User"] = relationship(remote_side=["id"], backref="acudiente")
     active: Mapped[bool] = mapped_column(Boolean, default=False)
-    timestamp: Mapped[Optional[datetime]] = mapped_column(insert_default=func.now())
+    timestamp: Mapped[Optional[datetime]] = mapped_column(insert_default=now())
     nombres: Mapped[str] = mapped_column(String(255))
     apellidos: Mapped[str] = mapped_column(String(255))
     numeroidentificacion: Mapped[str] = mapped_column(String(255))
