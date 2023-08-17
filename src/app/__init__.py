@@ -1,12 +1,16 @@
 # coding:utf-8
 from flask import Flask
 from flask_jwt_extended import JWTManager
+from flask_wtf.csrf import CSRFProtect
+from flask_bootstrap import Bootstrap
 from sqlalchemy import create_engine, select
 from sqlalchemy.orm import sessionmaker
 
 from app.config import Settings, settings
 from app.imp_modules import modulesResolver
 from app.toolsapk import Tb, db, createdb
+
+csrf = CSRFProtect()
 
 
 def create_app(
@@ -19,10 +23,14 @@ def create_app(
     setattr(app, "Tb", Tb)
 
     app.config["JWT_SECRET_KEY"] = settings.jwt_key
+    app.config["WTF_CSRF_SECRET_KEY"] = settings.jwt_key * 2
+    app.secret_key = app.config["WTF_CSRF_SECRET_KEY"]
     # admin bootswatch theme
     app.config["FLASK_ADMIN_SWATCH"] = "cerulean"
 
     with app.app_context():
+        csrf.init_app(app)
+        Bootstrap(app)
         from . import modules, routes
         from . import admin
 
