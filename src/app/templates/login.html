@@ -1,13 +1,15 @@
-{% extends "bootstrap/base.html" %} {% block title%} QRSchool {% endblock%} {%
-block head %} {{ super() }}
+{% extends "base.html" %} {% block title%} QRSchool {% endblock%} {% block head
+%} {{ super() }}
 <link
   rel="stylesheet"
   href="{{ url_for('static', filename='css/signin.css') }}"
 />
-{% endblock %} {% block navbar %} {% include 'navbar.html' %} {% endblock %} {%
-block content %}
-<div class="panel panel-default">
-  <div class="container">
+{% endblock %} {% block content %}
+<div
+  class="panel panel-default content login-backgroud"
+  style="background-image: url('static/img/bg-01.jpg')"
+>
+  <div class="card form-container">
     <form
       enctype="application/json"
       class="form-signin"
@@ -44,5 +46,4 @@ block content %}
     </form>
   </div>
 </div>
-{% endblock %} {% block footer %} &copy; Copyright 2023 by
-<a href="http://gestionhseq.com/">Sebastian Lopez Buritica</a>. {% endblock %}
+{{super()}} {% endblock %}

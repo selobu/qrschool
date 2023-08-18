@@ -1,0 +1,27 @@
+html {
+  min-height: 100vh;
+}
+
+body {
+  padding-top: 0px;
+  padding-bottom: 0px;
+  background-color: #eee;
+  min-height: 90vh;
+}
+
+.content {
+  min-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.page-footer .footer-links {
+  text-align: right;
+}
+@media screen and (max-width: 600px) {
+  .page-footer .footer-child {
+    text-align: center;
+  }
+}
