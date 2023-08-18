@@ -21,7 +21,7 @@ Project status
 | GitHub Actions   | ![100%](https://progress-bar.dev/100) | done    | 08/11/2023          |
 | precommit checks | ![100%](https://progress-bar.dev/100) | done    | 08/14/2023          |
 | create profiles  | ![100%](https://progress-bar.dev/100) | done    | 08/16/2023          |
-| Admin interfase  | ![30%](https://progress-bar.dev/30)   | Doing   | 08/25/2023          |
+| Admin interfase  | ![35%](https://progress-bar.dev/35)   | Doing   | 08/25/2023          |
 | Api              | ![55%](https://progress-bar.dev/55)   | Doing   | 08/05/2023          |
 | Api test         | ![0%](https://progress-bar.dev/0)     | -       | -                   |
 | Documentation    | ![10%](https://progress-bar.dev/10)   | -       | -                   |
