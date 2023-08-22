@@ -8,7 +8,7 @@ from sqlalchemy.orm import sessionmaker
 
 from app.config import Settings, settings
 from app.imp_modules import modulesResolver
-from app.toolsapk import Tb, db, createdb
+from app.toolsapk import Tb, db
 
 csrf = CSRFProtect()
 
@@ -21,7 +21,6 @@ def create_app(
     # making app globally available by calling settings
     settings.app = app
     setattr(app, "Tb", Tb)
-
     app.config["JWT_SECRET_KEY"] = settings.jwt_key
     app.config["WTF_CSRF_SECRET_KEY"] = settings.jwt_key * 2
     app.secret_key = app.config["WTF_CSRF_SECRET_KEY"]
@@ -33,6 +32,7 @@ def create_app(
         Bootstrap(app)
         from . import modules, routes
         from . import admin
+        from . import shellcontex
 
         setattr(app, "api", modules.api)
 
@@ -74,11 +74,6 @@ def create_app(
         setattr(app, "Session", Session)
 
         admin.init_app(app)
-
-        # @app.shell_context_processor
-        def make_shell_context():
-            return dict(db=db, Tb=Tb, Session=Session, createdb=createdb)
-
-        app.shell_context_processor(make_shell_context)
+        shellcontex.init_app(app)
 
         return app
