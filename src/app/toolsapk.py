@@ -1,4 +1,4 @@
-__all__ = ["db", "Tb", "select", "uuidgenerator", "now", "Base"]
+__all__ = ["db", "Tb", "select", "uuidgenerator", "now", "Base", "import_submodules"]
 import hashlib
 from datetime import datetime, timedelta
 from functools import wraps
@@ -12,6 +12,9 @@ from sqlalchemy import select
 from sqlalchemy.inspection import inspect
 from sqlalchemy.orm import DeclarativeBase, class_mapper
 
+from glob import iglob
+from os.path import basename, relpath, sep, splitext
+
 db = SQLAlchemy(
     engine_options={"pool_recycle": 280}, session_options={"autoflush": False}
 )
@@ -24,12 +27,6 @@ authorizations = {"Bearer": {"type": "apiKey", "in": "header", "name": "Authoriz
 
 class TbContainer(object):
     pass
-
-
-# needs to be called outside this cicle and just run once.
-def createdb():
-    engine = app.engine
-    Base.metadata.create_all(engine)
 
 
 Tb = TbContainer()
@@ -216,3 +213,29 @@ def activeuser_required(proyectIdKeyName=None):
         return func_wrapper
 
     return newadmin
+
+
+shell_decorated = dict()
+
+
+def map_name_to_shell(func):
+    if func.__name__ in shell_decorated:
+        raise Exception(f"ya esta declarada la tabla {func.__name__}")
+    shell_decorated[func.__name__] = func
+
+
+# based on https://stackoverflow.com/questions/3365740/how-to-import-all-submodules
+def import_submodules(__path__to_here):
+    """Imports all submodules.
+    Import this function in __init__.py and put this line to it:
+    __all__ = import_submodules(__path__)"""
+    result = []
+    for smfile in iglob(relpath(__path__to_here[0]) + "/*.py"):
+        if smfile.startswith("src/"):
+            smfile = smfile.replace("src/", "")
+        submodule = splitext(basename(smfile))[0]
+        importstr = ".".join(smfile.split(sep)[:-1])
+        if not submodule.startswith("_"):
+            __import__(importstr + "." + submodule)
+            result.append(submodule)
+    return result
