@@ -1,6 +1,6 @@
 ---
 
-QRSchool is a rest-api built on top of Python 3.8 and Flask.
+QRSchool is a rest-api built on top of Python +3.8 and Flask.
 
 The key features are:
 
