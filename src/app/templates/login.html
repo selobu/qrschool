@@ -9,7 +9,7 @@
   class="panel panel-default content login-backgroud"
   style="background-image: url('static/img/bg-01.jpg')"
 >
-  <div class="card form-container">
+  <div class="card form-container flex-sb flex-w">
     <form
       enctype="application/json"
       class="form-signin"
@@ -35,10 +35,13 @@
         placeholder="Contraseña"
         required
       />
-      <div class="checkbox">
-        <label>
-          <input type="checkbox" value="remember-me" /> Recordarme
-        </label>
+      <div class="d-flex justify-content-between w-full p-t-3 p-b-24">
+        <div class="contact100-form-checkbox">
+          <label>
+            <input type="checkbox" value="remember-me" /> Recordarme
+          </label>
+        </div>
+        <a class="font-weight-light" href="#">recuperar?</a>
       </div>
       <button class="btn btn-lg btn-primary btn-block submit" type="submit">
         Ingresar
