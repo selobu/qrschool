@@ -1,3 +1,4 @@
+# coding:utf-8
 # needs to be called outside this cicle and just run once.
 from app.toolsapk import Base
 from flask import current_app as app
