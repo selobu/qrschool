@@ -1,5 +1,5 @@
 # coding:utf-8
-__all__ = ["whatnext"]
+__all__ = ["whatsnext"]
 
 from flask import current_app as app
 from app.toolsapk import map_name_to_shell
@@ -9,7 +9,7 @@ from app.modules.User.model import PerfilSchool
 
 
 @map_name_to_shell
-def whatnext():
+def whatsnext():
     # check if tables exists
     table_created = input("Do you want to create tables? y/n [n]: ")
     if table_created.lower() in ("y", "yes"):
