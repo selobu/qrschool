@@ -11,7 +11,7 @@ from app.modules.User.model import PerfilSchool
 @map_name_to_shell
 def whatsnext():
     # check if tables exists
-    table_created = input("Do you want to create tables? y/n [n]: ")
+    table_created = input("Would you like to create tables? y/n [n]: ")
     if table_created.lower() in ("y", "yes"):
         shell_decorated["createdb"]()
     # check if profiles exist
