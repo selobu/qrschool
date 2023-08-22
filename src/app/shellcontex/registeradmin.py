@@ -18,11 +18,14 @@ def registeradmin():
     telefono = input("telefono: ")
     email = input("Email: ")
 
-    password = getpass.getpass(prompt="Password: ", stream=None)
-    password2 = getpass.getpass(prompt="confirm password: ", stream=None)
-    if password != password2:
-        print("Password confirm must be the same")
-        return
+    while True:
+        password = getpass.getpass(prompt="Password: ", stream=None)
+        password2 = getpass.getpass(prompt="confirm password: ", stream=None)
+        if password != password2:
+            print("Password confirm must be the same")
+            return
+        else:
+            break
     with app.Session() as session:
         user = Tb.User.register(
             active=True,
@@ -38,4 +41,4 @@ def registeradmin():
         )
         session.add(user)
         session.commit()
-        print(user)
+        print("Usuario administrador creado exitosamente")
