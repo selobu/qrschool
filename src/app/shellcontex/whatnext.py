@@ -3,7 +3,7 @@ __all__ = ["whatnext"]
 
 from flask import current_app as app
 from app.toolsapk import map_name_to_shell
-from sqlalchemy import select
+from sqlalchemy import select, func
 from app.toolsapk import shell_decorated
 from app.modules.User.model import PerfilSchool
 
