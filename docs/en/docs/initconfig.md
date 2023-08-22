@@ -1,10 +1,10 @@
 ## initial configuration
 
-Before start working with the api you must do the following steps:
+Before starting work with the api you must do the following steps:
 
 1. Create the database "colegio2023" using mysql or mysqladmin, please use utf-8
    encoding.
-2. Using the flask shell to guide you through the rest of setup process
+2. Use the flask shell to guide you through the rest of setup process
 
 ```bash
 $ cd src
@@ -27,7 +27,12 @@ Please use the function whatsnext()
 
 ```python
 >>> whatsnext()
-Do you want to create tables? y/n [n]:
+Would you like to create tables? y/n [n]:
 ```
 
-The command line application will guide you through the rest of setup process.
+The command line application will guide you through the rest of the setup process including:
+
+* Create tables.
+* Register default profiles.
+* Create administrator.
+* Update modules permissions by profile.
