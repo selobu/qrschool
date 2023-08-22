@@ -85,7 +85,7 @@ class PerfilModuloLnk(Base):
     modulo_id: Mapped[str] = mapped_column(
         ForeignKey("module.modulename"), primary_key=True
     )
-
+    has_permision: Mapped[bool] = mapped_column(Boolean, default=False)
     perfil: Mapped["Perfil"] = relationship(back_populates="modulo")
     modulo: Mapped["Module"] = relationship(back_populates="perfil")
 

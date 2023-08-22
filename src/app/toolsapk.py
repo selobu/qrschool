@@ -239,3 +239,8 @@ def import_submodules(__path__to_here):
             __import__(importstr + "." + submodule)
             result.append(submodule)
     return result
+
+
+import_submodules(
+    "/media/sebastian/datos/Proyectos/qrschool/src/app/modules/__init__.py"
+)
