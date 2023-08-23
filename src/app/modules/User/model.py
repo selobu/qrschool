@@ -68,12 +68,18 @@ class Perfil(Base):
     user: Mapped["User"] = relationship(back_populates="perfil")
     modulo: Mapped["PerfilModuloLnk"] = relationship(back_populates="perfil")
 
+    def __repr__(self) -> str:
+        return self.nombreperfil.value
+
 
 @map_name_to_table
 class Module(Base):
     __tablename__ = "module"
     modulename: Mapped[str] = mapped_column(String(200), primary_key=True)
     perfil: Mapped["PerfilModuloLnk"] = relationship(back_populates="modulo")
+
+    def __repr__(self) -> str:
+        return self.modulename
 
 
 @map_name_to_table
