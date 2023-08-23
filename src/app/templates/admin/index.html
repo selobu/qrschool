@@ -5,42 +5,25 @@ block head %}
   href="{{ url_for('static', filename='css/signin.css') }}"
 />
 {% endblock %} {% block body %}
-<div class="panel panel-default">
-  <div class="container">
-    <form
-      enctype="application/json"
-      class="form-signin"
-      action="/login"
-      method="POST"
-    >
-      <h2 class="form-signin-heading">Ingresar</h2>
-      <label for="inputEmail" class="sr-only">Correo electrónico</label>
-      <input
-        type="email"
-        id="inputEmail"
-        class="form-control"
-        placeholder="Correo electrónico"
-        required
-        autofocus
-      />
-      <label for="inputPassword" class="sr-only">Contraseña</label>
-      <input
-        type="password"
-        id="inputPassword"
-        class="form-control"
-        placeholder="Contraseña"
-        required
-      />
-      <div class="checkbox">
-        <label>
-          <input type="checkbox" value="remember-me" /> Recordarme
-        </label>
+<div
+  class="panel panel-default content login-backgroud"
+  style="background-image: url('static/img/bg-01.jpg')"
+>
+  <div class="container-fluid">
+    {% if current_user.is_anonymous %}
+    <br />
+    <div class="row flex-sb flex-w">
+      <div class="mx-auto">
+        <a
+          class="btn btn-lg btn-redirect btn-primary btn-block submit"
+          type="submit"
+          href="{{url_for('login')}}"
+        >
+          Ingresar
+        </a>
       </div>
-      <button class="btn btn-lg btn-primary btn-block submit" type="submit">
-        Ingresar
-      </button>
-    </form>
+    </div>
+    {% else %} {% endif %}
   </div>
 </div>
-{% endblock %} {% block footer %} &copy; Copyright 2023 by
-<a href="http://gestionhseq.com/">Sebastian Lopez Buritica</a>. {% endblock %}
+{% block footer %} {% include "footer.html" %} {% endblock %} {% endblock %}

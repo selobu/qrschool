@@ -30,6 +30,7 @@ cairosvg = "==2.7.0"
 flask-admin = "==1.6.1"
 flask-wtf = "*"
 flask-bootstrap4 = "==4.0.2"
+flask-login = "*"
 
 [dev-packages]
 

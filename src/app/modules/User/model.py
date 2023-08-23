@@ -7,7 +7,7 @@ from sqlalchemy import Boolean, ForeignKey, String
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from enum import Enum
 
-from app.toolsapk import Base, Tb, map_name_to_table, uuidgenerator, now
+from app.toolsapk import Base, Tb, map_name_to_table, uuidgenerator, now, gethash
 
 
 # limita el uso del proyecto segun el servicio contratado
@@ -16,7 +16,7 @@ class User(Base):
     __tablename__ = "user"
     id: Mapped[Optional[int]] = mapped_column(primary_key=True)
     # idPadre: Mapped["User"] = relationship(remote_side=["id"], backref="acudiente")
-    active: Mapped[bool] = mapped_column(Boolean, default=False)
+    is_active: Mapped[bool] = mapped_column(Boolean, default=False)
     timestamp: Mapped[Optional[datetime]] = mapped_column(insert_default=now())
     nombres: Mapped[str] = mapped_column(String(255))
     apellidos: Mapped[str] = mapped_column(String(255))
@@ -46,11 +46,17 @@ class User(Base):
     docente: Mapped["Asignatura"] = relationship(back_populates="docente")
     evaluacion: Mapped["Evaluacion"] = relationship(back_populates="evaluado")
 
+    def get_id(self):
+        return self.id
+
     def generateqr(self, session=None):
         """Generate the qr code"""
         if self.qr_id is not None:
             return self.qr_id
         return Tb.Qr.register(code=uuidgenerator())
+
+    def validatepassword(self, password):
+        return gethash(password) == self.password_id.hash
 
 
 class PerfilSchool(Enum):

@@ -2,7 +2,7 @@
 # needs to be called outside this cicle and just run once.
 from flask import current_app as app
 from app.toolsapk import map_name_to_shell
-from app.toolsapk import Tb
+from app.toolsapk import Tb, gethash
 import getpass
 
 
@@ -28,7 +28,7 @@ def registeradmin():
             break
     with app.Session() as session:
         user = Tb.User.register(
-            active=True,
+            is_active=True,
             nombres=name,
             apellidos=lastname,
             perfil_nombre="administrador",
@@ -40,5 +40,12 @@ def registeradmin():
             numeroidentificacion=numeroidentificacion,
         )
         session.add(user)
+        session.commit()
+        userid = user.id
+
+    with app.Session() as session:
+        # se registra la contraseña del usuario
+        password = Tb.Auth.register(usuario_id=userid, hash=gethash(password))
+        session.add(password)
         session.commit()
         print("Usuario administrador creado exitosamente")

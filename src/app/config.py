@@ -10,7 +10,7 @@ port = environ.get("MYSQL_PORT", "3306")
 database = environ.get("MYSQL_DATABASE", "colegio2023")
 host = environ.get("MYSQL_HOST", "localhost")
 user = environ.get("MYSQL_USER", "root")
-userpassword = environ.get("MYSQL_PASSWORD", "Sebaspassword")
+userpassword = environ.get("MYSQL_PASSWORD", "adminpassword123")
 jwt_key = environ.get("JWT_SECRET_KEY", "superSecretpasswordneeds2BeChanged")
 
 
