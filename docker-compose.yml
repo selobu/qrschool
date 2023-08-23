@@ -8,8 +8,20 @@ services:
       MYSQL_DATABASE: colegio2023
       MYSQL_USER: adminuser
       MYSQL_PASSWORD: adminuser123
+    image: mysql:5.7
+    ports:
+      - "3306:3306"
+  api:
+    environment:
+      MYSQL_ROOT_PASSWORD: adminpassword123
+      MYSQL_ROOT_USER: root
+      MYSQL_DATABASE: colegio2023
+      MYSQL_USER: adminuser
+      MYSQL_PASSWORD: adminuser123
+      GUNICORN_PROCESSES: 2
+      GUNICORN_THREADS: 4
     build:
       context: .
       dockerfile: Dockerfile
     ports:
-      - "3307:3306"
+      - "8081:8081"
