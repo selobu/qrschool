@@ -9,18 +9,18 @@ Currently supported profiles are:
 - ACUDIENTE
 - ADMINISTRADOR
 
-Access modules should be grantted by using the administration tool at
+Access modules should be granted by using the administration tool at
 https://yourprojectdomain/admin.
 
 ## Permisions
 
-Before users can interact with the application you should configure permisions
+Before users can interact with the application you should configure permissions
 by using the api admin endpoint
 
 `<baseroot>/admin/perfilmodulolnk/`
 
-Using the provided web interface you can update profile permisions
+Using the provided web interface you can update profile permissions
 
 ![permisions](./img/image.png)
 
-Those permisions are updated inmediately.
+Those permissions are updated immediately.
