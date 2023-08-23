@@ -10,6 +10,22 @@
   style="background-image: url('static/img/bg-01.jpg')"
 >
   <div class="card form-container flex-sb flex-w">
+    {% if not current_user.is_anonymous %}
+    <form
+      enctype="application/json"
+      class="form-signin"
+      action="/logout"
+      method="POST"
+    >
+      {{ form.csrf_token }}
+      <h2 class="form-signin-heading">Ha ingresado como</h2>
+      <div class="mx-auto text-uppercase">{{ current_user.correo}}</div>
+      <br />
+      <button class="btn btn-lg btn-danger btn-block submit" type="submit">
+        Salir
+      </button>
+    </form>
+    {% else %}
     <form
       enctype="application/json"
       class="form-signin"
@@ -18,7 +34,7 @@
     >
       {{ form.csrf_token }}
       <h2 class="form-signin-heading">Ingresar</h2>
-      <label for="inputEmail" class="sr-only">Correo electrónico</label>
+      <!--<label for="inputEmail" class="sr-only">Correo electrónico</label>
       <input
         type="email"
         id="inputEmail"
@@ -35,10 +51,14 @@
         placeholder="Contraseña"
         required
       />
+      -->
+      {{ form.correo(class_="form-control", placeholder="Correo electrónico") }}
+      {{ form.password(class_="form-control", placeholder="Contraseña",
+      type="password") }}
       <div class="d-flex justify-content-between w-full p-t-3 p-b-24">
         <div class="contact100-form-checkbox">
           <label>
-            <input type="checkbox" value="remember-me" /> Recordarme
+            {{ form.recordarme(type="checkbox") }} {{ form.recordarme.label }}
           </label>
         </div>
         <a class="font-weight-light" href="#">recuperar?</a>
@@ -47,6 +67,8 @@
         Ingresar
       </button>
     </form>
+    {% endif %}
   </div>
 </div>
+
 {{super()}} {% endblock %}

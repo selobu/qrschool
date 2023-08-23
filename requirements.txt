@@ -49,4 +49,5 @@ Werkzeug==2.3.6
 flask_admin==1.6.1
 flask_wtf==1.1.1
 Flask-Bootstrap4==4.0.2
+Flask-login==0.6.2
 gunicorn==21.2.0

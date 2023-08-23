@@ -18,10 +18,11 @@ services:
       MYSQL_DATABASE: colegio2023
       MYSQL_USER: adminuser
       MYSQL_PASSWORD: adminuser123
+      MYSQL_HOST: mysql
       GUNICORN_PROCESSES: 2
       GUNICORN_THREADS: 4
     build:
       context: .
       dockerfile: Dockerfile
     ports:
-      - "8081:8081"
+      - "8082:8081"
