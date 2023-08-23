@@ -1,69 +1,91 @@
-## PLANTEAMIENTO DEL PROBLEMA 
-    
-La institución educativa Colegio Ramon B. Jimeno E.A.A.B, es una institución de Distrito especial ubicada en la ciudad de Bogotá D.C. en el departamento de Cundinamarca,
-la Junta Directiva de la Empresa E.A.A.B mediante Resolución n° 0031 del 16 de diciembre de 1971 creó el Colegio y fijó los estatutos de su ordenamiento.
-Se le asignó el nombre del primer promotor de una empresa de agua en la ciudad de Bogotá: Ramón B. Jimeno. se constituyó como un colegio mixto de  enseñanza media para los hijos
-de los empleados y pensionados de la empresa pública, cuya dirección y funcionamiento quedó bajo la responsabilidad de la empresa de Acueducto y alcantarillado de Bogotá,
-La institución educativa Ramon B Jimeno cuenta con una plataforma la cual les permite gestionar la información de sus estudiantes, el sistema comprende de varias funcionalidades,
-entre las que están; gestión de las notas de cada estudiante y su promedio en cada materia y promedio general de sus datos académicos, también cuenta con un sistema de alertas para
-faltas de asistencia y un portal de agendamiento de citas con enfermería. El sistema actual es eficiente pero como podemos ver sus funcionalidades son sencillas en el sentido que
-solo administra información básica de los estudiantes, agendamiento de citas, y su puntaje en cada asignatura. 
+## PROBLEM STATEMENT
 
-Por lo tanto, la institución requiere de una mejora tecnológica que permita la automatización y centralización de la gestión académica, con el fin de mejorar la eficiencia y eficacia
-en la gestión de información académica. Es necesario contar con un software de gestión académica que permita la integración de diferentes sistemas y aplicaciones existentes aportadas
-por el ministerio de educación y la automatización de los procesos de la institución que cuente con gestión de usuarios y permisos, la creación de reportes, la visualización de estadísticas,
-entre otras funcionalidades relevantes. 
+The educational institution Colegio Ramon B. Jimeno E.A.A.B, is a special
+District institution located in the city of Bogotá D.C. in the department of
+Cundinamarca, The Board of Directors of the E.A.A.B Company through Resolution
+No. 0031 of December 16, 1971 created the Association and established the
+statutes of its order. It was assigned the name of the first promoter of a water
+company in the city of Bogotá: Ramón B. Jimeno. It was established as a mixed
+secondary school for the children of the employees and pensioners of the public
+company, whose management and operation was left under the responsibility of the
+Bogota Water and Sewerage Company, The Ramon B Jimeno educational institution
+has a platform which allows them to manage the information of their students,
+the system includes several functionalities, among which are; management of the
+grades of each student and her average in each subject and general average of
+her academic data, it also has an alert system to absences and a portal for
+scheduling nursing appointments. The current system is efficient but as we can
+see its functionalities are simple in the sense that it only manages basic
+student information, appointment scheduling, and their score in each subject.
 
-La mejora, diseño e implementación de este software de gestión académica (módulos de acceso, control de asistencia de estudiantes) concretamente; implica un proceso de planificación
-y gestión del proyecto adecuado, que involucre a todos los actores de la comunidad educativa, y un proceso de monitoreo y evaluación de la modificación al software implementado para
-garantizar su sostenibilidad a largo plazo. 
+Therefore, the institution requires a technological improvement that allows the
+automation and centralization of academic management, in order to improve
+efficiency and effectiveness. in academic information management. It is
+necessary to have academic management software that allows the integration of
+different existing systems and applications provided by the Ministry of
+Education and the automation of the processes of the institution that has user
+management and permits, the creation of reports, the visualization of
+statistics, among other relevant features.
 
-De todas las mejoras al software de la institución educativa nos centraremos en llevar un registro de los estudiantes matriculados en la institución, incluyendo información como sus
-datos personales y asistencia; también el reporte en vivo de inasistencia a padres de familia. 
+The improvement, design and implementation of this academic management software
+(access modules, student attendance control) specifically; involves a planning
+process and proper project management, involving all stakeholders in the
+educational community, and a process for monitoring and evaluating the
+modification to the software implemented to ensure its long-term sustainability.
 
-## JUSTIFICACIÓN  
+Of all the improvements to the software of the educational institution, we will
+focus on keeping a record of the students enrolled in the institution, including
+information such as their personal data and assistance; also the live report of
+absence to parents.
 
-* Registrar el ausentismo estudiantil, para luego analizar y agrupar los resultados en un dashboard que se podrá consultar a diario por docentes, administradores y acudientes. 
-* Reducir el tiempo de registro de asistencia de los estudiantes al ingreso de la institución y a cada una de las clases mediante el uso de código QR y smartphones, enviando alertas a los administradores del software. 
+## JUSTIFICATION
 
-## ALCANCE 
+- Register student absenteeism, to later analyze and group the results in a
+  dashboard that can be consulted daily by teachers, administrators and
+  guardians.
+- Reduce the attendance registration time of students at the entrance of the
+  institution and each of the classes through the use of QR code and
+  smartphones, sending alerts to software administrators.
 
- 
-Docentes, estudiantes y personal del Colegio Ramon B. Jimeno E.A.A.B, incluye el módulo del registro de asistencia. 
+## SCOPE
 
- 
+Teachers, students and staff of the Ramon B. Jimeno E.A.A.B School, includes the
+attendance record module.
 
-## OBJETIVOS 
+## GOALS
 
+### GENERAL OBJECTIVE
 
-### OBJETIVO GENERAL 
+Create software to record the attendance control of students at the Ramon B.
+Jimeno E.A.A.B School that presents the information in a configurable dashboard
+and with reading and modification permissions depending on the roles of the
+people in the educational institution.
 
+### SPECIFIC OBJECTIVES
 
-Crear un software para registrar el control de asistencia de los estudiantes en el Colegio Ramon B. Jimeno E.A.A.B que presente la información en un dashboard configurable y con
-permisos de lectura y modificación dependiendo de los roles de las personas en la institución educativa. 
+- Facilitate access to academic information for guardians and guardians.
+- Reduce the risk of errors and omissions in academic management.
+- Ensure that confidential information of students and teachers is adequately
+  protected and that data is accessible only to authorized persons depending on
+  the ROLE.
+- Activate or deactivate specific students and roles.
+- Manage attendance: teachers will be able to record student attendance in
+  class.
+- Collect data: the software will record the time, the student's code and the
+  code of the person who made the record; Through a dashboard, the information
+  can be analyzed or the API can be connected with Microsoft Power BI or
+  Tableau.
+- Offer real-time information: The software will provide real-time information
+  about the attendance record and grades.
 
- 
+## RISKS
 
-### OBJETIVOS ESPECÍFICOS 
+## LIMITATIONS AND RESTRICTIONS
 
- 
-* Facilitar el acceso a la información académica para los acudientes y acudientes. 
-* Reducir el riesgo de errores y omisiones en la gestión académica.
-* Garantizar que la información confidencial de los estudiantes y profesores esté protegida adecuadamente y que los datos sean accesibles solo para personas autorizadas dependiendo del ROL.
-* Activar o desactivar estudiantes y roles específicos.
-* Gestionar la asistencia: los docentes podrán registrar la asistencia de los estudiantes a la clase.
-* Recopilar datos: el software registrará la hora, el código del estudiante y el código de la persona que hizo el registro; mediante un dashboard se podrá analizar la información o se podrá conectar el api con Microsoft Power BI o Tableau.
-* Ofrecer información en tiempo real: El software proporcionará información en tiempo real sobre el registro de asistencia y calificaciones. 
+The limitations and restrictions of the project are:
 
-## RIESGOS 
-
-
-## LIMITACIONES Y RESTRICCIONES 
-
-
-Las limitaciones y restricciones del proyecto son: 
-
-* Presupuesto limitado: El proyecto deberá ser implementado con un 	presupuesto limitado y con recursos tecnológicos y humanos 	disponibles por parte del grupo de estudio G3 de la ficha 2675809 del 	proceso de formación virtual del SENA – Análisis y Desarrollo de 	Software. 
-* Recursos tecnológicos y humanos limitados: Se deberá utilizar 	herramientas tecnológicas y metodologías de desarrollo de software 	libres para evitar el costo de licenciamiento. 
-* Priorización 	de funcionalidades críticas: Se deberán priorizar las 	funcionalidades críticas del software para garantizar una 	implementación exitosa y sostenible a largo plazo.  
-* Tiempo de ejecución 6 meses.
+- Limited budget: The project must be implemented with a limited budget and with
+  technological and human resources available from the G3 study group of file
+  2675809 of the SENA virtual training process – Software Analysis and
+  Development.
+- Limited technological and human resources: Technological tools and free
+  software development methodologies must be used to avoid licensing costs.
