@@ -24,7 +24,7 @@ Project status
 | admin shell      | ![60%](https://progress-bar.dev/60)   | done    | 09/05/2023          |
 | create profiles  | ![100%](https://progress-bar.dev/100) | done    | 08/16/2023          |
 | Admin interfase  | ![70%](https://progress-bar.dev/70)   | Doing   | 08/30/2023          |
-| Api              | ![55%](https://progress-bar.dev/55)   | Doing   | 09/05/2023          |
+| Api              | ![65%](https://progress-bar.dev/65)   | Doing   | 09/05/2023          |
 | Api test         | ![0%](https://progress-bar.dev/0)     | -       | -                   |
 | Documentation    | ![10%](https://progress-bar.dev/10)   | -       | -                   |
 | Frontend         | ![0%](https://progress-bar.dev/0)     | -       | -                   |
