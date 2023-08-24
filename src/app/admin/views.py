@@ -29,9 +29,18 @@ class PerfilModuoleview(PermisionView):
         return f"{model.perfil_id.value},{model.modulo_id}"
 
 
+class UserView(PermisionView):
+    can_delete = False
+    column_editable_list = ["is_active"]
+    column_filters = ["nombres", "apellidos", "numeroidentificacion", "grado", "correo"]
+    form_excluded_columns = (
+        ["id", "correo", "timestamp", "password_id", "evaluacion"],
+    )
+
+
 def getviews() -> list:
     views = list()
 
-    views.append(PermisionView(Tb.User, app.Session()))  # type: ignore
+    views.append(UserView(Tb.User, app.Session()))  # type: ignore
     views.append(PerfilModuoleview(Tb.PerfilModuloLnk, app.Session(), name="Permisos"))  # type: ignore
     return views

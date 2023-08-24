@@ -67,7 +67,7 @@ def create_app(
                 except Exception:
                     return None
 
-        modules.init_app(app)
+        modules.init_app(app, csrf=csrf)
 
         # setting up additional routes
         routes.init_app(app)

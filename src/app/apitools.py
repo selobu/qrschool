@@ -1,8 +1,13 @@
 # coding:utf-8
 __all__ = ["createApiModel"]
 from flask_restx import Model, fields
-from sqlalchemy import types
+from flask import current_app
+from sqlalchemy import types, select
 from sqlalchemy.inspection import inspect
+from functools import wraps
+from app.config import settings
+
+api = settings.app.api  # type: ignore
 
 _not_allowed = ["TypeEngine", "TypeDecorator", "UserDefinedType", "PickleType"]
 conversion = {
@@ -128,6 +133,68 @@ def _get_res(
     if modelname in ("", None):
         modelname = table.__tablename__.lower().capitalize()
     return res
+
+
+def get_model_list(model: Model, limit: int = 50):
+    def decorator(func):
+        @wraps(func)
+        def wrapper(*args, **kwargs):
+            with current_app.Session() as session:
+                res = select(model).limit(limit)
+                items = session.execute(res).all()
+            return [u[0] for u in items]
+
+        return wrapper
+
+    return decorator
+
+
+def post_model_list(payload: str, model: Model):
+    def decorator(func):
+        @wraps(func)
+        def wrapper(*args, **kwargs):
+            modellist = api.payload[payload]
+            # Session.begin() set automatically the commit once it takes out the with statement
+            with current_app.Session() as session:
+                res = [model.register(**mod) for mod in modellist]
+                session.add_all(res)
+                session.commit()
+            return res
+
+        return wrapper
+
+    return decorator
+
+
+def get_model(model: Model):
+    def decorator(func):
+        @wraps(func)
+        def wrapper(*args, **kwargs):
+            with current_app.Session() as session:
+                res = select(model).filter_by(**kwargs)
+                item = session.execute(res).one()
+            return item[0]
+
+        return wrapper
+
+    return decorator
+
+
+def put_model(model: Model):
+    def decorator(func):
+        @wraps(func)
+        def wrapper(*args, **kwargs):
+            # Session.begin() set automatically the commit once it takes out the with statement
+            data = api.payload
+            with current_app.Session() as session:
+                res = model.register(**kwargs, **data)
+                session.add(res)
+                session.commit()
+            return res
+
+        return wrapper
+
+    return decorator
 
 
 def createApiModel(
