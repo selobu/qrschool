@@ -23,7 +23,6 @@ class Grado(Base):
     nombre: Mapped[str] = mapped_column(String(50))
     cupomaximo: Mapped[int]
     matricula_id: Mapped[int] = mapped_column(ForeignKey("matricula.id"))
-    matriculado: Mapped[bool]
     comentariomatricula: Mapped[str] = mapped_column(String(1200))
 
     matricula: Mapped["Matricula"] = relationship(back_populates="grado")

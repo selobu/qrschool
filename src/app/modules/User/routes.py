@@ -14,7 +14,14 @@ usr_post = createApiModel(
     api,
     Tb.User,  # type: ignore
     "Usuario",
-    readonlyfields=["timestamp", "perfil_id", "grado_id", "grupoetnico_id", "active"],
+    readonlyfields=[
+        "timestamp",
+        "perfil_id",
+        "grado_id",
+        "grupoetnico_id",
+        "is_active",
+        "perfil_nombre",
+    ],
     additionalfields={
         "password": fields.String(
             description="contraseña", required=True, min_length=9, default="***"

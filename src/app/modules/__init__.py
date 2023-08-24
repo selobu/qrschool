@@ -40,5 +40,7 @@ def handle_error(error):
     }, 400
 
 
-def init_app(app):
+def init_app(app, csrf=None):
+    if csrf is not None:
+        csrf.exempt(app_blueprint)
     app.register_blueprint(app_blueprint)
