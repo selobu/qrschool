@@ -44,7 +44,7 @@ def login():
     return render_template("login.html", form=form)
 
 
-@app.route("/logout", methods=["POST"])
+@app.route("/logout", methods=["GET", "POST"])
 def logout():
     """This endpoint is to logout the administrator"""
     logout_user()
