@@ -155,9 +155,40 @@ def post_model_list(payload: str, model: Model):
         def wrapper(*args, **kwargs):
             modellist = api.payload[payload]
             # Session.begin() set automatically the commit once it takes out the with statement
-            with current_app.Session.begin() as session:
+            with current_app.Session() as session:
                 res = [model.register(**mod) for mod in modellist]
                 session.add_all(res)
+                session.commit()
+            return res
+
+        return wrapper
+
+    return decorator
+
+
+def get_model(model: Model):
+    def decorator(func):
+        @wraps(func)
+        def wrapper(*args, **kwargs):
+            with current_app.Session() as session:
+                res = select(model).filter_by(**kwargs)
+                item = session.execute(res).one()
+            return item[0]
+
+        return wrapper
+
+    return decorator
+
+
+def put_model(model: Model):
+    def decorator(func):
+        @wraps(func)
+        def wrapper(*args, **kwargs):
+            # Session.begin() set automatically the commit once it takes out the with statement
+            data = api.payload
+            with current_app.Session() as session:
+                res = model.register(**kwargs, **data)
+                session.add(res)
                 session.commit()
             return res
 
