@@ -129,4 +129,4 @@ class Grado(Resource):
     @ns_grado.marshal_with(grado, code=201)
     @put_model(model=Tb.Grado)  # type: ignore
     def put(self, id):
-        """Actualiza uno grado"""
+        """Actualiza un grado"""
