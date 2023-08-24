@@ -1,5 +1,9 @@
 {% extends 'admin/master.html' %} {% block title%} QRSchool {% endblock%} {%
-block head %}
+block head_css%} {{ super() }}
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', filename='css/base.css') }}"
+/>
 <link
   rel="stylesheet"
   href="{{ url_for('static', filename='css/signin.css') }}"
@@ -7,13 +11,14 @@ block head %}
 {% endblock %} {% block body %}
 <div
   class="panel panel-default content login-backgroud"
-  style="background-image: url('static/img/bg-01.jpg')"
+  style="background-image: url({{ url_for('static', filename='img/bg-01.jpg') }})"
 >
   <div class="container-fluid">
-    {% if current_user.is_anonymous %}
     <br />
+
     <div class="row flex-sb flex-w">
       <div class="mx-auto">
+        {% if current_user.is_anonymous %}
         <a
           class="btn btn-lg btn-redirect btn-primary btn-block submit"
           type="submit"
@@ -21,9 +26,17 @@ block head %}
         >
           Ingresar
         </a>
+        {% else %}
+        <a
+          class="btn btn-lg btn-redirect btn-danger btn-block submit"
+          type="submit"
+          href="{{url_for('logout')}}"
+        >
+          Salir
+        </a>
+        {% endif %}
       </div>
     </div>
-    {% else %} {% endif %}
   </div>
 </div>
 {% block footer %} {% include "footer.html" %} {% endblock %} {% endblock %}
