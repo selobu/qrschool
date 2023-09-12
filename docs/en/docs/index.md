@@ -1,4 +1,4 @@
----
+----
 
 QRSchool is a rest-api built on top of Python +3.8 and Flask.
 
