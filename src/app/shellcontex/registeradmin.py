@@ -23,7 +23,7 @@ def registeradmin():
         password2 = getpass.getpass(prompt="confirm password: ", stream=None)
         if password != password2:
             print("Password confirm must be the same")
-            return
+            continue
         else:
             break
     with app.Session() as session:
