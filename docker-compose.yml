@@ -24,5 +24,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+    volumes:
+      - ./src:/home
     ports:
       - "8082:8081"
