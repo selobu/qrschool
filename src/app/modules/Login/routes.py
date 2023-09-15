@@ -22,11 +22,24 @@ auth = api.model(
     },
 )
 
+loginResponse = api.model(
+    "LoginResponse",
+    {
+        "status": fields.String(description="estado de la autenticacion"),
+        "auth": fields.Boolean(description="está autenticado?"),
+        "fresh_access_token": fields.String(description="fresh access token"),
+        "access_token": fields.String(description="Access token"),
+        "email": fields.String(description="direccion de correo registrado"),
+        "username": fields.String(description="Nombre del usario"),
+        "qr": fields.String(description="Código QR del usuario"),
+    },
+)
+
 
 # Create a route to authenticate your users and return JWTs. The
 # create_access_token() function is used to actually generate the JWT.
 @ns_login.route("/")
-@ns_login.response(200, "exitoso")
+@ns_login.response(200, "success")
 class Login(Resource):
     """Administracion de recursos"""
 
@@ -59,6 +72,7 @@ class Login(Resource):
     )
     @ns_login.response(306, "email or password not found")
     @ns_login.expect(auth)
+    @ns_login.marshal_with(loginResponse, code=200)
     def post(self):
         data = api.payload
         email = data["email"]
@@ -66,11 +80,13 @@ class Login(Resource):
         with app.Session() as session:
             # verifying credentials
             res = (
-                select(Tb.Auth.hash)
+                select(Tb.Auth.hash, Tb.User)
                 .join(Tb.Auth.usuario)
                 .filter(Tb.User.correo == email)
             )
-            readedhash = session.execute(res).scalar()
+            readedhash, user = session.execute(res).all()[0]
+            userfullname = f"{user.nombres} {user.apellidos}"
+            userqr = user.generateqr()
             if readedhash is None:
                 return "", 306
         if passwordhash == readedhash:
@@ -82,5 +98,7 @@ class Login(Resource):
                 "fresh_access_token": "Bearer " + fresh_access_token,
                 "access_token": "Bearer " + access_token,
                 "email": email,
-            }, 202
+                "username": userfullname,
+                "qr": userqr,
+            }, 200
         return "", 305

@@ -3,9 +3,10 @@
 from datetime import date, datetime
 from typing import Optional
 
-from sqlalchemy import Boolean, ForeignKey, String
+from sqlalchemy import Boolean, ForeignKey, String, select
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from enum import Enum
+from flask import current_app
 
 from app.toolsapk import Base, Tb, map_name_to_table, uuidgenerator, now, gethash
 
@@ -52,11 +53,26 @@ class User(Base):
     def generateqr(self, session=None):
         """Generate the qr code"""
         if self.qr_id is not None:
-            return self.qr_id
-        return Tb.Qr.register(code=uuidgenerator())
+            return self.qr_id.code
+        return Tb.Qr.register(code=uuidgenerator()).code
 
     def validatepassword(self, password):
         return gethash(password) == self.password_id.hash
+
+    @classmethod
+    def get_by_qrs(cls, qrlist: list, onlysmt=False, **kwargs):
+        smts = (
+            select(current_app.Tb.User)
+            .join(current_app.Tb.Qr)
+            .filter(current_app.Tb.Qr.code.in_(qrlist))
+            .filter_by(**kwargs)
+        )
+        if onlysmt:
+            return smts
+        """Getting a list of users by given a qr list"""
+        with current_app.Session() as session:
+            res = session.execute(smts).all()
+        return res
 
 
 class PerfilSchool(Enum):

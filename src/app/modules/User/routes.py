@@ -1,6 +1,7 @@
 from flask import current_app as app
 from flask_restx import Resource, fields
 from sqlalchemy import select
+from flask_jwt_extended import jwt_required
 
 from app.apitools import createApiModel
 from app.config import settings
@@ -40,6 +41,7 @@ class UserList(Resource):
 
     @ns_usrs.doc("Consulta la información de usuario")
     @ns_usrs.marshal_list_with(usr, code=200)
+    @jwt_required()
     def get(self):
         """Retorna todos los usuarios
 
@@ -85,6 +87,7 @@ class User(Resource):
 
     @ns_usrs.doc("Información del usuario dado su id")
     @ns_usrs.marshal_with(usr)
+    @jwt_required()
     def get(self, user_id):
         """Retorna la información del usuario"""
         with app.Session() as session:
@@ -95,6 +98,7 @@ class User(Resource):
     @ns_usrs.doc("Actualiza la información del usuario")
     @ns_usrs.expect(usr)
     @ns_usrs.marshal_with(usr)
+    @jwt_required()
     def put(self, user_id):
         """Actualiza la información de un usuario"""
         with app.Session() as session:

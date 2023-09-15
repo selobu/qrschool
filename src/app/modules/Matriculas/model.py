@@ -2,7 +2,7 @@
 # from flask_sqlalchemy import sqlalchemy
 from sqlalchemy import ForeignKey, String
 from sqlalchemy.orm import Mapped, mapped_column, relationship
-
+from typing import List
 from app.toolsapk import Base, map_name_to_table
 
 
@@ -26,5 +26,5 @@ class Grado(Base):
     comentariomatricula: Mapped[str] = mapped_column(String(1200))
 
     matricula: Mapped["Matricula"] = relationship(back_populates="grado")
-    estudiante: Mapped["User"] = relationship(back_populates="grado")
+    estudiante: Mapped[List["User"]] = relationship(back_populates="grado")
     asignatura: Mapped["Asignatura"] = relationship(back_populates="grado")
