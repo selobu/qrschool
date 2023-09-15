@@ -57,15 +57,15 @@ class UserList(Resource):
     @ns_usrs.marshal_list_with(usr, code=201)
     def post(self):
         """Registra un usuario nuevo"""
-        userlist = api.payload["usrs"]
+        userlist = api.payload
         # Session.begin() set automatically the commit once it takes out the with statement
         res = list()
-        with app.Session.begin() as session:
+        with app.Session() as session:
             for user in userlist:
                 res.append(Tb.User.register(**user))
             session.add_all(res)
             session.commit()
-        with app.Session.begin() as session:
+        with app.Session() as session:
             # Se generan los códigos qr de todos los usuarios agregados y se registra la contraseña
             qrs = list()
             passwords = list()
