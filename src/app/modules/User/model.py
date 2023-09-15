@@ -54,7 +54,7 @@ class User(Base):
         """Generate the qr code"""
         if self.qr_id is not None:
             return self.qr_id.code
-        return Tb.Qr.register(code=uuidgenerator()).code
+        return Tb.Qr.register(code=uuidgenerator(), usuario_id=self.id).code
 
     def validatepassword(self, password):
         return gethash(password) == self.password_id.hash
