@@ -1,10 +1,11 @@
 from flask import current_app as app
-from flask import redirect, render_template, url_for, request
+from flask import redirect, render_template, url_for, request, send_from_directory
 from flask_wtf import FlaskForm
 from flask_login import login_user, logout_user
 from sqlalchemy import select
 from wtforms import EmailField, StringField, BooleanField
 from wtforms.validators import DataRequired, Length
+from os.path import join as pathjoin
 
 
 def init_app(app):
@@ -49,3 +50,16 @@ def logout():
     """This endpoint is to logout the administrator"""
     logout_user()
     return redirect(url_for("login"))
+
+
+print("ROOT PATH")
+print(app.root_path)
+
+
+@app.route("/favicon.ico")
+def favicon():
+    return send_from_directory(
+        pathjoin(app.root_path, "static"),
+        "favicon.ico",
+        mimetype="image/vnd.microsoft.icon",
+    )
