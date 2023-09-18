@@ -33,9 +33,35 @@ class UserView(PermisionView):
     can_delete = False
     column_editable_list = ["is_active"]
     column_filters = ["nombres", "apellidos", "numeroidentificacion", "grado", "correo"]
-    form_excluded_columns = (
-        ["id", "correo", "timestamp", "password_id", "evaluacion"],
+    column_details_exclude_list = (
+        [
+            "id",
+            "correo",
+            "timestamp",
+            "password_id",
+            "calendario",
+            "evaluacion",
+            "qr_id",
+            "ausente",
+            "login",
+        ],
     )
+    form_columns = [
+        "perfil",
+        "grado",
+        "grupoetnico",
+        "is_active",
+        "nombres",
+        "apellidos",
+        "numeroidentificacion",
+        "fechaNacimiento",
+        "rh",
+        "telefonoContacto",
+        "correo",
+        "direccion",
+        "telefono",
+        "telefonoContacto",
+    ]
 
 
 def getviews() -> list:
