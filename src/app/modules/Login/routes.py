@@ -32,6 +32,9 @@ loginResponse = api.model(
         "email": fields.String(description="direccion de correo registrado"),
         "username": fields.String(description="Nombre del usario"),
         "qr": fields.String(description="Código QR del usuario"),
+        "active": fields.Boolean(
+            description="Indica si el usuario está activo en la plataforma"
+        ),
     },
 )
 
@@ -87,6 +90,7 @@ class Login(Resource):
             readedhash, user = session.execute(res).all()[0]
             userfullname = f"{user.nombres} {user.apellidos}"
             userqr = user.generateqr()
+            active = user.is_active
             if readedhash is None:
                 return "", 306
         if passwordhash == readedhash:
@@ -95,6 +99,7 @@ class Login(Resource):
             return {
                 "status": "authenticated",
                 "auth": True,
+                "active": active,
                 "fresh_access_token": "Bearer " + fresh_access_token,
                 "access_token": "Bearer " + access_token,
                 "email": email,
