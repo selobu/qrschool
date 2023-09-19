@@ -16,15 +16,15 @@ Attendance student list by reading QR codes
 
 Project status
 
-| Item             | status                                | missing | Due date MM/DD/YYYY |
-| ---------------- | ------------------------------------- | ------- | ------------------- |
-| GitHub Actions   | ![100%](https://progress-bar.dev/100) | done    | 08/11/2023          |
-| precommit checks | ![100%](https://progress-bar.dev/100) | done    | 08/14/2023          |
-| Gunicorn & Docker| ![90%](https://progress-bar.dev/90)   | Doing   | 09/25/2023          |
-| admin shell      | ![70%](https://progress-bar.dev/70)   | done    | 10/15/2023          |
-| create profiles  | ![100%](https://progress-bar.dev/100) | done    | 08/16/2023          |
-| Admin interfase  | ![75%](https://progress-bar.dev/75)   | Doing   | 09/30/2023          |
-| Api              | ![75%](https://progress-bar.dev/75)   | Doing   | 10/05/2023          |
-| Api test         | ![0%](https://progress-bar.dev/0)     | -       | -                   |
-| Documentation    | ![10%](https://progress-bar.dev/10)   | -       | -                   |
-| Frontend         | ![30%](https://progress-bar.dev/30)   | Doing   | 12/15/2023          |
+| Item              | status                                | missing | Due date MM/DD/YYYY |
+| ----------------- | ------------------------------------- | ------- | ------------------- |
+| GitHub Actions    | ![100%](https://progress-bar.dev/100) | done    | 08/11/2023          |
+| precommit checks  | ![100%](https://progress-bar.dev/100) | done    | 08/14/2023          |
+| Gunicorn & Docker | ![90%](https://progress-bar.dev/90)   | Doing   | 09/25/2023          |
+| admin shell       | ![90%](https://progress-bar.dev/90)   | done    | 10/15/2023          |
+| create profiles   | ![100%](https://progress-bar.dev/100) | done    | 08/16/2023          |
+| Admin interfase   | ![75%](https://progress-bar.dev/75)   | Doing   | 09/30/2023          |
+| Api               | ![75%](https://progress-bar.dev/75)   | Doing   | 10/05/2023          |
+| Api test          | ![0%](https://progress-bar.dev/0)     | -       | -                   |
+| Documentation     | ![10%](https://progress-bar.dev/10)   | -       | -                   |
+| Frontend          | ![30%](https://progress-bar.dev/30)   | Doing   | 12/15/2023          |
