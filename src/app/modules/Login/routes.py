@@ -35,6 +35,7 @@ loginResponse = api.model(
         "active": fields.Boolean(
             description="Indica si el usuario está activo en la plataforma"
         ),
+        "modules": fields.List(fields.String(description="Modulo con permiso")),
     },
 )
 
@@ -88,11 +89,30 @@ class Login(Resource):
                 .filter(Tb.User.correo == email)
             )
             readedhash, user = session.execute(res).all()[0]
+            readmodules = False
+            if user.perfil is not None:
+                perfil = user.perfil_nombre.name
+                readmodules = True
+            else:
+                modules = []
+
             userfullname = f"{user.nombres} {user.apellidos}"
             userqr = user.generateqr()
             active = user.is_active
             if readedhash is None:
                 return "", 306
+        if readmodules:
+            with app.Session() as session:
+                res = (
+                    select(Tb.Module.modulename)
+                    .join(Tb.PerfilModuloLnk.perfil)
+                    .join(Tb.PerfilModuloLnk.modulo)
+                    .filter(Tb.Perfil.nombreperfil == perfil)
+                    .filter(Tb.PerfilModuloLnk.has_permision == True)  # noqa: E712
+                )
+
+                modules = [r[0] for r in session.execute(res).all()]
+
         if passwordhash == readedhash:
             access_token = create_access_token(identity=email, fresh=True)
             fresh_access_token = create_refresh_token(identity=email)
@@ -105,5 +125,6 @@ class Login(Resource):
                 "email": email,
                 "username": userfullname,
                 "qr": userqr,
+                "modules": modules,
             }, 200
         return "", 305
