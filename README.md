@@ -20,11 +20,11 @@ Project status
 | ---------------- | ------------------------------------- | ------- | ------------------- |
 | GitHub Actions   | ![100%](https://progress-bar.dev/100) | done    | 08/11/2023          |
 | precommit checks | ![100%](https://progress-bar.dev/100) | done    | 08/14/2023          |
-| Gunicorn & Docker| ![90%](https://progress-bar.dev/90)   | Doing   | 08/25/2023          |
-| admin shell      | ![60%](https://progress-bar.dev/60)   | done    | 09/05/2023          |
+| Gunicorn & Docker| ![90%](https://progress-bar.dev/90)   | Doing   | 09/25/2023          |
+| admin shell      | ![70%](https://progress-bar.dev/70)   | done    | 10/15/2023          |
 | create profiles  | ![100%](https://progress-bar.dev/100) | done    | 08/16/2023          |
-| Admin interfase  | ![70%](https://progress-bar.dev/70)   | Doing   | 08/30/2023          |
-| Api              | ![65%](https://progress-bar.dev/65)   | Doing   | 09/05/2023          |
+| Admin interfase  | ![75%](https://progress-bar.dev/75)   | Doing   | 09/30/2023          |
+| Api              | ![75%](https://progress-bar.dev/75)   | Doing   | 10/05/2023          |
 | Api test         | ![0%](https://progress-bar.dev/0)     | -       | -                   |
 | Documentation    | ![10%](https://progress-bar.dev/10)   | -       | -                   |
-| Frontend         | ![0%](https://progress-bar.dev/0)     | -       | -                   |
+| Frontend         | ![30%](https://progress-bar.dev/30)   | Doing   | 12/15/2023          |
