@@ -222,6 +222,7 @@ def map_name_to_shell(func):
     if func.__name__ in shell_decorated:
         raise Exception(f"ya esta declarada la tabla {func.__name__}")
     shell_decorated[func.__name__] = func
+    return func
 
 
 # based on https://stackoverflow.com/questions/3365740/how-to-import-all-submodules

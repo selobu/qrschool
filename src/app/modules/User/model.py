@@ -75,7 +75,9 @@ class User(Base):
         return res
 
 
+@map_name_to_table
 class PerfilSchool(Enum):
+    SIN = "sin"
     ESTUDIANTE = "estudiante"
     DOCENTE = "docente"
     ACUDIENTE = "acudiente"

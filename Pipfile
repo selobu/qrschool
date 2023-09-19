@@ -31,6 +31,7 @@ flask-admin = "==1.6.1"
 flask-wtf = "*"
 flask-bootstrap4 = "==4.0.2"
 flask-login = "*"
+click = "*"
 
 [dev-packages]
 

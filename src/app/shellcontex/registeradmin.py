@@ -6,26 +6,17 @@ from app.toolsapk import Tb, gethash
 import getpass
 
 
-@map_name_to_shell
-def registeradmin():
-    print("* Admin register")
-    name = input("name: ")
-    lastname = input("last name: ")
-    numeroidentificacion = input("Id number: ")
-    fechaNacimiento = input("Fecha nacimiento YYYY-MM-DD: ")
-    rh = input("rh: ")
-    direccion = input("direccion: ")
-    telefono = input("telefono: ")
-    email = input("Email: ")
-
-    while True:
-        password = getpass.getpass(prompt="Password: ", stream=None)
-        password2 = getpass.getpass(prompt="confirm password: ", stream=None)
-        if password != password2:
-            print("Password confirm must be the same")
-            continue
-        else:
-            break
+def regadmin(
+    name,
+    lastname,
+    numeroidentificacion,
+    fechaNacimiento,
+    rh,
+    direccion,
+    telefono,
+    email,
+    password,
+):
     with app.Session() as session:
         user = Tb.User.register(
             is_active=True,
@@ -48,4 +39,39 @@ def registeradmin():
         password = Tb.Auth.register(usuario_id=userid, hash=gethash(password))
         session.add(password)
         session.commit()
-        print("Usuario administrador creado exitosamente")
+
+
+@map_name_to_shell
+def registeradmin():
+    print("* Admin register")
+    name = input("name: ")
+    lastname = input("last name: ")
+    numeroidentificacion = input("Id number: ")
+    fechaNacimiento = input("Fecha nacimiento YYYY-MM-DD: ")
+    rh = input("rh: ")
+    direccion = input("direccion: ")
+    telefono = input("telefono: ")
+    email = input("Email: ")
+
+    while True:
+        password = getpass.getpass(prompt="Password: ", stream=None)
+        password2 = getpass.getpass(prompt="confirm password: ", stream=None)
+        if password != password2:
+            print("Password confirm must be the same")
+            continue
+        else:
+            break
+
+    regadmin(
+        name,
+        lastname,
+        numeroidentificacion,
+        fechaNacimiento,
+        rh,
+        direccion,
+        telefono,
+        email,
+        password,
+    )
+
+    print("Usuario administrador creado exitosamente")

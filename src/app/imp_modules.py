@@ -30,7 +30,9 @@ def modulesResolver(app, enabled_modules=None, **kwargs):
                 f"app.modules.{module_name}.routes", package=__name__
             )
         except ModuleNotFoundError as e:
-            print(f"-> No se pudo importar  app.{module_name}.routes\n{e}")
+            e
+            pass
+            # print(f"-> No se pudo importar  app.{module_name}.routes\n{e}")
         if False:
             for element in dir(route):
                 attr = getattr(route, element)

@@ -1,6 +1,7 @@
 # coding:utf-8
 
 from os import environ
+from typing import Union
 
 from pydantic_settings import BaseSettings
 
@@ -12,6 +13,12 @@ host = environ.get("MYSQL_HOST", "localhost")
 user = environ.get("MYSQL_USER", "root")
 userpassword = environ.get("MYSQL_PASSWORD", "adminpassword123")
 jwt_key = environ.get("JWT_SECRET_KEY", "superSecretpasswordneeds2BeChanged")
+echo_value = environ.get("ECHO", False)
+if isinstance(echo_value, str):
+    if echo_value.lower() in ["true", "t"]:
+        echo_value = True
+    else:
+        echo_value = False
 
 
 class Settings(BaseSettings):
@@ -34,6 +41,7 @@ class Settings(BaseSettings):
     jwt_key: str = jwt_key
     app: object = {}
     engine: object = {}
+    echo: Union[str, bool] = echo_value
 
 
 settings = Settings()

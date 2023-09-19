@@ -11,10 +11,13 @@ from app.imp_modules import modulesResolver
 from app.toolsapk import Tb, db
 
 from flask_login import LoginManager
+from app.shellcontex import cli
 
 csrf = CSRFProtect()
 login_manager = LoginManager()
 login_manager.session_protection = "strong"
+
+# adding shell commmands
 
 
 def create_app(
@@ -81,7 +84,7 @@ def create_app(
 
         modulesResolver(app)
         engine = settings.engine = create_engine(
-            settings.database_uri, pool_recycle=3600, echo=True
+            settings.database_uri, pool_recycle=3600, echo=settings.echo
         )
 
         setattr(app, "engine", engine)
@@ -90,5 +93,6 @@ def create_app(
 
         admin.init_app(app)
         shellcontex.init_app(app)
+        cli.init_app(app)
 
         return app
