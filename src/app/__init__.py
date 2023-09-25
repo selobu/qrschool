@@ -12,12 +12,12 @@ from app.toolsapk import Tb, db
 
 from app.shellcontex import cli
 from flask_migrate import Migrate
-from app import jwt, loginmanager
+from app import jwt, loginmanager, shellcontex, admin, modules, routes
 
 csrf = CSRFProtect()
 
 
-def create_app(settings):
+def create_app(settings=Config):
     """Contruct the core application."""
     app = Flask(__name__, static_folder="static", template_folder="templates")
     app.config.from_object(Config)
@@ -27,14 +27,7 @@ def create_app(settings):
 
     with app.app_context():
         csrf.init_app(app)
-        from . import modules, routes
-        from . import admin
-        from . import shellcontex
-
         api = modules.init_app(app, csrf=csrf)
-        # setting up additional routes
-        routes.init_app(app)
-
         engine = settings.engine = create_engine(
             settings.SQLALCHEMY_DATABASE_URI, pool_recycle=3600, echo=settings.echo
         )
@@ -48,12 +41,11 @@ def create_app(settings):
             "Session": Session,
             "api": api,
         }
-
         for key, value in items.items():
             if not hasattr(app, key):
                 setattr(app, key, value)
-
         modulesResolver(app)
+        routes.init_app(app)
         loginmanager.init_app(app)
         jwt.init_app(app)
         admin.init_app(app)
