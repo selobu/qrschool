@@ -11,10 +11,9 @@ from app.apitools import (
     get_model,
     put_model,
 )
-from app.config import settings
 from app.toolsapk import Tb
 
-api = settings.app.api  # type: ignore
+api = current_app.api  # type: ignore
 ns_matricula = api.namespace("matricula", description="Gestionar matriculas")
 
 grado = createApiModel(api, Tb.Grado, "Grado")  # type: ignore

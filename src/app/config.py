@@ -3,8 +3,6 @@
 from os import environ
 from typing import Union
 
-from pydantic_settings import BaseSettings
-
 adminpassword = environ.get("MYSQL_ROOT_PASSWORD")
 adminuser = environ.get("MYSQL_ROOT_USER")
 port = environ.get("MYSQL_PORT", "3306")
@@ -22,14 +20,15 @@ if isinstance(echo_value, str):
         echo_value = False
 
 
-class Settings(BaseSettings):
-    api_name: str = "QRSchool api"
-    version: str = "0.0.2"
-    api_description: str = "[source code](https://github.com/selobu/my_url)"
+class Config:
+    API_NAME: str = "QRSchool api"
+    VERSION: str = "0.0.2"
+    API_URL_PREFIX: str = "/api"
+    API_DESCRIPTION: str = "[source code](https://github.com/selobu/my_url)"
     admin_email: str = ""
     items_per_user: int = 50
-    database_test_uri: str = "sqlite:///database.db"
-    api_contact: object = {
+    SQLALCHEMY_DATABASE_TEST_URI: str = "sqlite:///database.db"
+    API_CONTACT: object = {
         "name": "lteam",
         "email": "sebastian.lopez@gestionhseq.com",
         "url": "https://lteam.gestionhseq.com",
@@ -39,11 +38,25 @@ class Settings(BaseSettings):
         f"mysql+pymysql://{user}:{userpassword}@{host}:{port}/{database}"
     )
     # SQLALCHEMY_DATABASE_URI: str = "sqlite:///database.db"
-    jwt_key: str = jwt_key
+    JWT_SECRET_KEY: str = jwt_key
+    WTF_CSRF_SECRET_KEY: str = jwt_key * 2
     app: object = {}
     engine: object = {}
     echo: Union[str, bool] = echo_value
-    appname: str = appname
+    APP_NAME: str = appname
+    FLASK_ADMIN_SWATCH: str = "cerulean"  # admin bootswatch theme
+    ADMIN_TEMPLATE_NAME: str = "bootstrap4"
+    TESTING = False
 
 
-settings = Settings()
+class ProductionConfig(Config):
+    DATABASE_URI = "mysql://user@localhost/foo"
+
+
+class DevelopmentConfig(Config):
+    DATABASE_URI = "sqlite:////tmp/foo.db"
+
+
+class TestingConfig(Config):
+    DATABASE_URI = "sqlite:///:memory:"
+    TESTING = True

@@ -4,10 +4,9 @@ from sqlalchemy import select
 from flask_jwt_extended import jwt_required
 
 from app.apitools import createApiModel
-from app.config import settings
 from app.toolsapk import Tb, gethash, uuidgenerator
 
-api = settings.app.api  # type: ignore
+api = app.api  # type: ignore
 ns_usrs = api.namespace("usuario", description="Gestionar usuarios")
 
 usr = createApiModel(api, Tb.User, "Usuario", readonlyfields=["active"])  # type: ignore

@@ -8,10 +8,9 @@ from flask_jwt_extended import (
 from flask_restx import Resource, fields
 from sqlalchemy import select
 
-from app.config import settings
 from app.toolsapk import Tb, gethash
 
-api = settings.app.api  # type: ignore
+api = app.api  # type: ignore
 ns_login = api.namespace("login", description="autenticacion")
 
 auth = api.model(

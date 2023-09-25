@@ -4,10 +4,9 @@ from flask_restx import Resource, fields
 from sqlalchemy import select
 
 from app.apitools import createApiModel
-from app.config import settings
 from app.toolsapk import Tb
 
-api = settings.app.api  # type: ignore
+api = app.api  # type: ignore
 ns_qrs = api.namespace("qr", description="Gestionar códigos")
 
 qr = createApiModel(api, Tb.Qr, "Código Qr")  # type: ignore

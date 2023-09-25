@@ -5,9 +5,8 @@ from flask import current_app
 from sqlalchemy import types, select
 from sqlalchemy.inspection import inspect
 from functools import wraps
-from app.config import settings
 
-api = settings.app.api  # type: ignore
+api = current_app.api  # type: ignore
 
 _not_allowed = ["TypeEngine", "TypeDecorator", "UserDefinedType", "PickleType"]
 conversion = {
