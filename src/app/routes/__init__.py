@@ -52,10 +52,6 @@ def logout():
     return redirect(url_for("login"))
 
 
-print("ROOT PATH")
-print(app.root_path)
-
-
 @app.route("/favicon.ico")
 def favicon():
     return send_from_directory(

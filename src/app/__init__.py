@@ -12,6 +12,7 @@ from app.toolsapk import Tb, db
 
 from flask_login import LoginManager
 from app.shellcontex import cli
+from flask_migrate import Migrate
 
 csrf = CSRFProtect()
 login_manager = LoginManager()
@@ -94,5 +95,6 @@ def create_app(
         admin.init_app(app)
         shellcontex.init_app(app)
         cli.init_app(app)
+        Migrate(app, db)
 
         return app
