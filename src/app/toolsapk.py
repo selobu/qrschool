@@ -1,4 +1,4 @@
-__all__ = ["db", "Tb", "select", "uuidgenerator", "now", "Base", "import_submodules"]
+__all__ = ["Tb", "select", "uuidgenerator", "now", "Base", "import_submodules"]
 import hashlib
 from datetime import datetime, timedelta
 from functools import wraps
@@ -7,7 +7,8 @@ from uuid import uuid4
 from flask import abort
 from flask import current_app as app
 from flask_jwt_extended import current_user, jwt_required
-from flask_sqlalchemy import SQLAlchemy
+
+# from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import select
 from sqlalchemy.inspection import inspect
 from sqlalchemy.orm import DeclarativeBase, class_mapper
@@ -15,18 +16,11 @@ from sqlalchemy.orm import DeclarativeBase, class_mapper
 from glob import iglob
 from os.path import basename, relpath, sep, splitext
 
-db = SQLAlchemy(
-    engine_options={"pool_recycle": 280}, session_options={"autoflush": False}
-)
-
 authorizations = {"Bearer": {"type": "apiKey", "in": "header", "name": "Authorization"}}
 
-# def select(*args, **kwargs):
-#    return db.session.query(*args, **kwargs)
 
-
-class TbContainer(object):
-    pass
+class TbContainer:
+    ...
 
 
 Tb = TbContainer()
@@ -62,10 +56,10 @@ def map_name_to_table(cls):
                     )
                 )
                 res = session.execute(res).all()
-            if len(res) == 0:
-                model = cls()
-            else:
-                model = res[0][0]
+                if len(res) == 0:
+                    model = cls()
+                else:
+                    model = res[0][0]
         for primary_key in primary_keys:
             if primary_key.name in kwargs:
                 setattr(model, primary_key.name, kwargs.pop(primary_key.name))
@@ -77,10 +71,10 @@ def map_name_to_table(cls):
         for key, value in kwargs.items():
             if hasattr(model, key) and key in columns:
                 # Se identifica si la columna es de tipo Date o DateTime
-                if isinstance(columns[key].type, db.Date):
+                if isinstance(columns[key].type, app.dbDate):
                     if isinstance(value, (str, bytearray)):
                         value = datetime.strptime(value, "%Y-%m-%d").date()
-                elif isinstance(columns[key].type, db.DateTime):
+                elif isinstance(columns[key].type, app.dbDateTime):
                     if isinstance(value, (str, bytearray)):
                         # se trata de hacer la conversion del valor
                         posibleformats = [
@@ -102,7 +96,7 @@ def map_name_to_table(cls):
                         for key, value in inspect(cls).relationships.items()
                     )
                 except Exception:
-                    # db.session.rollback()
+                    # app.dbsession.rollback()
                     relationitems = []
                 if key in relationitems:
                     # se consulta la llave foranea
@@ -115,7 +109,7 @@ def map_name_to_table(cls):
                         filters[_keys[0]] = value
                     else:
                         print(
-                            f"{key} - omititda. Basemodel no puede registrar multiples llaves"
+                            f"{key} - omitida. Basemodel no puede registrar multiples llaves"
                         )
                         continue
                     value = select(table).filter_by(**filters).one()
@@ -123,9 +117,9 @@ def map_name_to_table(cls):
                 setattr(model, key, value)
             else:
                 raise f"<{model.__table__.name}> Invalid parameter {key}"
-        # db.session.add(model)
+        # app.dbsession.add(model)
         if commit:
-            db.session.commit()
+            app.dbsession.commit()
         return model
 
     if "register" not in cls.__dict__:
@@ -139,11 +133,11 @@ def map_name_to_table(cls):
         def delete(primary_key_value):
             # no se borra el proyecto solo se hace inactivo
             model = cls.query.get_or_404(primary_key_value)
-            db.session.delete(model)
+            app.dbsession.delete(model)
             try:
-                db.session.commit()
+                app.dbsession.commit()
             except Exception:
-                db.session.rollback()
+                app.dbsession.rollback()
                 raise Exception(f"{model.__repr__} no se pudo eliminar")
 
         setattr(cls, "delete", delete)
@@ -166,7 +160,7 @@ def now():
 
 
 class Base(DeclarativeBase):
-    pass
+    ...
 
 
 def gethash(password: str) -> str:

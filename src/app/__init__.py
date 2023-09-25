@@ -4,15 +4,18 @@ from flask import Flask
 from flask_wtf.csrf import CSRFProtect
 from flask_bootstrap import Bootstrap
 from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker
+from sqlalchemy.orm import sessionmaker, scoped_session
 
 from app.config import Config
 from app.imp_modules import modulesResolver
-from app.toolsapk import Tb, db
+from app.toolsapk import Tb
 
 from app.shellcontex import cli
 from flask_migrate import Migrate
 from app import jwt, loginmanager, shellcontex, admin, modules, routes
+from flask_cors import CORS
+
+from flask_sqlalchemy import SQLAlchemy
 
 csrf = CSRFProtect()
 
@@ -28,13 +31,18 @@ def create_app(settings=Config):
     with app.app_context():
         csrf.init_app(app)
         api = modules.init_app(app, csrf=csrf)
-        engine = settings.engine = create_engine(
-            settings.SQLALCHEMY_DATABASE_URI, pool_recycle=3600, echo=settings.echo
+        engine = create_engine(
+            settings.SQLALCHEMY_DATABASE_URI,
+            pool_recycle=3600,
+            echo=settings.echo,
         )
-        Session = sessionmaker(engine, expire_on_commit=False)
+        Session = scoped_session(
+            sessionmaker(
+                bind=engine, expire_on_commit=False, autocommit=False, autoflush=False
+            )
+        )
 
         items = {
-            "db": db,
             "Tb": Tb,
             "adminview": dict(),
             "engine": engine,
@@ -51,7 +59,8 @@ def create_app(settings=Config):
         admin.init_app(app)
         shellcontex.init_app(app)
         cli.init_app(app)
-        Migrate(app, db)
+        Migrate(app, SQLAlchemy(app))
         Bootstrap(app)
+        CORS(app, resources={r"/api/*": {"origins": "*"}})
 
         return app

@@ -34,9 +34,7 @@ class Config:
         "url": "https://lteam.gestionhseq.com",
         "telegram": "https://t.me/selopez",
     }
-    SQLALCHEMY_DATABASE_URI: str = (
-        f"mysql+pymysql://{user}:{userpassword}@{host}:{port}/{database}"
-    )
+    SQLALCHEMY_DATABASE_URI: str = "sqlite:///:memory:"
     # SQLALCHEMY_DATABASE_URI: str = "sqlite:///database.db"
     JWT_SECRET_KEY: str = jwt_key
     WTF_CSRF_SECRET_KEY: str = jwt_key * 2
@@ -50,13 +48,15 @@ class Config:
 
 
 class ProductionConfig(Config):
-    DATABASE_URI = "mysql://user@localhost/foo"
+    SQLALCHEMY_DATABASE_URI = (
+        f"mysql+pymysql://{user}:{userpassword}@{host}:{port}/{database}"
+    )
 
 
 class DevelopmentConfig(Config):
-    DATABASE_URI = "sqlite:////tmp/foo.db"
+    SQLALCHEMY_DATABASE_URI = "sqlite:////tmp/foo.db"
 
 
 class TestingConfig(Config):
-    DATABASE_URI = "sqlite:///:memory:"
+    SQLALCHEMY_DATABASE_URI = "sqlite:///:memory:"
     TESTING = True
