@@ -17,25 +17,7 @@ block head_css%} {{ super() }}
     <br />
 
     <div class="row flex-sb flex-w">
-      <div class="mx-auto">
-        {% if current_user.is_anonymous %}
-        <a
-          class="btn btn-lg btn-redirect btn-primary btn-block submit"
-          type="submit"
-          href="{{url_for('login')}}"
-        >
-          Ingresar
-        </a>
-        {% else %}
-        <a
-          class="btn btn-lg btn-redirect btn-danger btn-block submit"
-          type="submit"
-          href="{{url_for('logout')}}"
-        >
-          Salir
-        </a>
-        {% endif %}
-      </div>
+      <div class="mx-auto"></div>
     </div>
   </div>
 </div>

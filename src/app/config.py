@@ -14,6 +14,7 @@ user = environ.get("MYSQL_USER", "root")
 userpassword = environ.get("MYSQL_PASSWORD", "adminpassword123")
 jwt_key = environ.get("JWT_SECRET_KEY", "superSecretpasswordneeds2BeChanged")
 echo_value = environ.get("ECHO", False)
+appname = environ.get("APPNAME", "QRSChool")
 if isinstance(echo_value, str):
     if echo_value.lower() in ["true", "t"]:
         echo_value = True
@@ -22,7 +23,7 @@ if isinstance(echo_value, str):
 
 
 class Settings(BaseSettings):
-    api_name: str = "Schoolar backend api"
+    api_name: str = "QRSchool api"
     version: str = "0.0.2"
     api_description: str = "[source code](https://github.com/selobu/my_url)"
     admin_email: str = ""
@@ -42,6 +43,7 @@ class Settings(BaseSettings):
     app: object = {}
     engine: object = {}
     echo: Union[str, bool] = echo_value
+    appname: str = appname
 
 
 settings = Settings()
