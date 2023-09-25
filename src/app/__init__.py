@@ -85,7 +85,7 @@ def create_app(
 
         modulesResolver(app)
         engine = settings.engine = create_engine(
-            settings.database_uri, pool_recycle=3600, echo=settings.echo
+            settings.SQLALCHEMY_DATABASE_URI, pool_recycle=3600, echo=settings.echo
         )
 
         setattr(app, "engine", engine)
@@ -95,6 +95,9 @@ def create_app(
         admin.init_app(app)
         shellcontex.init_app(app)
         cli.init_app(app)
+
+        app.config["SQLALCHEMY_DATABASE_URI"] = settings.SQLALCHEMY_DATABASE_URI
+        print(settings.SQLALCHEMY_DATABASE_URI)
         Migrate(app, db)
 
         return app

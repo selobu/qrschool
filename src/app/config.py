@@ -35,10 +35,10 @@ class Settings(BaseSettings):
         "url": "https://lteam.gestionhseq.com",
         "telegram": "https://t.me/selopez",
     }
-    database_uri: str = (
+    SQLALCHEMY_DATABASE_URI: str = (
         f"mysql+pymysql://{user}:{userpassword}@{host}:{port}/{database}"
     )
-    # database_uri: str = "sqlite:///database.db"
+    # SQLALCHEMY_DATABASE_URI: str = "sqlite:///database.db"
     jwt_key: str = jwt_key
     app: object = {}
     engine: object = {}
