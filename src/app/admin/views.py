@@ -1,12 +1,21 @@
 __all__ = ["getviews"]
+
+import flask_admin as admin
+from flask_admin import expose
 from flask_admin.contrib.sqla import ModelView
 from app.toolsapk import Tb
-from flask import current_app as app
+from flask import current_app as app, redirect, url_for, request
 from flask_login import current_user
 
 
 def modelview(model, **kwargs) -> ModelView:
     return ModelView(model, app.Session(), **kwargs)
+
+
+def isactive():
+    if current_user is None:
+        return False
+    return current_user.is_active
 
 
 class PermisionView(ModelView):
@@ -15,8 +24,12 @@ class PermisionView(ModelView):
             return False
         return current_user.is_active
 
+    def inaccessible_callback(self, name, **kwargs):
+        # redirect to login page if user doesn't have access
+        return redirect(url_for("login", next=request.url))
 
-class PerfilModuoleview(PermisionView):
+
+class PerfilModuleview(PermisionView):
     # form_base_class = SecureForm
     can_create = False
     can_edit = True
@@ -68,5 +81,19 @@ def getviews() -> list:
     views = list()
 
     views.append(UserView(Tb.User, app.Session()))  # type: ignore
-    views.append(PerfilModuoleview(Tb.PerfilModuloLnk, app.Session(), name="Permisos"))  # type: ignore
+    views.append(PerfilModuleview(Tb.PerfilModuloLnk, app.Session(), name="Permisos"))  # type: ignore
     return views
+
+
+# Create customized index view class that handles login & registration
+class MyAdminIndexView(admin.AdminIndexView):
+    @expose("/")
+    def index(self):
+        if not isactive():
+            return redirect(url_for("login"))
+        return super(MyAdminIndexView, self).index()
+
+    @expose("/logout/")
+    def logout_view(self):
+        # login.logout_user()
+        return redirect(url_for("index"))
