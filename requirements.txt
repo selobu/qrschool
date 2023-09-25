@@ -51,3 +51,4 @@ flask_wtf==1.1.1
 Flask-Bootstrap4==4.0.2
 Flask-login==0.6.2
 gunicorn==21.2.0
+Flask_Migrate=4.0.5
