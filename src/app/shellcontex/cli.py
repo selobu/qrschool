@@ -23,7 +23,6 @@ def _listsubmodules(filepath):
 
 
 def init_app(app):
-
     cli = AppGroup("cli", help="Command line system administration")
 
     @cli.command(help="Create tables and relationships")
