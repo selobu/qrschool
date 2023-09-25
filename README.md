@@ -16,15 +16,16 @@ Attendance student list by reading QR codes
 
 Project status
 
-| Item              | status                                | missing | Due date MM/DD/YYYY |
-| ----------------- | ------------------------------------- | ------- | ------------------- |
-| GitHub Actions    | ![100%](https://progress-bar.dev/100) | done    | 08/11/2023          |
-| precommit checks  | ![100%](https://progress-bar.dev/100) | done    | 08/14/2023          |
-| Gunicorn & Docker | ![90%](https://progress-bar.dev/90)   | Doing   | 09/25/2023          |
-| admin shell       | ![100%](https://progress-bar.dev/100) | done    | 09/25/2023          |
-| create profiles   | ![100%](https://progress-bar.dev/100) | done    | 08/16/2023          |
-| Admin interfase   | ![80%](https://progress-bar.dev/80)   | Doing   | 09/30/2023          |
-| Api               | ![75%](https://progress-bar.dev/75)   | Doing   | 10/05/2023          |
-| Api test          | ![0%](https://progress-bar.dev/0)     | -       | -                   |
-| Documentation     | ![10%](https://progress-bar.dev/10)   | -       | -                   |
-| Frontend          | ![35%](https://progress-bar.dev/35)   | Doing   | 12/15/2023          |
+| Item              | status                                | Due date MM/DD/YYYY |
+| ----------------- | ------------------------------------- | ------------------- |
+| GitHub Actions    | ![100%](https://progress-bar.dev/100) | 08/11/2023          |
+| precommit checks  | ![100%](https://progress-bar.dev/100) | 08/14/2023          |
+| Gunicorn & Docker | ![90%](https://progress-bar.dev/90)   | 09/25/2023          |
+| admin shell       | ![100%](https://progress-bar.dev/100) | 09/25/2023          |
+| create profiles   | ![100%](https://progress-bar.dev/100) | 08/16/2023          |
+| Admin interfase   | ![80%](https://progress-bar.dev/80)   | 09/30/2023          |
+| Api               | ![75%](https://progress-bar.dev/75)   | 10/05/2023          |
+| Api test          | ![0%](https://progress-bar.dev/0)     | -                   |
+| DB migrations     | ![80%](https://progress-bar.dev/80)   | 10/15/2023          |
+| Documentation     | ![10%](https://progress-bar.dev/10)   | -                   |
+| Frontend          | ![35%](https://progress-bar.dev/35)   | 12/15/2023          |
