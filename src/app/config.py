@@ -27,15 +27,13 @@ class Config:
     API_DESCRIPTION: str = "[source code](https://github.com/selobu/my_url)"
     admin_email: str = ""
     items_per_user: int = 50
-    SQLALCHEMY_DATABASE_TEST_URI: str = "sqlite:///database.db"
     API_CONTACT: object = {
         "name": "lteam",
         "email": "sebastian.lopez@gestionhseq.com",
         "url": "https://lteam.gestionhseq.com",
         "telegram": "https://t.me/selopez",
     }
-    SQLALCHEMY_DATABASE_URI: str = "sqlite:///:memory:"
-    # SQLALCHEMY_DATABASE_URI: str = "sqlite:///database.db"
+    SQLALCHEMY_DATABASE_URI: str = "sqlite:///database.db"
     JWT_SECRET_KEY: str = jwt_key
     WTF_CSRF_SECRET_KEY: str = jwt_key * 2
     app: object = {}
