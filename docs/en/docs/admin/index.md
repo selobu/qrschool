@@ -18,7 +18,7 @@ $ pipenv shell
 
 ## Upgrade database to latest version
 
-=== CLI
+=== "CLI"
 
 ```bash
 $ flask db upgrade
@@ -38,7 +38,7 @@ Add an addmin
 $ flask cli addadmin
 ```
 
-=== shell
+=== "shell"
 
 ```bash
 $ flask shell
