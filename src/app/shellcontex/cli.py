@@ -118,7 +118,7 @@ def init_app(app):
                 session.commit()
 
     @cli.command(help="Permision refresh by profile")
-    def updatepermisions():
+    def updatepermissions():
         click.echo("Updating profile permisions")
         # actualizar los modulos
         with app.Session() as session:
