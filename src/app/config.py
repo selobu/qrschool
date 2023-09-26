@@ -1,7 +1,6 @@
 # coding:utf-8
 
 from os import environ
-from typing import Union
 
 adminpassword = environ.get("MYSQL_ROOT_PASSWORD")
 adminuser = environ.get("MYSQL_ROOT_USER")
@@ -20,7 +19,7 @@ if isinstance(echo_value, str):
         echo_value = False
 
 
-class Config:
+class Config(object):
     API_NAME: str = "QRSchool api"
     VERSION: str = "0.0.2"
     API_URL_PREFIX: str = "/api"
@@ -38,11 +37,11 @@ class Config:
     WTF_CSRF_SECRET_KEY: str = jwt_key * 2
     app: object = {}
     engine: object = {}
-    echo: Union[str, bool] = echo_value
+    ECHO: bool = echo_value  # type:ignore
     APP_NAME: str = appname
     FLASK_ADMIN_SWATCH: str = "cerulean"  # admin bootswatch theme
     ADMIN_TEMPLATE_NAME: str = "bootstrap4"
-    TESTING = False
+    TESTING: bool = False
 
 
 class ProductionConfig(Config):
