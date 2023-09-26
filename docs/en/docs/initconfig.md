@@ -35,7 +35,7 @@ $ flask cli updatepermissions
 Add an addmin
 
 ```bash
-$ flask db addadmin
+$ flask cli addadmin
 ```
 
 ### Using the shell
@@ -49,7 +49,7 @@ $ flask shell
 
 Please use the function whatsnext()
 
-```python
+```bash
 >>> whatsnext()
 Would you like to create tables? y/n [n]:
 ```
