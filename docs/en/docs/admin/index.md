@@ -19,38 +19,42 @@ $ pipenv shell
 ## Upgrade database to latest version
 
 === "CLI"
-   ```bash
-   $ flask db upgrade
-   ```
+      Command line application
 
-   Update modules lists, profiles and permissions
+      ```console
+      $ flask db upgrade
+      ```
 
-   ```bash
-   $ flask cli modulesrefresh
-   $ flask cli updateprofiles
-   $ flask cli updatepermissions
-   ```
+      Update modules lists, profiles and permissions
 
-   Add an addmin
+      ```console
+      $ flask cli modulesrefresh
+      $ flask cli updateprofiles
+      $ flask cli updatepermissions
+      ```
 
-   ```bash
-   $ flask cli addadmin
-   ```
+      Add an addmin
 
-=== "shell"
-   ```bash
-   $ flask shell
-   >>> dir()
-   ['Session', 'Tb', '__builtins__', 'app', 'createdb', 'db', 'g', 'registeradmin', 'whatsnext']
-   >>>
-   ```
+      ```console
+      $ flask cli addadmin
+      ```
 
-   Please use the function whatsnext()
+=== "Shell"
+      Using interactive shell
 
-   ```bash
-   >>> whatsnext()
-   Would you like to create tables? y/n [n]:
-   ```
+      ```console
+      $ flask shell
+      >>> dir()
+      ['Session', 'Tb', '__builtins__', 'app', 'createdb', 'db', 'g', 'registeradmin', 'whatsnext']
+      >>>
+      ```
+
+      Please use the function whatsnext()
+
+      ```bash
+      >>> whatsnext()
+      Would you like to create tables? y/n [y]:
+      ```
 
 The command line application will guide you through the rest of the setup
 process including:

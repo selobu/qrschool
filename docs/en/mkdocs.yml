@@ -54,6 +54,11 @@ nav:
       - about/license.md
       - about/contact.md
 markdown_extensions:
+  pymdownx.superfences:
+    custom_fences:
+      - name: mermaid
+        class: mermaid
+        format: !!python/name:pymdownx.superfences.fence_code_format ""
   pymdownx.tabbed:
     alternate_style: true
 extra_css:
