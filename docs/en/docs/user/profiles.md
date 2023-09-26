@@ -21,6 +21,6 @@ by using the api admin endpoint
 
 Using the provided web interface you can update profile permissions
 
-![permisions](./img/image.png)
+![permisions](../img/image.png)
 
 Those permissions are updated immediately.
