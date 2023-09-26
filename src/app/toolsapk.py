@@ -12,6 +12,7 @@ from flask_jwt_extended import current_user, jwt_required
 from sqlalchemy import select
 from sqlalchemy.inspection import inspect
 from sqlalchemy.orm import DeclarativeBase, class_mapper
+from sqlalchemy import Date, DateTime
 
 from glob import iglob
 from os.path import basename, relpath, sep, splitext
@@ -71,10 +72,10 @@ def map_name_to_table(cls):
         for key, value in kwargs.items():
             if hasattr(model, key) and key in columns:
                 # Se identifica si la columna es de tipo Date o DateTime
-                if isinstance(columns[key].type, app.dbDate):
+                if isinstance(columns[key].type, Date):
                     if isinstance(value, (str, bytearray)):
                         value = datetime.strptime(value, "%Y-%m-%d").date()
-                elif isinstance(columns[key].type, app.dbDateTime):
+                elif isinstance(columns[key].type, DateTime):
                     if isinstance(value, (str, bytearray)):
                         # se trata de hacer la conversion del valor
                         posibleformats = [
