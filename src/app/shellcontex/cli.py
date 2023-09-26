@@ -54,7 +54,7 @@ def init_app(app):
             res = select(Tb.User).join(Tb.Perfil.user).filter(Tb.User.correo == email)
             user = session.execute(res).one()[0]
             print(user)
-            user.perfil_nombre = "sin"
+            user.perfil_nombre = "SIN"
             session.add(user)
             session.commit()
 

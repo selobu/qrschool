@@ -77,11 +77,11 @@ class User(Base):
 
 @map_name_to_table
 class PerfilSchool(Enum):
-    SIN = "sin"
-    ESTUDIANTE = "estudiante"
-    DOCENTE = "docente"
-    ACUDIENTE = "acudiente"
-    ADMINISTRADOR = "administrador"
+    SIN = "SIN"
+    ESTUDIANTE = "ESTUDIANTE"
+    DOCENTE = "DOCENTE"
+    ACUDIENTE = "ACUDIENTE"
+    ADMINISTRADOR = "ADMINISTRADOR"
 
 
 @map_name_to_table
