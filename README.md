@@ -12,6 +12,8 @@
 
 Attendance student list by reading QR codes
 
+[Project Documentation](https://selobu.github.io/qrschool/)
+
 [![Python Version](https://img.shields.io/badge/python-3.8%20%7C%203.9%20%7C%203.10%20%7C%203.11-blue)](https://www.python.org/downloads/release/python-390/)
 
 Project status
