@@ -652,30 +652,43 @@
 <div class="tabbed-block"></div>
 </div>
 </div>
-<pre><code class="language-bash">$ flask db upgrade
-</code></pre>
+<p><code>bash
+   $ flask db upgrade</code></p>
 <p>Update modules lists, profiles and permissions</p>
-<pre><code class="language-bash">$ flask cli modulesrefresh
-$ flask cli updateprofiles
-$ flask cli updatepermissions
-</code></pre>
+<p><code>bash
+   $ flask cli modulesrefresh
+   $ flask cli updateprofiles
+   $ flask cli updatepermissions</code></p>
 <p>Add an addmin</p>
-<pre><code class="language-bash">$ flask cli addadmin
-</code></pre>
+<p><code>bash
+   $ flask cli addadmin</code></p>
 <div class="tabbed-set tabbed-alternate" data-tabs="2:1"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">shell</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block"></div>
 </div>
 </div>
-<pre><code class="language-bash">$ flask shell
-&gt;&gt;&gt; dir()
-['Session', 'Tb', '__builtins__', 'app', 'createdb', 'db', 'g', 'registeradmin', 'whatsnext']
-&gt;&gt;&gt;
-</code></pre>
+<p>```bash
+   $ flask shell</p>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>dir()
+   ['Session', 'Tb', '<strong>builtins</strong>', 'app', 'createdb', 'db', 'g', 'registeradmin', 'whatsnext']</p>
+<p>```</p>
+</blockquote>
+</blockquote>
+</blockquote>
 <p>Please use the function whatsnext()</p>
-<pre><code class="language-bash">&gt;&gt;&gt; whatsnext()
-Would you like to create tables? y/n [n]:
-</code></pre>
+<p>```bash</p>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>whatsnext()
+   Would you like to create tables? y/n [n]:
+   ```</p>
+</blockquote>
+</blockquote>
+</blockquote>
 <p>The command line application will guide you through the rest of the setup
 process including:</p>
 <ul>
