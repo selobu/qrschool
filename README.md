@@ -26,6 +26,6 @@ Project status
 | Admin interfase   | ![80%](https://progress-bar.dev/80)   | 09/30/2023          |
 | Api               | ![75%](https://progress-bar.dev/75)   | 10/05/2023          |
 | Api test          | ![0%](https://progress-bar.dev/0)     | -                   |
-| DB migrations     | ![80%](https://progress-bar.dev/80)   | 10/15/2023          |
+| DB migrations     | ![100%](https://progress-bar.dev/100) | 10/15/2023          |
 | Documentation     | ![10%](https://progress-bar.dev/10)   | -                   |
 | Frontend          | ![35%](https://progress-bar.dev/35)   | 12/15/2023          |
