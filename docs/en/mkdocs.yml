@@ -53,6 +53,9 @@ nav:
       - about/about.md
       - about/license.md
       - about/contact.md
+markdown_extensions:
+  pymdownx.tabbed:
+    alternate_style: true
 extra_css:
   - css/termynal.css
   - css/custom.css
