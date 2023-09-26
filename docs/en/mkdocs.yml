@@ -53,6 +53,10 @@ nav:
       - about/about.md
       - about/license.md
       - about/contact.md
+plugins:
+  search: null
+  markdownextradata:
+    data: ../en/data
 markdown_extensions:
   pymdownx.details: null
   pymdownx.superfences:
@@ -67,3 +71,6 @@ markdown_extensions:
 extra_css:
   - css/termynal.css
   - css/custom.css
+extra_javascript:
+  - js/termynal.js
+  - js/custom.js

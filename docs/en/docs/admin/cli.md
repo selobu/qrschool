@@ -19,6 +19,8 @@ List all commands available
     Remember to run de following commands in src or equivalent folder where app resides, and
     activate the virtual environment.
 
+<div class="termy">
+
 ``` console
 $ flask db --help
 
@@ -51,7 +53,11 @@ Commands:
 
 ```
 
+</div>
+
 To check the db options available
+
+<div class="termy">
 
 ```console
 $ flask db --help
@@ -81,10 +87,14 @@ Commands:
   upgrade         Upgrade to a later version
 ```
 
+</div>
+
 If you want to check an specific command you can request help using the command --help as a command option
 
+<div class="termy">
+
 ```console
-flask db upgrade --help
+$ flask db upgrade --help
 
 Usage: flask db upgrade [OPTIONS] [REVISION]
 
@@ -100,9 +110,14 @@ Options:
   --help                Show this message and exit.
 ```
 
+</div>
+
 ## cli
 
 This commands group were created to configure the database and profiles
+
+
+<div class="termy">
 
 ```console
 $ flask cli --help
@@ -123,7 +138,12 @@ Commands:
   updatepermissions  Permision refresh by profile
   updateprofiles     Update profiles
 ```
+
+</div>
+
 If you want to check an specific command you can request help using the command --help as a command option
+
+<div class="termy">
 
 ```console
 $ flask cli addadmin --help
@@ -144,3 +164,5 @@ Options:
   --password TEXT
   --help            Show this message and exit.
 ```
+
+</div>
