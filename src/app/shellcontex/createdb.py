@@ -7,5 +7,4 @@ from app.toolsapk import map_name_to_shell
 
 @map_name_to_shell
 def createdb():
-    engine = app.engine
-    Base.metadata.create_all(engine)
+    Base.metadata.create_all(app.engine)
