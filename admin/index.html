@@ -617,26 +617,6 @@
     Upgrade database to latest version
   </a>
   
-    <nav class="md-nav" aria-label="Upgrade database to latest version">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#using-cli" class="md-nav__link">
-    Using CLI
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#using-the-shell" class="md-nav__link">
-    Using the shell
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
 </li>
       
     </ul>
@@ -667,7 +647,7 @@
 <pre><code class="language-bash">$ pipenv shell
 </code></pre>
 <h2 id="upgrade-database-to-latest-version">Upgrade database to latest version</h2>
-<h3 id="using-cli">Using CLI</h3>
+<p>=== CLI</p>
 <pre><code class="language-bash">$ flask db upgrade
 </code></pre>
 <p>Update modules lists, profiles and permissions</p>
@@ -678,7 +658,7 @@ $ flask cli updatepermissions
 <p>Add an addmin</p>
 <pre><code class="language-bash">$ flask cli addadmin
 </code></pre>
-<h3 id="using-the-shell">Using the shell</h3>
+<p>=== shell</p>
 <pre><code class="language-bash">$ flask shell
 &gt;&gt;&gt; dir()
 ['Session', 'Tb', '__builtins__', 'app', 'createdb', 'db', 'g', 'registeradmin', 'whatsnext']
