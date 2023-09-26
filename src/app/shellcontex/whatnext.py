@@ -24,13 +24,16 @@ def _listsubmodules(filepath):
 @map_name_to_shell
 def whatsnext():
     # check if tables exists
-    table_created = input("Would you like to create tables? y/n [n]: ")
-    if table_created.lower() in ("y", "yes"):
+    table_created = input("Would you like to create tables? y/n [y]: ")
+    if table_created.lower() not in ("n", "no", ""):
         shell_decorated["createdb"]()
     # check if profiles exist
+    missing = []
     with app.Session() as session:
         res = select(app.Tb.Perfil.nombreperfil).limit(20)
-        registerd = [r[0].value for r in session.execute(res).all()]
+        res = session.execute(res).all()
+        print(res)
+        registerd = [r[0].value for r in res]
         print(f"registerd {registerd}")
         missing = [
             perfil.value
