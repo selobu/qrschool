@@ -8,16 +8,20 @@
       
       
       
-        <link rel="canonical" href="https://github.com/selobu/qrschool/about/">
+        <link rel="canonical" href="https://github.com/selobu/qrschool/features/">
       
       
+        <link rel="prev" href="..">
+      
+      
+        <link rel="next" href="../user/">
       
       <link rel="icon" href="../img/favicon.png">
       <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.1.21">
     
     
       
-        <title>Index - QRschool</title>
+        <title>Features - QRschool</title>
       
     
     
@@ -39,6 +43,10 @@
         <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
       
     
+    
+      <link rel="stylesheet" href="../css/termynal.css">
+    
+      <link rel="stylesheet" href="../css/custom.css">
     
     <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
@@ -69,7 +77,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#sponsors" class="md-skip">
+        <a href="#features" class="md-skip">
           Skip to content
         </a>
       
@@ -103,7 +111,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Index
+              Features
             
           </span>
         </div>
@@ -239,10 +247,40 @@
   
   
   
-    <li class="md-nav__item">
-      <a href="../index.md" class="md-nav__link">
-        QRschool
-      </a>
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" >
+      
+      
+        
+          
+            
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="..">QRschool</a>
+          
+        </div>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_1">
+          <span class="md-nav__icon md-icon"></span>
+          QRschool
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+          
+        </ul>
+      </nav>
     </li>
   
 
@@ -322,11 +360,21 @@
 
   
   
+    
   
-    <li class="md-nav__item">
-      <a href="../features.md" class="md-nav__link">
-        None
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Features
       </a>
+      
     </li>
   
 
@@ -382,8 +430,8 @@
   
   
     <li class="md-nav__item">
-      <a href="../user/roles.md" class="md-nav__link">
-        None
+      <a href="../user/profiles/" class="md-nav__link">
+        Profiles
       </a>
     </li>
   
@@ -482,6 +530,8 @@
         
           
         
+          
+        
       
       
         <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
@@ -502,8 +552,8 @@
   
   
     <li class="md-nav__item">
-      <a href="license.md" class="md-nav__link">
-        None
+      <a href="../about/about/" class="md-nav__link">
+        About
       </a>
     </li>
   
@@ -516,8 +566,22 @@
   
   
     <li class="md-nav__item">
-      <a href="about/" class="md-nav__link">
-        About
+      <a href="../about/license/" class="md-nav__link">
+        License
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../about/contact/" class="md-nav__link">
+        Contact
       </a>
     </li>
   
@@ -547,42 +611,8 @@
   
   
   
+    
   
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#sponsors" class="md-nav__link">
-    Sponsors
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#opinions" class="md-nav__link">
-    Opinions
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#requirements" class="md-nav__link">
-    Requirements
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#installation" class="md-nav__link">
-    Installation
-  </a>
-  
-</li>
-      
-    </ul>
   
 </nav>
                   </div>
@@ -597,78 +627,8 @@
                   
 
 
-  <h1>Index</h1>
-
-<hr />
-<p>QRSchool is a rest-api built on top of Python +3.8 and Flask.</p>
-<p>The key features are:</p>
-<ul>
-<li><strong>Secure</strong>: based onb JSON web tokens.</li>
-<li><strong>Intuitive</strong>: The api is extended explained.</li>
-<li><strong>Easy</strong>: as easy as posible, its modular to be deploy in different platforms
-  such as amazon, google, pythonanywhere asn so on.</li>
-<li><strong>Modular</strong>: Is simple to create additional modules base on needs.</li>
-<li><strong>Database-ready</strong>: It's predonfigured to with mysql but can be moddified to
-  be connected to a wide range of databases</li>
-</ul>
-<h2 id="sponsors">Sponsors</h2>
-<!-- sponsors -->
-
-<p>{% if sponsors %} {% for sponsor in sponsors.gold -%}
-<a href="{{ sponsor.url }}" target="_blank" title="{{ sponsor.title }}"><img src="{{ sponsor.img }}" style="border-radius:15px"></a>
-{% endfor -%} {%- for sponsor in sponsors.silver -%}
-<a href="{{ sponsor.url }}" target="_blank" title="{{ sponsor.title }}"><img src="{{ sponsor.img }}" style="border-radius:15px"></a>
-{% endfor %} {% endif %}</p>
-<!-- /sponsors -->
-
-<p><a href="https://gestionhseq.com/#sponsors" class="external-link" target="_blank">Other
-sponsors</a></p>
-<h2 id="opinions">Opinions</h2>
-<h2 id="requirements">Requirements</h2>
-<p>Python 3.8+</p>
-<p>Some dependecies:</p>
-<ul>
-<li><a href="https://flask.palletsprojects.com/en/2.3.x/" class="external-link" target="_blank">Flask</a>
-  for the web parts.</li>
-<li><a href="https://flask-cors.readthedocs.io/en/latest/" class="external-link" target="_blank">Flask-Cors</a>
-  for the data parts.</li>
-<li><a href="https://flask-jwt-extended.readthedocs.io/en/stable/" class="external-link" target="_blank">Flask-JWT-Extended</a>
-  for the data parts.</li>
-<li><a href="https://flask-restx.readthedocs.io/en/latest/" class="external-link" target="_blank">Flask-restx</a>
-  for the data parts.</li>
-<li><a href="https://flask-sqlalchemy.palletsprojects.com/en/3.0.x/#" class="external-link" target="_blank">Flask-SQLAlchemy</a>
-  for the data parts.</li>
-<li><a href="https://docs.sqlalchemy.org/en/20/" class="external-link" target="_blank">SQLAlchemy</a>
-  for the data parts.</li>
-<li><a href="https://pymysql.readthedocs.io/en/latest/" class="external-link" target="_blank">PyMySQL</a>
-  for the data parts.</li>
-<li><a href="https://github.com/jpadilla/pyjwt" class="external-link" target="_blank">PyJWT</a>
-  for the data parts.</li>
-</ul>
-<h2 id="installation">Installation</h2>
-<div class="termy">
-
-
-<pre><code class="language-console">$ ......
-
----&gt; 100%
-</code></pre>
-
-
-</div>
-
-<p>You will also need a WSGI server, for production such as
-<a href="https://www.gunicorn.org" class="external-link" target="_blank">Gunicorn</a></p>
-<div class="termy">
-
-
-<pre><code class="language-console">$ pip install git+https://github.com/benoitc/gunicorn.git
-
----&gt; 100%
-</code></pre>
-
-
-</div>
+<h1 id="features">Features</h1>
+<p>Project features</p>
 
 
 
