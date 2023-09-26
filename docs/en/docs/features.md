@@ -1,3 +1,0 @@
-# Features
-
-Project features

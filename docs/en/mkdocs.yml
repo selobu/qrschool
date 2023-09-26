@@ -42,7 +42,6 @@ nav:
   - Languages:
       - en: /
       - es: /es/
-  - features.md
   - Tutorial - User Guide:
       - user/index.md
       - user/profiles.md
