@@ -14,7 +14,7 @@
         <link rel="prev" href="../user/profiles/">
       
       
-        <link rel="next" href="userprofiles/">
+        <link rel="next" href="cli/">
       
       <link rel="icon" href="../img/favicon.png">
       <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.1.21">
@@ -459,6 +459,8 @@
         
           
         
+          
+        
       
       
         
@@ -479,6 +481,20 @@
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
           
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="cli/" class="md-nav__link">
+        Cli
+      </a>
+    </li>
+  
+
             
           
             
@@ -663,15 +679,15 @@
 </code></pre></div>
 </div>
 <div class="tabbed-block">
-<p>Using interactive shell</p>
+<p>Using the console</p>
 <div class="highlight"><pre><span></span><code><span class="gp">$ </span>flask<span class="w"> </span>shell
 <span class="go">&gt;&gt;&gt; dir()</span>
 <span class="go">[&#39;Session&#39;, &#39;Tb&#39;, &#39;__builtins__&#39;, &#39;app&#39;, &#39;createdb&#39;, &#39;db&#39;, &#39;g&#39;, &#39;registeradmin&#39;, &#39;whatsnext&#39;]</span>
 <span class="go">&gt;&gt;&gt;</span>
 </code></pre></div>
 <p>Please use the function whatsnext()</p>
-<div class="highlight"><pre><span></span><code>&gt;&gt;&gt;<span class="w"> </span>whatsnext<span class="o">()</span>
-Would<span class="w"> </span>you<span class="w"> </span>like<span class="w"> </span>to<span class="w"> </span>create<span class="w"> </span>tables?<span class="w"> </span>y/n<span class="w"> </span><span class="o">[</span>y<span class="o">]</span>:
+<div class="highlight"><pre><span></span><code><span class="go">&gt;&gt;&gt; whatsnext()</span>
+<span class="go">Would you like to create tables? y/n [y]:</span>
 </code></pre></div>
 </div>
 </div>
