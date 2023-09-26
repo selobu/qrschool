@@ -1,4 +1,4 @@
-## initial configuration
+# initial configuration
 
 Before starting work with the api you must do the following steps:
 

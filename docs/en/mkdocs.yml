@@ -36,3 +36,23 @@ theme:
 repo_name: selobu/qrschool
 repo_url: https://github.com/selobu/qrschool
 edit_uri: ""
+nav:
+  - QRschool:
+      - index.md
+  - Languages:
+      - en: /
+      - es: /es/
+  - features.md
+  - Tutorial - User Guide:
+      - user/index.md
+      - user/profiles.md
+  - Administrator:
+      - admin/index.md
+      - admin/userprofiles.md
+  - About:
+      - about/about.md
+      - about/license.md
+      - about/contact.md
+extra_css:
+  - css/termynal.css
+  - css/custom.css
