@@ -16,6 +16,30 @@ Then activate the virtual environment
 $ pipenv shell
 ```
 
+## Upgrade database to latest version
+
+### Using CLI
+
+```bash
+$ flask db upgrade
+```
+
+Update modules lists, profiles and permissions
+
+```bash
+$ flask cli modulesrefresh
+$ flask cli updateprofiles
+$ flask cli updatepermissions
+```
+
+Add an addmin
+
+```bash
+$ flask db addadmin
+```
+
+### Using the shell
+
 ```bash
 $ flask shell
 >>> dir()
@@ -30,9 +54,10 @@ Please use the function whatsnext()
 Would you like to create tables? y/n [n]:
 ```
 
-The command line application will guide you through the rest of the setup process including:
+The command line application will guide you through the rest of the setup
+process including:
 
-* Create tables.
-* Register default profiles.
-* Create administrator.
-* Update modules permissions by profile.
+- Create tables.
+- Register default profiles.
+- Create administrator.
+- Update modules permissions by profile.
