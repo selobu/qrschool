@@ -704,6 +704,8 @@ environment. The following command are designed to specific tasks in the backend
 <p>Remember to run de following commands in src or equivalent folder where app resides, and
 activate the virtual environment.</p>
 </details>
+<div class="termy">
+
 <div class="highlight"><pre><span></span><code><span class="gp">$ </span>flask<span class="w"> </span>db<span class="w"> </span>--help
 
 <span class="go">Usage: flask [OPTIONS] COMMAND [ARGS]...</span>
@@ -733,7 +735,12 @@ activate the virtual environment.</p>
 <span class="go">  run     Run a development server.</span>
 <span class="go">  shell   Run a shell in the app context.</span>
 </code></pre></div>
+
+</div>
+
 <p>To check the db options available</p>
+<div class="termy">
+
 <div class="highlight"><pre><span></span><code><span class="gp">$ </span>flask<span class="w"> </span>db<span class="w"> </span>--help
 
 <span class="go">Usage: flask db [OPTIONS] COMMAND [ARGS]...</span>
@@ -760,8 +767,13 @@ activate the virtual environment.</p>
 <span class="go">  stamp           &#39;stamp&#39; the revision table with the given revision;...</span>
 <span class="go">  upgrade         Upgrade to a later version</span>
 </code></pre></div>
+
+</div>
+
 <p>If you want to check an specific command you can request help using the command --help as a command option</p>
-<div class="highlight"><pre><span></span><code><span class="go">flask db upgrade --help</span>
+<div class="termy">
+
+<div class="highlight"><pre><span></span><code><span class="gp">$ </span>flask<span class="w"> </span>db<span class="w"> </span>upgrade<span class="w"> </span>--help
 
 <span class="go">Usage: flask db upgrade [OPTIONS] [REVISION]</span>
 
@@ -776,9 +788,14 @@ activate the virtual environment.</p>
 <span class="go">  -x, --x-arg TEXT      Additional arguments consumed by custom env.py scripts</span>
 <span class="go">  --help                Show this message and exit.</span>
 </code></pre></div>
+
+</div>
+
 <h2 id="cli_1">cli</h2>
 <p>This commands group were created to configure the database and profiles</p>
-<p><div class="highlight"><pre><span></span><code><span class="gp">$ </span>flask<span class="w"> </span>cli<span class="w"> </span>--help
+<div class="termy">
+
+<div class="highlight"><pre><span></span><code><span class="gp">$ </span>flask<span class="w"> </span>cli<span class="w"> </span>--help
 
 <span class="go">Usage: flask cli [OPTIONS] COMMAND [ARGS]...</span>
 
@@ -796,7 +813,12 @@ activate the virtual environment.</p>
 <span class="go">  updatepermissions  Permision refresh by profile</span>
 <span class="go">  updateprofiles     Update profiles</span>
 </code></pre></div>
-If you want to check an specific command you can request help using the command --help as a command option</p>
+
+</div>
+
+<p>If you want to check an specific command you can request help using the command --help as a command option</p>
+<div class="termy">
+
 <div class="highlight"><pre><span></span><code><span class="gp">$ </span>flask<span class="w"> </span>cli<span class="w"> </span>addadmin<span class="w"> </span>--help
 
 <span class="go">Usage: flask cli addadmin [OPTIONS]</span>
@@ -815,6 +837,8 @@ If you want to check an specific command you can request help using the command 
 <span class="go">  --password TEXT</span>
 <span class="go">  --help            Show this message and exit.</span>
 </code></pre></div>
+
+</div>
 
 
 
@@ -858,6 +882,14 @@ If you want to check an specific command you can request help using the command 
     
      
       <script src="../../assets/javascripts/bundle.220ee61c.min.js"></script>
+      
+        
+          <script src="../../js/termynal.js"></script>
+        
+      
+        
+          <script src="../../js/custom.js"></script>
+        
       
     
 <!-- DocsQA integration start -->

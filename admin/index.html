@@ -645,35 +645,59 @@
 <div class="highlight"><pre><span></span><code>$<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>src
 </code></pre></div>
 <p>Then activate the virtual environment</p>
+<div class="termy">
+
 <div class="highlight"><pre><span></span><code>$<span class="w"> </span>pipenv<span class="w"> </span>shell
+
+<span class="o">(</span>base<span class="o">)</span><span class="w"> </span>&lt;user&gt;:/media/sebastian/datos/Proyectos/qrschool/src$<span class="w"> </span>pipenv<span class="w"> </span>shell
+Launching<span class="w"> </span>subshell<span class="w"> </span><span class="k">in</span><span class="w"> </span>virtual<span class="w"> </span>environment...
+<span class="w"> </span>.<span class="w"> </span>/media/sebastian/datos/Proyectos/qrschool/.venv/bin/activate
+<span class="o">(</span>base<span class="o">)</span><span class="w"> </span>&lt;user&gt;:/media/sebastian/datos/Proyectos/qrschool$<span class="w">  </span>.<span class="w"> </span>/media/sebastian/datos/Proyectos/qrschool/.venv/bin/activate
+<span class="o">(</span>qrschool<span class="o">)</span><span class="w"> </span><span class="o">(</span>base<span class="o">)</span><span class="w"> </span>&lt;user&gt;:/media/sebastian/datos/Proyectos/qrschool$
+
+$<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>src
 </code></pre></div>
+
+</div>
+
 <h2 id="upgrade-database-to-latest-version">Upgrade database to latest version</h2>
 <div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">CLI</label><label for="__tabbed_1_2">Shell</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>Command line application</p>
+<div class="termy">
 <div class="highlight"><pre><span></span><code><span class="gp">$ </span>flask<span class="w"> </span>db<span class="w"> </span>upgrade
+<span class="go">INFO  [alembic.runtime.migration] Context impl MySQLImpl.</span>
+<span class="go">INFO  [alembic.runtime.migration] Will assume non-transactional DDL.</span>
 </code></pre></div>
+</div>
 <p>Update modules lists, profiles and permissions</p>
+<div class="termy">
 <div class="highlight"><pre><span></span><code><span class="gp">$ </span>flask<span class="w"> </span>cli<span class="w"> </span>modulesrefresh
 <span class="gp">$ </span>flask<span class="w"> </span>cli<span class="w"> </span>updateprofiles
 <span class="gp">$ </span>flask<span class="w"> </span>cli<span class="w"> </span>updatepermissions
 </code></pre></div>
+</div>
 <p>Add an addmin</p>
+<div class="termy">
 <div class="highlight"><pre><span></span><code><span class="gp">$ </span>flask<span class="w"> </span>cli<span class="w"> </span>addadmin
+<span class="go">email: &lt;mymail&gt;@mail.com</span>
+<span class="go">firstname: Sebastian</span>
+<span class="go">lastname: Lopez</span>
+<span class="go">número de identificación: ...</span>
 </code></pre></div>
+</div>
 </div>
 <div class="tabbed-block">
 <p>Using the console</p>
-<div class="highlight"><pre><span></span><code><span class="gp">$ </span>flask<span class="w"> </span>shell
-<span class="go">&gt;&gt;&gt; dir()</span>
+<div class="termy">
+<p><div class="highlight"><pre><span></span><code><span class="gp">$ </span>flask<span class="w"> </span>shell
+<span class="gp">$ </span>&gt;&gt;&gt;<span class="w"> </span>dir<span class="o">()</span>
 <span class="go">[&#39;Session&#39;, &#39;Tb&#39;, &#39;__builtins__&#39;, &#39;app&#39;, &#39;createdb&#39;, &#39;db&#39;, &#39;g&#39;, &#39;registeradmin&#39;, &#39;whatsnext&#39;]</span>
-<span class="go">&gt;&gt;&gt;</span>
-</code></pre></div>
-<p>Please use the function whatsnext()</p>
-<div class="highlight"><pre><span></span><code><span class="go">&gt;&gt;&gt; whatsnext()</span>
+<span class="gp">$ </span>&gt;&gt;&gt;<span class="w"> </span>whatsnext<span class="o">()</span>
 <span class="go">Would you like to create tables? y/n [y]:</span>
 </code></pre></div>
+  </div></p>
 </div>
 </div>
 </div>
@@ -728,6 +752,14 @@ process including:</p>
     
      
       <script src="../assets/javascripts/bundle.220ee61c.min.js"></script>
+      
+        
+          <script src="../js/termynal.js"></script>
+        
+      
+        
+          <script src="../js/custom.js"></script>
+        
       
     
 <!-- DocsQA integration start -->
