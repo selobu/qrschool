@@ -40,7 +40,7 @@ $ pipenv shell
       ```
 
 === "Shell"
-      Using interactive shell
+      Using the console
 
       ```console
       $ flask shell
@@ -51,7 +51,7 @@ $ pipenv shell
 
       Please use the function whatsnext()
 
-      ```bash
+      ```console
       >>> whatsnext()
       Would you like to create tables? y/n [y]:
       ```

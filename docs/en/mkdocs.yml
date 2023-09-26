@@ -48,12 +48,14 @@ nav:
       - user/profiles.md
   - Administrator:
       - admin/index.md
+      - admin/cli.md
       - admin/userprofiles.md
   - About:
       - about/about.md
       - about/license.md
       - about/contact.md
 markdown_extensions:
+  pymdownx.details: null
   pymdownx.superfences:
     custom_fences:
       - name: mermaid
@@ -61,6 +63,8 @@ markdown_extensions:
         format: !!python/name:pymdownx.superfences.fence_code_format ""
   pymdownx.tabbed:
     alternate_style: true
+  attr_list: null
+  md_in_html: null
 extra_css:
   - css/termynal.css
   - css/custom.css
