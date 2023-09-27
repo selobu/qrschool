@@ -40,8 +40,8 @@ nav:
   - QRschool:
       - index.md
   - Languages:
-      - en: /
-      - es: /es/
+      - en: /qrschool/
+      - es: /qrschool/es/
   - Tutorial - User Guide:
       - user/index.md
       - user/profiles.md
