@@ -44,13 +44,14 @@ nav:
       - es: /qrschool/es/
   - Tutorial - User Guide:
       - user/index.md
+      - user/qr.md
       - user/profiles.md
   - Administrator:
       - admin/index.md
       - admin/cli.md
       - admin/userprofiles.md
   - About:
-      - about/about.md
+      - about/index.md
       - about/license.md
       - about/contact.md
 plugins:
@@ -68,6 +69,9 @@ markdown_extensions:
     alternate_style: true
   attr_list: null
   md_in_html: null
+  pymdownx.emoji:
+    emoji_index: !!python/name:materialx.emoji.twemoji
+    emoji_generator: !!python/name:materialx.emoji.to_svg
 extra_css:
   - css/termynal.css
   - css/custom.css

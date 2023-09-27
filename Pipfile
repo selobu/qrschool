@@ -32,6 +32,7 @@ flask-wtf = "*"
 flask-bootstrap4 = "==4.0.2"
 flask-login = "*"
 click = "*"
+mkdocs-material-extensions = "*"
 
 [dev-packages]
 
