@@ -42,6 +42,7 @@ class Config(object):
     FLASK_ADMIN_SWATCH: str = "cerulean"  # admin bootswatch theme
     ADMIN_TEMPLATE_NAME: str = "bootstrap4"
     TESTING: bool = False
+    PER_PAGE: int = 50
 
 
 class ProductionConfig(Config):

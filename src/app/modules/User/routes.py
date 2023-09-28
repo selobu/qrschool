@@ -1,5 +1,6 @@
 from flask import current_app as app
 from flask_restx import Resource, fields
+from flask_restx import reqparse
 from sqlalchemy import select
 from flask_jwt_extended import jwt_required
 
@@ -33,23 +34,45 @@ usr_register_list = api.model(
     "UsersResList", {"usrs": fields.List(fields.Nested(usr_post))}
 )
 
+usr_list_paginated = api.model(
+    "UsersResList", {"usrs": fields.List(fields.Nested(usr))}
+)
+
+paginate_parser = reqparse.RequestParser()
+paginate_parser.add_argument(
+    "page", type=int, help="Page to visualize - optional", required=False
+)
+paginate_parser.add_argument(
+    "per_page", type=int, help="Maximum results per page - optional", required=False
+)
+
 
 @ns_usrs.route("/")
 class UserList(Resource):
     """Listado de usuarios"""
 
     @ns_usrs.doc("Consulta la información de usuario")
-    @ns_usrs.marshal_list_with(usr, code=200)
+    @ns_usrs.marshal_with(usr_list_paginated, code=200)
+    @ns_usrs.expect(paginate_parser)
     @jwt_required()
     def get(self):
         """Retorna todos los usuarios
-
-        límite actual 100 usuarios
+        límite actual 50 usuarios
         """
+
+        args = paginate_parser.parse_args()
+        if (page := args["page"]) is None:
+            page = 1
+        if (per_page := args["per_page"]) is None:
+            per_page = app.config["PER_PAGE"]
         with app.Session() as session:
-            res = select(Tb.User).limit(100)
-            users = session.execute(res).all()
-        return [u[0] for u in users]
+            q = (
+                select(Tb.User)
+                .order_by(Tb.User.correo.asc())
+                .limit(per_page)
+                .offset(per_page * (page - 1))
+            )
+            return {"usrs": session.scalars(q).all()}
 
     @ns_usrs.doc("Registra un usuario")
     @ns_usrs.expect(usr_register_list)
