@@ -1,10 +1,13 @@
 # coding:utf-8
 __all__ = ["createApiModel"]
+from typing import Any
 from flask_restx import Model, fields
 from flask import current_app
 from sqlalchemy import types, select
 from sqlalchemy.inspection import inspect
 from functools import wraps
+from flask_restx import reqparse
+
 
 api = current_app.api  # type: ignore
 
@@ -223,3 +226,43 @@ def createApiModel(
                 continue
             res[key] = value
     return api.model(modelname, res)
+
+
+class PaginateModel:
+    def __init__(self):
+        self._paginate_model = reqparse.RequestParser()
+        self._paginate_model.add_argument(
+            "page", type=int, help="Page to visualize - optional", required=False
+        )
+        self._paginate_model.add_argument(
+            "per_page",
+            type=int,
+            help="Maximum results per page - optional",
+            required=False,
+        )
+        self.__parsed = False
+
+    @property
+    def paginate_model(self):
+        return self._paginate_model
+
+    def __parse_args(self):
+        self.__args = self._paginate_model.parse_args()
+        self.__parsed = True
+
+    def __getitem__(self, __name: str) -> Any:
+        if not self.__parsed:
+            self.__parse_args()
+        if __name not in self.__args:
+            return IndexError("Element not found!")
+
+    def get(self, parameter, default=None):
+        if self[parameter] not in self.__args:
+            return default
+        if (param := self[parameter]) is None:
+            param = default
+        return param
+
+
+parser = PaginateModel()
+paginate_model = parser.paginate_model

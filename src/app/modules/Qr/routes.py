@@ -3,7 +3,8 @@ from flask_jwt_extended import jwt_required
 from flask_restx import Resource, fields
 from sqlalchemy import select
 
-from app.apitools import createApiModel
+
+from app.apitools import createApiModel, paginate_model, parser
 from app.toolsapk import Tb
 
 api = app.api  # type: ignore
@@ -24,16 +25,20 @@ class QrList(Resource):
     @ns_qrs.response(500, "Missing autorization header")
     @ns_qrs.doc("Consulta el codigo qr de los usuarios")
     @ns_qrs.marshal_list_with(qr, code=200)
+    @ns_qrs.expect(paginate_model)
     @jwt_required()
     def get(self):
-        """Retorna todos los qr
-
-        límite actual 50 usuarios
-        """
+        """Retorna todos los qr"""
+        page = parser.get("page", default=1)
+        per_page = parser.get("per_page", default=app.config["PER_PAGE"])
         with app.Session() as session:
-            res = select(Tb.Qr).limit(50)
-            qrs = session.execute(res).all()
-        return [u[0] for u in qrs]
+            q = (
+                select(Tb.Qr)
+                .order_by(Tb.Qr.id.asc())
+                .limit(per_page)
+                .offset(per_page * (page - 1))
+            )
+            return session.scalars(q).all()
 
     if False:
 

@@ -1,10 +1,9 @@
 from flask import current_app as app
 from flask_restx import Resource, fields
-from flask_restx import reqparse
 from sqlalchemy import select
 from flask_jwt_extended import jwt_required
 
-from app.apitools import createApiModel
+from app.apitools import createApiModel, paginate_model, parser
 from app.toolsapk import Tb, gethash, uuidgenerator
 
 api = app.api  # type: ignore
@@ -38,14 +37,6 @@ usr_list_paginated = api.model(
     "UsersResList", {"usrs": fields.List(fields.Nested(usr))}
 )
 
-paginate_parser = reqparse.RequestParser()
-paginate_parser.add_argument(
-    "page", type=int, help="Page to visualize - optional", required=False
-)
-paginate_parser.add_argument(
-    "per_page", type=int, help="Maximum results per page - optional", required=False
-)
-
 
 @ns_usrs.route("/")
 class UserList(Resource):
@@ -53,18 +44,15 @@ class UserList(Resource):
 
     @ns_usrs.doc("Consulta la información de usuario")
     @ns_usrs.marshal_with(usr_list_paginated, code=200)
-    @ns_usrs.expect(paginate_parser)
+    @ns_usrs.expect(paginate_model)
     @jwt_required()
     def get(self):
         """Retorna todos los usuarios
         límite actual 50 usuarios
         """
+        page = parser.get("page", default=1)
+        per_page = parser.get("per_page", default=app.config["PER_PAGE"])
 
-        args = paginate_parser.parse_args()
-        if (page := args["page"]) is None:
-            page = 1
-        if (per_page := args["per_page"]) is None:
-            per_page = app.config["PER_PAGE"]
         with app.Session() as session:
             q = (
                 select(Tb.User)
