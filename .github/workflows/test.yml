@@ -29,5 +29,4 @@ jobs:
 
       - name: Pytest
         run: |
-          coverage run -m pytest
-          coverage report -m
+          bash scripts/pytest.sh
