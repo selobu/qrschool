@@ -1,30 +1,52 @@
 version: "1.0"
 name: "schoolapi"
 services:
-  mysql:
+  db:
+    image: mysql:latest
+    volumes:
+      - db_data:/var/lib/mysql
+    restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: adminpassword123
       MYSQL_ROOT_USER: root
-      MYSQL_DATABASE: colegio2023
+      MYSQL_ROOT_PASSWORD_FILE: /run/secrets/db_root_password
       MYSQL_USER: adminuser
-      MYSQL_PASSWORD: adminuser123
-    image: mysql:5.7
+      MYSQL_PASSWORD_FILE: /run/secrets/db_password
+      MYSQL_DATABASE: colegio2023
+    secrets:
+      - db_root_password
+      - db_password
     ports:
       - "3306:3306"
   api:
     environment:
-      MYSQL_ROOT_PASSWORD: adminpassword123
+      APPNAME: QRSChool
+      MYSQL_HOST: db
       MYSQL_ROOT_USER: root
-      MYSQL_DATABASE: colegio2023
+      MYSQL_ROOT_PASSWORD_FILE: /run/secrets/db_root_password
       MYSQL_USER: adminuser
-      MYSQL_PASSWORD: adminuser123
-      MYSQL_HOST: mysql
+      MYSQL_PASSWORD_FILE: /run/secrets/db_password
+      MYSQL_DATABASE: colegio2023
+      JWT_SECRET_KEY_FILE: /run/secrets/jwt_password
       GUNICORN_PROCESSES: 2
       GUNICORN_THREADS: 4
+      GUNICORN_TIMEOUT: 120
+    secrets:
+      - db_root_password
+      - db_password
+      - jwt_password
     build:
       context: .
       dockerfile: Dockerfile
     volumes:
       - ./src:/home
     ports:
-      - "8082:8082"
+      - "8081:8081"
+secrets:
+  db_password:
+    file: ./secrets/db_password.txt
+  db_root_password:
+    file: ./secrets/db_root_password.txt
+  jwt_password:
+    file: ./secrets/jwt_password.txt
+volumes:
+  db_data:
