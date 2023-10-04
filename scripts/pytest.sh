@@ -3,5 +3,4 @@
 set -e
 set -x
 
-poetry shell
 pytest
