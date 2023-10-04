@@ -13,6 +13,7 @@ from app.toolsapk import Tb
 from app.shellcontex import cli
 from flask_migrate import Migrate
 from app import jwt, loginmanager, shellcontex, admin, modules, routes
+from app.toolsapk import Base
 from flask_cors import CORS
 
 from flask_sqlalchemy import SQLAlchemy
@@ -48,20 +49,21 @@ def create_app(settings=ProductionConfig):
             "engine": engine,
             "Session": Session,
             "api": api,
-            "db": SQLAlchemy(app),
+            "db": SQLAlchemy(app, model_class=Base),
         }
+        db = items["db"]
         for key, value in items.items():
             if not hasattr(app, key):
                 setattr(app, key, value)
-        if True:
-            modulesResolver(app)
-            routes.init_app(app)
-            loginmanager.init_app(app)
-            jwt.init_app(app)
-            admin.init_app(app)
-            shellcontex.init_app(app)
-            cli.init_app(app)
-        Migrate(app, app.db)
+
+        modulesResolver(app)
+        routes.init_app(app)
+        loginmanager.init_app(app)
+        jwt.init_app(app)
+        admin.init_app(app)
+        shellcontex.init_app(app)
+        cli.init_app(app)
+        Migrate(app, db)
         Bootstrap(app)
         CORS(app, resources={r"/api/*": {"origins": "*"}})
 
