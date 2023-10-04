@@ -46,6 +46,7 @@ class User(Base):
     ausente: Mapped["Ausentismo"] = relationship(back_populates="userausente")
     docente: Mapped["Asignatura"] = relationship(back_populates="docente")
     evaluacion: Mapped["Evaluacion"] = relationship(back_populates="evaluado")
+    asistencia: Mapped["UsrAsistenciaLnk"] = relationship(back_populates="user")
 
     def get_id(self):
         return self.id
@@ -71,7 +72,7 @@ class User(Base):
             return smts
         """Getting a list of users by given a qr list"""
         with current_app.Session() as session:
-            res = session.execute(smts).all()
+            res = session.scalars(smts).all()
         return res
 
 
@@ -93,7 +94,7 @@ class Perfil(Base):
     modulo: Mapped["PerfilModuloLnk"] = relationship(back_populates="perfil")
 
     def __repr__(self) -> str:
-        return self.nombreperfil.value
+        return self.nombreperfil
 
 
 @map_name_to_table

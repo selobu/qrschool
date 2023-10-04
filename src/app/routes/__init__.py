@@ -31,8 +31,7 @@ def init_app(app):
                 smts = select(app.Tb.User).filter(
                     app.Tb.User.correo == form.correo.data
                 )
-                res = session.execute(smts).one()
-                user = res[0]
+                user = session.scalars(smts).one()
                 if not user.validatepassword(form.password.data):
                     return redirect("#")
                 # storing data

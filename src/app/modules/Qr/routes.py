@@ -71,7 +71,7 @@ class UserGetQr(Resource):
         with app.Session() as session:
             # Se verifica que el usuario exista
             user = select(Tb.User).filter(Tb.User.id == user_id)
-            usr = session.execute(user).one()[0]
+            usr = session.scalars(user).one()
             if usr.qr_id is None:
                 # se genera un nuevo código QR
                 qr = usr.generateqr()
@@ -94,7 +94,7 @@ class Qr(Resource):
         """Retorna los datos del usuario"""
         with app.Session() as session:
             res = select(Tb.Qr).join(Tb.Qr.usuario).filter(Tb.Qr.code == qr_id)
-            qr = session.execute(res).one()[0]
+            qr = session.scalars(res).one()
             return qr.usuario
 
     if False:

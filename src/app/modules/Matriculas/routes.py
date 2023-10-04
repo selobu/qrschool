@@ -150,8 +150,7 @@ class GradoUsers(Resource):
         """Consulta el listado de estudiantes de un grado"""
         with current_app.Session() as session:
             smts = select(Tb.User).join(Tb.Grado).filter(Tb.Grado.id == gradoid)
-            res = [r[0] for r in session.execute(smts).all()]
-            return res
+            return session.scalars(smts).all()
 
     @ns_matricula.doc("Registra un listado de estudiantes de un grado")
     @ns_matricula.expect(qr_users_list)
@@ -164,9 +163,9 @@ class GradoUsers(Resource):
         userssmts = Tb.User.get_by_qrs(qrs, onlysmt=True)
         # se asocian los usuarios al grado
         with current_app.Session() as session:
-            users = [u[0] for u in session.execute(userssmts).all()]
+            users = session.scalars(userssmts).all()
             smts = select(current_app.Tb.Grado).filter_by(id=gradoid)
-            grado = session.execute(smts).one()[0]
+            grado = session.scalars(smts).one()
             res = list(grado.estudiante)
             res.extend(users)
             grado.estudiante = list(set(res))

@@ -1,7 +1,7 @@
 # coding:utf-8
 __all__ = ["createApiModel"]
 from typing import Any
-from flask_restx import Model, fields
+from flask_restx import Model, fields, api
 from flask import current_app
 from sqlalchemy import types, select
 from sqlalchemy.inspection import inspect
@@ -9,7 +9,7 @@ from functools import wraps
 from flask_restx import reqparse
 
 
-api = current_app.api  # type: ignore
+# api = current_app.api  # type: ignore
 
 _not_allowed = ["TypeEngine", "TypeDecorator", "UserDefinedType", "PickleType"]
 conversion = {
@@ -143,8 +143,8 @@ def get_model_list(model: Model, limit: int = 50):
         def wrapper(*args, **kwargs):
             with current_app.Session() as session:
                 res = select(model).limit(limit)
-                items = session.execute(res).all()
-            return [u[0] for u in items]
+                items = session.scalars(res).all()
+                return items
 
         return wrapper
 
@@ -174,8 +174,8 @@ def get_model(model: Model):
         def wrapper(*args, **kwargs):
             with current_app.Session() as session:
                 res = select(model).filter_by(**kwargs)
-                item = session.execute(res).one()
-            return item[0]
+                item = session.scalars(res).one()
+            return item
 
         return wrapper
 
@@ -200,7 +200,7 @@ def put_model(model: Model):
 
 
 def createApiModel(
-    api,
+    api: api,
     table,
     modelname: str = None,
     readonlyfields: list = [],
@@ -209,12 +209,14 @@ def createApiModel(
 ) -> Model:
     """Create a basic Flask-restx ApiModel by given an sqlachemy Table and a flask-restx api.
     Requires sqlalchemy
+
     Args:
         api: Flask-restx api
         table: SqlalchemyTable
         modelname (Optional[str], optional): Custom model name. if it's is None then the modelname will be the capitalized tablename.
         readonlyfields (Optional[list], optional): Set readonly fields. Defaults to [].
         show (Optional[list], optional): Set shown fields. Defaults to [].
+
     Return:
         Model
     """

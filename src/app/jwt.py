@@ -19,6 +19,6 @@ def init_app(app):
         identity = jwt_data["sub"]
         with app.Session() as session:
             res = select(Tb.User).filter(Tb.User.correo == identity)
-            return session.execute(res).one()[0]
+            return session.scalars(res).one()
 
     return jwt
