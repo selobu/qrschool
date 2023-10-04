@@ -3,4 +3,4 @@
 set -e
 set -x
 
-pytest
+poetry run pytest
