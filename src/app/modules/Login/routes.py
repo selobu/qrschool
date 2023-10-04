@@ -110,7 +110,7 @@ class Login(Resource):
                     .filter(Tb.PerfilModuloLnk.has_permision == True)  # noqa: E712
                 )
 
-                modules = [r[0] for r in session.execute(res).all()]
+                modules = session.scalars(res).all()
 
         if passwordhash == readedhash:
             access_token = create_access_token(identity=email, fresh=True)

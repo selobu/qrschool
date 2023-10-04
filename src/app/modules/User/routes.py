@@ -102,8 +102,7 @@ class User(Resource):
         """Retorna la información del usuario"""
         with app.Session() as session:
             res = select(Tb.User).filter(Tb.User.id == user_id)
-            user = session.execute(res).one()
-        return user[0]
+            return session.scalars(res).one()
 
     @ns_usrs.doc("Actualiza la información del usuario")
     @ns_usrs.expect(usr)
@@ -126,6 +125,6 @@ class User(Resource):
             """Elimina un usuario -- Acción irreversible"""
             with app.Session.begin() as session:
                 res = select(Tb.User).filter_by(Tb.User.id == user_id)
-                user = session.execute(res).one()
+                user = session.scalars(res).one()
                 session.delete(user)
             return 204

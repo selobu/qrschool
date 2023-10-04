@@ -50,17 +50,14 @@ def map_name_to_table(cls):
         else:
             # se busca para modificarlo
             with app.Session() as session:
-                res = select(cls).filter_by(
+                q = select(cls).filter_by(
                     **dict(
                         (primary_key_name, kwargs[primary_key_name])
                         for primary_key_name in primary_key_names
                     )
                 )
-                res = session.execute(res).all()
-                if len(res) == 0:
+                if (model := session.scalars(q).first()) is None:
                     model = cls()
-                else:
-                    model = res[0][0]
         for primary_key in primary_keys:
             if primary_key.name in kwargs:
                 setattr(model, primary_key.name, kwargs.pop(primary_key.name))

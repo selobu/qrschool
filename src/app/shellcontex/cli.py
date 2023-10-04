@@ -52,8 +52,7 @@ def init_app(app):
         click.echo(f"Removing admin profile {email}")
         with app.Session() as session:
             res = select(Tb.User).join(Tb.Perfil.user).filter(Tb.User.correo == email)
-            user = session.execute(res).one()[0]
-            print(user)
+            user = session.scalars(res).one()
             user.perfil_nombre = "SIN"
             session.add(user)
             session.commit()
@@ -64,7 +63,7 @@ def init_app(app):
         missing = []
         with app.Session() as session:
             res = select(app.Tb.Perfil.nombreperfil).limit(20)
-            registerd = [r[0].value for r in session.execute(res).all()]
+            registerd = [r.value for r in session.scalars(res).all()]
             print(f"registerd {registerd}")
             missing = [
                 perfil.value
@@ -101,10 +100,8 @@ def init_app(app):
         # current modules
         available_modules = _listsubmodules(_modules.__file__)
         with app.Session() as session:
-            # smts = select(app.Tb.Perfil.nombreperfil)
-            # perfiles = [p[0].value for p in session.execute(smts).all()]
             smts = select(app.Tb.Module.modulename)
-            modulenames = [p[0] for p in session.execute(smts).all()]
+            modulenames = session.scalars(smts).all()
             missingmodules = [u for u in available_modules if u not in modulenames]
         update_moduleslist = "n"
         if len(missingmodules) == 0:
@@ -123,9 +120,9 @@ def init_app(app):
         # actualizar los modulos
         with app.Session() as session:
             smts = select(app.Tb.Perfil.nombreperfil)
-            perfiles = [r[0].value for r in session.execute(smts).all()]
+            perfiles = [r.value for r in session.scalars(smts).all()]
             smts = select(app.Tb.Module.modulename)
-            modulenames = [p[0] for p in session.execute(smts).all()]
+            modulenames = session.scalars(smts).all()
             lista = list()
             for modulename in modulenames:
                 for permision in perfiles:
@@ -133,7 +130,7 @@ def init_app(app):
             smts = select(
                 app.Tb.PerfilModuloLnk.perfil_id, app.Tb.PerfilModuloLnk.modulo_id
             )
-            registrados = session.execute(smts).all()
+            registrados = session.scalars(smts).all()
             missing = [f for f in lista if f not in registrados]
         with app.Session() as session:
             session.add_all(

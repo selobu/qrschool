@@ -15,7 +15,7 @@ def init_app(app):
         with app.Session() as session:
             res = select(Tb.User).filter(Tb.User.id == user_id)
             try:
-                return session.execute(res).one()[0]
+                return session.scalars(res).one()
             except Exception:
                 return None
 
