@@ -32,6 +32,8 @@ def create_app(settings=ProductionConfig):
     with app.app_context():
         csrf.init_app(app)
         api = modules.init_app(app, csrf=csrf)
+        print("------URI------")
+        print(app.config["SQLALCHEMY_DATABASE_URI"])
         engine = create_engine(
             app.config["SQLALCHEMY_DATABASE_URI"],
             pool_recycle=3600,
