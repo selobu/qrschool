@@ -1,5 +1,6 @@
 # Qrschool
 
+[![Python Version](https://img.shields.io/badge/python-3.11-blue)](https://www.python.org/downloads/release/python-390/)
 ![Codestyle](https://img.shields.io/badge/code%20style-black-000000.svg)
 ![black](https://github.com/selobu/qrschool/actions/workflows/black.yml/badge.svg)
 ![tests](https://github.com/selobu/qrschool/actions/workflows/test.yml/badge.svg)
@@ -14,7 +15,6 @@ Attendance student list by reading QR codes
 
 [Project Documentation](https://selobu.github.io/qrschool/)
 
-[![Python Version](https://img.shields.io/badge/python-3.11-blue)](https://www.python.org/downloads/release/python-390/)
 
 Project status
 
