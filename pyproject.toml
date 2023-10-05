@@ -28,6 +28,13 @@ sqlalchemy = "^2.0.21"
 gunicorn = "^21.2.0"
 werkzeug = "2.3.6"
 
+[tool.poetry.group.dev.dependencies]
+pytest = "^7.4.2"
+
+[project.urls]
+Homepage = "https://github.com/selobu/qrschool"
+Documentation = "https://selobu.github.io/qrschool/"
+Repository = "https://github.com/selobu/qrschool"
 
 [build-system]
 requires = ["poetry-core"]
