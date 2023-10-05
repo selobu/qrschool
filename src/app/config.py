@@ -1,17 +1,33 @@
 # coding:utf-8
 
 from os import environ
+from pathlib import Path
 
-adminpassword = environ.get("MYSQL_ROOT_PASSWORD")
 adminuser = environ.get("MYSQL_ROOT_USER")
 port = environ.get("MYSQL_PORT", "3306")
 database = environ.get("MYSQL_DATABASE", "colegio2023")
 host = environ.get("MYSQL_HOST", "localhost")
 user = environ.get("MYSQL_USER", "root")
-userpassword = environ.get("MYSQL_PASSWORD", "adminpassword123")
-jwt_key = environ.get("JWT_SECRET_KEY", "superSecretpasswordneeds2BeChanged")
 echo_value = environ.get("ECHO", False)
-appname = environ.get("APPNAME", "QRSChool")
+appname = environ.get("APPNAME")
+_rootpath = Path(__file__).parent.parent.parent.joinpath("secrets", "")
+
+# reading credentials
+with open(
+    environ.get("MYSQL_PASSWORD_FILE", _rootpath.joinpath("db_password.txt")), "r"
+) as fopen:
+    userpassword = fopen.readline()
+with open(
+    environ.get("MYSQL_ROOT_PASSWORD_FILE", _rootpath.joinpath("db_root_password.txt")),
+    "r",
+) as fopen:
+    adminpassword = fopen.readline()
+with open(
+    environ.get("JWT_SECRET_KEY_FILE", _rootpath.joinpath("jwt_password.txt")), "r"
+) as fopen:
+    jwt_key = fopen.readline()
+
+
 if isinstance(echo_value, str):
     if echo_value.lower() in ["true", "t"]:
         echo_value = True
@@ -38,7 +54,7 @@ class Config(object):
     app: object = {}
     engine: object = {}
     ECHO: bool = echo_value  # type:ignore
-    APP_NAME: str = appname
+    APP_NAME: str = appname  # type:ignore
     FLASK_ADMIN_SWATCH: str = "cerulean"  # admin bootswatch theme
     ADMIN_TEMPLATE_NAME: str = "bootstrap4"
     TESTING: bool = False
