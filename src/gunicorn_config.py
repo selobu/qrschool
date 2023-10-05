@@ -1,14 +1,14 @@
-import os
+from os import environ
 
+workers = int(environ.get("GUNICORN_PROCESSES", "2"))
 
-workers = int(os.environ.get("GUNICORN_PROCESSES", "2"))
+threads = int(environ.get("GUNICORN_THREADS", "4"))
 
-threads = int(os.environ.get("GUNICORN_THREADS", "4"))
+timeout = int(environ.get("GUNICORN_TIMEOUT", "120"))
 
-timeout = int(os.environ.get("GUNICORN_TIMEOUT", "120"))
+port = int(environ.get("SERVING_PORT", "8080"))
 
-bind = os.environ.get("GUNICORN_BIND", "0.0.0.0:8081")
-
+bind = environ.get("GUNICORN_BIND", f"0.0.0.0:{port}")
 
 forwarded_allow_ips = "*"
 
