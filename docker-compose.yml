@@ -1,8 +1,8 @@
-version: "1.0"
+version: "1.1"
 name: "schoolapi"
 services:
   db:
-    image: mysql:latest
+    image: mysql:8.0
     volumes:
       - db_data:/var/lib/mysql
     restart: always
@@ -16,12 +16,13 @@ services:
       - db_root_password
       - db_password
     ports:
-      - "3306:3306"
+      - "3306:${MYSQL_PORT}"
   api:
     environment:
       APPNAME: QRSChool
       MYSQL_HOST: db
-      MYSQL_PORT: 3306
+      MYSQL_PORT: ${MYSQL_PORT}
+      SERVING_PORT: ${SERVING_PORT}
       ECHO: false
       MYSQL_ROOT_USER: root
       MYSQL_ROOT_PASSWORD_FILE: /run/secrets/db_root_password
@@ -42,7 +43,7 @@ services:
     volumes:
       - ./src:/home
     ports:
-      - "8081:8081"
+      - "8081:${SERVING_PORT}"
 secrets:
   db_password:
     file: ./secrets/db_password.txt
