@@ -22,7 +22,7 @@ Project status
 | ----------------- | ------------------------------------- | ------------------- |
 | GitHub Actions    | ![100%](https://progress-bar.dev/100) | 08/11/2023          |
 | precommit checks  | ![100%](https://progress-bar.dev/100) | 08/14/2023          |
-| Gunicorn & Docker | ![90%](https://progress-bar.dev/90)   | 09/25/2023          |
+| Gunicorn & Docker | ![100%](https://progress-bar.dev/100) | 10/04/2023          |
 | admin shell       | ![100%](https://progress-bar.dev/100) | 09/25/2023          |
 | create profiles   | ![100%](https://progress-bar.dev/100) | 08/16/2023          |
 | Admin interfase   | ![80%](https://progress-bar.dev/80)   | 09/30/2023          |
