@@ -14,21 +14,38 @@ appname = environ.get("APPNAME")
 _rootpath = Path(__file__).parent.parent.parent.joinpath("secrets", "")
 
 # reading credentials
-with open(
-    environ.get("MYSQL_PASSWORD_FILE", _rootpath.joinpath("db_password.txt")), "r"
-) as fopen:
-    userpassword = fopen.readline()
+pth1 = _rootpath.joinpath("db_password.txt")
+if not pth1.exists():
+    userpassword = ""
+    print("db_password not fount")
+else:
+    with open(
+        environ.get("MYSQL_PASSWORD_FILE", _rootpath.joinpath("db_password.txt")), "r"
+    ) as fopen:
+        userpassword = fopen.readline()
 
-with open(
-    environ.get("MYSQL_ROOT_PASSWORD_FILE", _rootpath.joinpath("db_root_password.txt")),
-    "r",
-) as fopen:
-    adminpassword = fopen.readline()
+pth2 = _rootpath.joinpath("db_root_password.txt")
+if not pth1.exists():
+    adminpassword = ""
+    print("db_root_password not fount")
+else:
+    with open(
+        environ.get(
+            "MYSQL_ROOT_PASSWORD_FILE", _rootpath.joinpath("db_root_password.txt")
+        ),
+        "r",
+    ) as fopen:
+        adminpassword = fopen.readline()
 
-with open(
-    environ.get("JWT_SECRET_KEY_FILE", _rootpath.joinpath("jwt_password.txt")), "r"
-) as fopen:
-    jwt_key = fopen.readline()
+pth3 = _rootpath.joinpath("db_root_password.txt")
+if not pth1.exists():
+    jwt_key = "1235sd35dsf4"
+    print("jwt_key not fount")
+else:
+    with open(
+        environ.get("JWT_SECRET_KEY_FILE", _rootpath.joinpath("jwt_password.txt")), "r"
+    ) as fopen:
+        jwt_key = fopen.readline()
 
 if isinstance(echo_value, str):
     if echo_value.lower() in ["true", "t"]:
@@ -50,7 +67,6 @@ class Config(object):
         "url": "https://lteam.gestionhseq.com",
         "telegram": "https://t.me/selopez",
     }
-    SQLALCHEMY_DATABASE_URI: str = "sqlite:///database.db"
     JWT_SECRET_KEY: str = jwt_key
     WTF_CSRF_SECRET_KEY: str = jwt_key * 2
     app: object = {}
@@ -76,3 +92,11 @@ class DevelopmentConfig(Config):
 class TestingConfig(Config):
     SQLALCHEMY_DATABASE_URI = "sqlite:///:memory:"
     TESTING = True
+
+
+hostpythonanywhere = "selobu.mysql.pythonanywhere-services.com"
+databasepythonanywhere = "selobu$colegio2023"
+
+
+class PythonAnywhereConfig(Config):
+    SQLALCHEMY_DATABASE_URI = f"mysql+pymysql://{user}:{userpassword}@{hostpythonanywhere}:{port}/{databasepythonanywhere}"
