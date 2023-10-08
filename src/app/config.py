@@ -25,7 +25,7 @@ else:
         userpassword = fopen.readline()
 
 pth2 = _rootpath.joinpath("db_root_password.txt")
-if not pth1.exists():
+if not pth2.exists():
     adminpassword = ""
     print("db_root_password not fount")
 else:
@@ -38,7 +38,7 @@ else:
         adminpassword = fopen.readline()
 
 pth3 = _rootpath.joinpath("db_root_password.txt")
-if not pth1.exists():
+if not pth3.exists():
     jwt_key = "1235sd35dsf4"
     print("jwt_key not fount")
 else:
