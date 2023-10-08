@@ -15,6 +15,8 @@ Attendance student list by reading QR codes
 
 [Project Documentation](https://selobu.github.io/qrschool/)
 
+[DEMO](https://qrschool-selobu.pythonanywhere.com/)
+
 
 Project status
 
