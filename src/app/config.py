@@ -92,3 +92,11 @@ class DevelopmentConfig(Config):
 class TestingConfig(Config):
     SQLALCHEMY_DATABASE_URI = "sqlite:///:memory:"
     TESTING = True
+
+
+hostpythonanywhere = "selobu.mysql.pythonanywhere-services.com"
+databasepythonanywhere = "selobu$colegio2023"
+
+
+class PythonAnywhereConfig(Config):
+    SQLALCHEMY_DATABASE_URI = f"mysql+pymysql://{user}:{userpassword}@{hostpythonanywhere}:{port}/{databasepythonanywhere}"
