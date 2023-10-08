@@ -50,7 +50,6 @@ class Config(object):
         "url": "https://lteam.gestionhseq.com",
         "telegram": "https://t.me/selopez",
     }
-    SQLALCHEMY_DATABASE_URI: str = "sqlite:///database.db"
     JWT_SECRET_KEY: str = jwt_key
     WTF_CSRF_SECRET_KEY: str = jwt_key * 2
     app: object = {}
