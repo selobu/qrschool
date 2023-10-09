@@ -78,10 +78,10 @@ class UserView(PermisionView):
 
 
 def getviews() -> list:
-    views = list()
-
-    views.append(UserView(Tb.User, app.Session()))  # type: ignore
-    views.append(PerfilModuleview(Tb.PerfilModuloLnk, app.Session(), name="Permisos"))  # type: ignore
+    views = [
+        UserView(Tb.User, app.Session()),  # type: ignore
+        PerfilModuleview(Tb.PerfilModuloLnk, app.Session(), name="Permisos"),  # type: ignore
+    ]
     return views
 
 

@@ -15,7 +15,7 @@ from app.toolsapk import Base, Tb, map_name_to_table, uuidgenerator, now, gethas
 @map_name_to_table
 class User(Base):
     __tablename__ = "user"
-    id: Mapped[Optional[int]] = mapped_column(primary_key=True)
+    id: Mapped[Optional[int]] = mapped_column(primary_key=True, nullable=False)
     # idPadre: Mapped["User"] = relationship(remote_side=["id"], backref="acudiente")
     is_active: Mapped[bool] = mapped_column(Boolean, default=False)
     timestamp: Mapped[Optional[datetime]] = mapped_column(insert_default=now())
@@ -94,7 +94,7 @@ class Perfil(Base):
     modulo: Mapped["PerfilModuloLnk"] = relationship(back_populates="perfil")
 
     def __repr__(self) -> str:
-        return self.nombreperfil
+        return self.nombreperfil.value
 
 
 @map_name_to_table
