@@ -33,6 +33,7 @@ services:
       GUNICORN_PROCESSES: 2
       GUNICORN_THREADS: 4
       GUNICORN_TIMEOUT: 120
+      FLASK_CONFIG: ${FLASK_CONFIG}
     secrets:
       - db_root_password
       - db_password
