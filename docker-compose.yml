@@ -1,6 +1,12 @@
 version: "1.1"
 name: "schoolapi"
 services:
+  redis:
+    image: redis:latest
+    ports:
+      - "6379:6379"
+    volumes:
+      - cache:/data
   db:
     image: mysql:8.0
     volumes:
@@ -17,7 +23,23 @@ services:
       - db_password
     ports:
       - "3306:${MYSQL_PORT}"
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          "mysqladmin ping -h 127.0.0.1 -u $$(MYSQL_USER) --password=`cat
+          $$(MYSQL_ROOT_PASSWORD_FILE)`",
+        ]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 3s
   api:
+    depends_on:
+      redis:
+        condition: service_started
+      db:
+        condition: service_healthy
     environment:
       APPNAME: QRSChool
       MYSQL_HOST: db
@@ -54,3 +76,4 @@ secrets:
     file: ./secrets/jwt_password.txt
 volumes:
   db_data:
+  cache: {}
