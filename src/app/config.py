@@ -21,7 +21,7 @@ def getData(filepath: str, key: str, default: str) -> str:
         filepath = str(environ.get(key))
     else:
         filepath = environ.get(key, str(pth))
-    if filepath is not None:
+    if Path(filepath).is_file():
         with open(filepath, "r") as fopen:
             return fopen.readline()
     return default
