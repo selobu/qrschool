@@ -6,7 +6,7 @@ from flask_bootstrap import Bootstrap
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, scoped_session
 
-from app.config import ProductionConfig
+from app.config import PythonAnywhereConfig
 from app.imp_modules import modulesResolver
 from app.toolsapk import Tb
 
@@ -21,7 +21,7 @@ from flask_sqlalchemy import SQLAlchemy
 csrf = CSRFProtect()
 
 
-def create_app(settings=ProductionConfig):
+def create_app(settings=PythonAnywhereConfig):
     """Contruct the core application."""
     app = Flask(__name__, static_folder="static", template_folder="templates")
     app.config.from_object(settings)
