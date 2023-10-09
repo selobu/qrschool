@@ -97,6 +97,8 @@ class TestingConfig(Config):
 hostpythonanywhere = "selobu.mysql.pythonanywhere-services.com"
 databasepythonanywhere = "selobu$colegio2023"
 
+userpythonanywhere = "selobu"
+
 
 class PythonAnywhereConfig(Config):
-    SQLALCHEMY_DATABASE_URI = f"mysql+pymysql://{user}:{userpassword}@{hostpythonanywhere}:{port}/{databasepythonanywhere}"
+    SQLALCHEMY_DATABASE_URI = f"mysql+pymysql://{userpythonanywhere}:{userpassword}@{hostpythonanywhere}:{port}/{databasepythonanywhere}"
