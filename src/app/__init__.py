@@ -38,6 +38,7 @@ def create_app(settings=None):
             "dev": DevelopmentConfig,
             "test": TestingConfig,
         }
+        print(f"=> FLASK_CONFIG : {FLASK_CONFIG}")
         if FLASK_CONFIG in cfg:
             settings = cfg[FLASK_CONFIG]
         else:

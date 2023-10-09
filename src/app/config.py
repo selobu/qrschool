@@ -13,39 +13,24 @@ echo_value = environ.get("ECHO", False)
 appname = environ.get("APPNAME")
 _rootpath = Path(__file__).parent.parent.parent.joinpath("secrets", "")
 
+
 # reading credentials
-pth1 = _rootpath.joinpath("db_password.txt")
-if not pth1.exists():
-    userpassword = ""
-    print("db_password not fount")
-else:
-    with open(
-        environ.get("MYSQL_PASSWORD_FILE", _rootpath.joinpath("db_password.txt")), "r"
-    ) as fopen:
-        userpassword = fopen.readline()
+def getData(filepath: str, key: str, default: str) -> str:
+    pth = _rootpath.joinpath(filepath)
+    if not pth.exists():
+        filepath = str(environ.get(key))
+    else:
+        filepath = environ.get(key, str(pth))
+    if Path(filepath).is_file():
+        with open(filepath, "r") as fopen:
+            return fopen.readline()
+    return default
 
-pth2 = _rootpath.joinpath("db_root_password.txt")
-if not pth2.exists():
-    adminpassword = ""
-    print("db_root_password not fount")
-else:
-    with open(
-        environ.get(
-            "MYSQL_ROOT_PASSWORD_FILE", _rootpath.joinpath("db_root_password.txt")
-        ),
-        "r",
-    ) as fopen:
-        adminpassword = fopen.readline()
 
-pth3 = _rootpath.joinpath("db_root_password.txt")
-if not pth3.exists():
-    jwt_key = "1235sd35dsf4"
-    print("jwt_key not fount")
-else:
-    with open(
-        environ.get("JWT_SECRET_KEY_FILE", _rootpath.joinpath("jwt_password.txt")), "r"
-    ) as fopen:
-        jwt_key = fopen.readline()
+userpassword = getData("db_password.txt", "MYSQL_PASSWORD_FILE", "")
+adminpassword = getData("db_root_password.txt", "MYSQL_ROOT_PASSWORD_FILE", "")
+jwt_key = getData("jwt_password.txt", "JWT_SECRET_KEY_FILE", "")
+
 
 if isinstance(echo_value, str):
     if echo_value.lower() in ["true", "t"]:
