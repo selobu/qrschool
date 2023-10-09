@@ -15,19 +15,21 @@ _rootpath = Path(__file__).parent.parent.parent.joinpath("secrets", "")
 
 
 # reading credentials
-def getData(filepath, key):
-    pth1 = _rootpath.joinpath(filepath)
-    if not pth1.exists():
-        filepath = environ.get(key)
+def getData(filepath: str, key: str, default: str) -> str:
+    pth = _rootpath.joinpath(filepath)
+    if not pth.exists():
+        filepath = str(environ.get(key))
     else:
-        filepath = environ.get(key, _rootpath.joinpath(filepath))
-    with open(filepath, "r") as fopen:
-        return fopen.readline()
+        filepath = environ.get(key, str(pth))
+    if filepath is not None:
+        with open(filepath, "r") as fopen:
+            return fopen.readline()
+    return default
 
 
-userpassword = getData("db_password.txt", "MYSQL_PASSWORD_FILE")
-adminpassword = getData("db_root_password.txt", "MYSQL_ROOT_PASSWORD_FILE")
-jwt_key = getData("jwt_password.txt", "JWT_SECRET_KEY_FILE")
+userpassword = getData("db_password.txt", "MYSQL_PASSWORD_FILE", "")
+adminpassword = getData("db_root_password.txt", "MYSQL_ROOT_PASSWORD_FILE", "")
+jwt_key = getData("jwt_password.txt", "JWT_SECRET_KEY_FILE", "")
 
 
 if isinstance(echo_value, str):
