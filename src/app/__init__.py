@@ -1,12 +1,17 @@
 # coding:utf-8
 from flask import Flask
-
 from flask_wtf.csrf import CSRFProtect
 from flask_bootstrap import Bootstrap
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, scoped_session
 
-from app.config import PythonAnywhereConfig
+from app.config import (
+    Config,
+    ProductionConfig,
+    DevelopmentConfig,
+    TestingConfig,
+    PythonAnywhereConfig,
+)
 from app.imp_modules import modulesResolver
 from app.toolsapk import Tb
 
@@ -17,13 +22,26 @@ from app.toolsapk import Base
 from flask_cors import CORS
 
 from flask_sqlalchemy import SQLAlchemy
+from os import getenv
 
 csrf = CSRFProtect()
 
 
-def create_app(settings=PythonAnywhereConfig):
+def create_app(settings=None):
     """Contruct the core application."""
     app = Flask(__name__, static_folder="static", template_folder="templates")
+    if settings is None:
+        FLASK_CONFIG = getenv("FLASK_CONFIG", "local")
+        cfg = {
+            "local": ProductionConfig,
+            "Python_anywhere": PythonAnywhereConfig,
+            "dev": DevelopmentConfig,
+            "test": TestingConfig,
+        }
+        if FLASK_CONFIG in cfg:
+            settings = cfg[FLASK_CONFIG]
+        else:
+            settings = Config
     app.config.from_object(settings)
 
     # required by FLASK-WTFORMS
@@ -32,8 +50,6 @@ def create_app(settings=PythonAnywhereConfig):
     with app.app_context():
         csrf.init_app(app)
         api = modules.init_app(app, csrf=csrf)
-        print("------URI------")
-        print(app.config["SQLALCHEMY_DATABASE_URI"])
         engine = create_engine(
             app.config["SQLALCHEMY_DATABASE_URI"],
             pool_recycle=3600,
