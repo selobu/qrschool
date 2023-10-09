@@ -101,4 +101,4 @@ userpythonanywhere = "selobu"
 
 
 class PythonAnywhereConfig(Config):
-    SQLALCHEMY_DATABASE_URI = f"mysql+pymysql://{userpythonanywhere}:{userpassword}@{hostpythonanywhere}:{port}/{databasepythonanywhere}"
+    SQLALCHEMY_DATABASE_URI = f"mysql+pymysql://{userpythonanywhere}:{userpassword}@{hostpythonanywhere}/{databasepythonanywhere}"
