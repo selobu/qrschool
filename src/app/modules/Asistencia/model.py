@@ -11,7 +11,7 @@ from app.toolsapk import Base, map_name_to_table, now
 @map_name_to_table
 class Asistencia(Base):
     __tablename__ = "asistencia"
-    id: Mapped[Optional[int]] = mapped_column(primary_key=True)
+    id: Mapped[Optional[int]] = mapped_column(primary_key=True, nullable=False)
     timestamp: Mapped[Optional[datetime]] = mapped_column(insert_default=now())
 
     userasistencia: Mapped["UsrAsistenciaLnk"] = relationship(
@@ -23,8 +23,10 @@ class Asistencia(Base):
 class UsrAsistenciaLnk(Base):
     __tablename__ = "userasistencia"
     asistencia_id: Mapped[int] = mapped_column(
-        ForeignKey("asistencia.id"), primary_key=True
+        ForeignKey("asistencia.id"), primary_key=True, nullable=False
     )
-    user_id: Mapped[str] = mapped_column(ForeignKey("user.id"), primary_key=True)
+    user_id: Mapped[int] = mapped_column(
+        ForeignKey("user.id"), primary_key=True, nullable=False
+    )
     asistencia: Mapped["Asistencia"] = relationship(back_populates="userasistencia")
     user: Mapped["User"] = relationship(back_populates="asistencia")
