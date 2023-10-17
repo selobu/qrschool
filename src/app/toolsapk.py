@@ -117,7 +117,9 @@ def map_name_to_table(cls):
                 raise f"<{model.__table__.name}> Invalid parameter {key}"
         # app.dbsession.add(model)
         if commit:
-            app.dbsession.commit()
+            with app.Session() as session:
+                with session.begin():
+                    session.add(model)
         return model
 
     if "register" not in cls.__dict__:

@@ -5,6 +5,8 @@ from flask_jwt_extended import jwt_required
 from app.apitools import createApiModel
 from app.toolsapk import Tb, gethash, uuidgenerator
 
+from sqlalchemy import select
+
 api = app.api  # type: ignore
 
 ns_asistencia = api.namespace(
@@ -39,14 +41,25 @@ class AsistenciaList(Resource):
     @jwt_required()
     def post(self):
         """Registra listado de asistencia"""
-        userlist = api.payload["qrs"]
+        qrlist = api.payload["qrs"]
         # Session.begin() set automatically the commit once it takes out the with statement
         res = list()
         with app.Session() as session:
             with session.begin():
-                for user in userlist:
-                    res.append(Tb.User.register(**user))
-                session.add_all(res)
+                asistencia = Tb.Asistencia()
+                session.add(asistencia)
+                q = (
+                    select(Tb.User)
+                    .join(Tb.Qr, Tb.Qr.usuario_id == Tb.User.qr_id)
+                    .filter(Tb.Qr.code.in_(qrlist))
+                )
+                users = session.execute(q).all()
+                session.add_all(
+                    [
+                        Tb.UsrAsistenciaLnk(asistencia=asistencia, user=user)
+                        for user in users
+                    ]
+                )
         with app.Session() as session:
             # Se generan los códigos qr de todos los usuarios agregados y se registra la contraseña
             qrs = list()
