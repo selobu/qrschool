@@ -3,7 +3,7 @@ from flask_restx import Resource, fields
 from flask_jwt_extended import jwt_required
 
 from app.apitools import createApiModel
-from app.toolsapk import Tb, gethash, uuidgenerator
+from app.toolsapk import Tb
 
 from sqlalchemy import select
 
@@ -28,6 +28,16 @@ qr_register_list = api.model(
 usr_list_paginated = api.model(
     "UsersResList", {"usrs": fields.List(fields.Nested(usr))}
 )
+asistencia = api.model(
+    "asistencia",
+    {
+        "asistenciaid": fields.Integer(description="Asistencia id"),
+        "total": fields.Integer(
+            description="Cantidad total de personas en la asistencia"
+        ),
+        "timestamp": fields.DateTime(description="Fecha de registro"),
+    },
+)
 
 
 @ns_asistencia.route("/")
@@ -35,43 +45,33 @@ class AsistenciaList(Resource):
     """Listado de usuarios"""
 
     @ns_asistencia.doc("Registra un usuario")
-    @ns_asistencia.expect(
-        qr_register_list
-    )  # @ns_asistencia.marshal_list_with(usr, code=201)
+    @ns_asistencia.expect(qr_register_list)
+    @ns_asistencia.marshal_with(asistencia, code=200)
     @jwt_required()
     def post(self):
         """Registra listado de asistencia"""
         qrlist = api.payload["qrs"]
         # Session.begin() set automatically the commit once it takes out the with statement
-        res = list()
         with app.Session() as session:
             with session.begin():
                 asistencia = Tb.Asistencia()
                 session.add(asistencia)
+            asistencia_id = asistencia.id
+
+            with session.begin():
                 q = (
-                    select(Tb.User)
+                    select(Tb.User.id)
                     .join(Tb.Qr, Tb.Qr.usuario_id == Tb.User.qr_id)
                     .filter(Tb.Qr.code.in_(qrlist))
                 )
-                users = session.execute(q).all()
-                session.add_all(
-                    [
-                        Tb.UsrAsistenciaLnk(asistencia=asistencia, user=user)
-                        for user in users
-                    ]
-                )
-        with app.Session() as session:
-            # Se generan los códigos qr de todos los usuarios agregados y se registra la contraseña
-            qrs = list()
-            passwords = list()
-            with session.begin():
-                for user in res:
-                    qrs.append(Tb.Qr.register(usuario_id=user.id, code=uuidgenerator()))
-                    passwords.append(
-                        Tb.Auth.register(
-                            hash=gethash(user.password), usuario_id=user.id
-                        )
-                    )
-                session.add_all(qrs)
-                session.add_all(passwords)
-        return res
+                users = session.scalars(q).all()
+                lnks = [
+                    Tb.UsrAsistenciaLnk(asistencia_id=asistencia_id, user_id=userid)
+                    for userid in users
+                ]
+                session.add_all(lnks)
+        return {
+            "asistenciaid": asistencia_id,
+            "usuarios": len(users),
+            "timestamp": asistencia.timestamp,
+        }
