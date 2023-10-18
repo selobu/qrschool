@@ -1,44 +1,15 @@
 from flask import current_app as app
-from flask_restx import Resource, fields
+from flask_restx import Resource
 from flask_jwt_extended import jwt_required
 
-from app.apitools import createApiModel, parser
+from app.apitools import parser
 from app.toolsapk import Tb
 
 from sqlalchemy import select, func
 
+from .view import ns_asistencia, qr_register_list, asistencia
 
 api = app.api  # type: ignore
-
-ns_asistencia = api.namespace(
-    "asistencia", description="Registrar asistencia de usuarios"
-)
-
-usr = createApiModel(api, Tb.User, "Usuario", readonlyfields=["active"])  # type: ignore
-
-qr_register_list = api.model(
-    "QrRegisterList",
-    {
-        "qrs": fields.List(
-            fields.String(description="User QR code", required=True),
-            description="Listado de códigos Qr",
-        )
-    },
-)
-
-usr_list_paginated = api.model(
-    "UsersResList", {"usrs": fields.List(fields.Nested(usr))}
-)
-asistencia = api.model(
-    "asistencia",
-    {
-        "asistenciaid": fields.Integer(description="Asistencia id"),
-        "total": fields.Integer(
-            description="Cantidad total de personas en la asistencia"
-        ),
-        "timestamp": fields.DateTime(description="Fecha de registro"),
-    },
-)
 
 
 @ns_asistencia.route("/")
@@ -62,11 +33,12 @@ class AsistenciaList(Resource):
                     func.count(Tb.Asistencia.id),
                 )
                 .join(Tb.Asistencia.userasistencia)
-                .order_by(Tb.Asistencia.timestamp.asc())
+                .order_by(Tb.Asistencia.id.asc())
                 .group_by(Tb.Asistencia.id)
                 .limit(per_page)
                 .offset(per_page * (page - 1))
             )
+            print(f" => page {page} per_page {per_page}")
             print(q)
             result = [
                 {"asistenciaid": r[0], "total": r[2], "timestamp": r[1]}
