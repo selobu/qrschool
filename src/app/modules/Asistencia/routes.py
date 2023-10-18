@@ -67,10 +67,13 @@ class AsistenciaList(Resource):
                 .limit(per_page)
                 .offset(per_page * (page - 1))
             )
-            return [
+            print(q)
+            result = [
                 {"asistenciaid": r[0], "total": r[2], "timestamp": r[1]}
                 for r in session.execute(q).all()
             ]
+            print(f" => {result}")
+            return result
 
     @ns_asistencia.doc("Registra un usuario")
     @ns_asistencia.expect(qr_register_list)
