@@ -243,14 +243,22 @@ class PaginateModel:
             required=False,
         )
         self.__parsed = False
+        self.__args = None
 
     @property
     def paginate_model(self):
         return self._paginate_model
 
+    @property
+    def args(self):
+        if self.__args is None:
+            self.__args = self.__parse_args()
+        return self.__args
+
     def __parse_args(self):
         self.__args = self._paginate_model.parse_args()
         self.__parsed = True
+        return self.__args
 
     def __getitem__(self, __name: str) -> Any:
         if not self.__parsed:
@@ -259,9 +267,9 @@ class PaginateModel:
             return IndexError("Element not found!")
 
     def get(self, parameter, default=None):
-        if self[parameter] not in self.__args:
+        if parameter not in self.args:
             return default
-        if (param := self[parameter]) is None:
+        if (param := self.args[parameter]) is None:
             param = default
         return param
 
