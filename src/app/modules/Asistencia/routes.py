@@ -2,10 +2,11 @@ from flask import current_app as app
 from flask_restx import Resource, fields
 from flask_jwt_extended import jwt_required
 
-from app.apitools import createApiModel
+from app.apitools import createApiModel, parser
 from app.toolsapk import Tb
 
-from sqlalchemy import select
+from sqlalchemy import select, func
+
 
 api = app.api  # type: ignore
 
@@ -43,6 +44,33 @@ asistencia = api.model(
 @ns_asistencia.route("/")
 class AsistenciaList(Resource):
     """Listado de usuarios"""
+
+    @ns_asistencia.response(500, "Missing autorization header")
+    @ns_asistencia.doc("Consulta el codigo qr de los usuarios")
+    @ns_asistencia.marshal_list_with(asistencia, code=200)
+    @ns_asistencia.expect(parser.paginate_model)
+    @jwt_required()
+    def get(self):
+        """Retorna los listados de asistencia paginados"""
+        page = parser.get("page", default=1)
+        per_page = parser.get("per_page", default=app.config["PER_PAGE"])
+        with app.Session() as session:
+            q = (
+                select(
+                    Tb.Asistencia.id,
+                    Tb.Asistencia.timestamp,
+                    func.count(Tb.Asistencia.id),
+                )
+                .join(Tb.Asistencia.userasistencia)
+                .order_by(Tb.Asistencia.timestamp.asc())
+                .group_by(Tb.Asistencia.id)
+                .limit(per_page)
+                .offset(per_page * (page - 1))
+            )
+            return [
+                {"asistenciaid": r[0], "total": r[2], "timestamp": r[1]}
+                for r in session.execute(q).all()
+            ]
 
     @ns_asistencia.doc("Registra un usuario")
     @ns_asistencia.expect(qr_register_list)
