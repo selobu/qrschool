@@ -77,10 +77,22 @@ class UserView(PermisionView):
     ]
 
 
+class AsistenciaView(PermisionView):
+    can_create = False
+    can_edit = False
+    can_delete = False
+    page_size = 50  # the number of entries to display on the list view
+    column_filters = ["id", "timestamp"]
+
+    def get_pk_value(self, model):
+        return f"{model.id}"
+
+
 def getviews() -> list:
     views = [
         UserView(Tb.User, app.Session()),  # type: ignore
         PerfilModuleview(Tb.PerfilModuloLnk, app.Session(), name="Permisos"),  # type: ignore
+        AsistenciaView(Tb.Asistencia, app.Session(), name="Asistencia"),  # type: ignore
     ]
     return views
 
