@@ -15,10 +15,15 @@ Attendance student list by reading QR codes
 
 [Project Documentation](https://selobu.github.io/qrschool/)
 
-[DEMO](https://qrschool-selobu.pythonanywhere.com/)
+## Demos
+[backend](https://qrschool-selobu.pythonanywhere.com/)
+
+[api](https://qrschool-selobu.pythonanywhere.com/api/)
+
+[frontend](https://qrschoolapp.gestionhseq.comhttps://qrschool-selobu.pythonanywhere.com/api/)
 
 
-Project status
+## Project status
 
 | Item              | status                                | Due date MM/DD/YYYY |
 | ----------------- | ------------------------------------- | ------------------- |
