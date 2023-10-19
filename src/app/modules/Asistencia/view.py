@@ -4,6 +4,7 @@ __all__ = [
     "usr",
     "usr_list_paginated",
     "asistencia",
+    "showuser",
 ]
 from flask import current_app as app
 from app.apitools import createApiModel
@@ -39,5 +40,15 @@ asistencia = api.model(
             description="Cantidad total de personas en la asistencia"
         ),
         "timestamp": fields.DateTime(description="Fecha de registro"),
+    },
+)
+
+showuser = api.model(
+    "showuser",
+    {
+        "nombres": fields.String(description="User name"),
+        "apellidos": fields.String(description="User surname"),
+        "numeroidentificacion": fields.String(description="Id number"),
+        "grado": fields.Integer(description="User's grade id"),
     },
 )

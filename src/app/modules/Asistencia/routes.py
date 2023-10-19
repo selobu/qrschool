@@ -2,13 +2,14 @@ from flask import current_app as app
 from flask_restx import Resource
 from flask_jwt_extended import jwt_required
 
-from app.apitools import parser
+from app.apitools import PaginateModel
 from app.toolsapk import Tb
 
 from sqlalchemy import select, func
 
-from .view import ns_asistencia, qr_register_list, asistencia
+from .view import ns_asistencia, qr_register_list, asistencia, showuser
 
+parser = PaginateModel()
 api = app.api  # type: ignore
 
 
@@ -78,3 +79,38 @@ class AsistenciaList(Resource):
             "usuarios": len(users),
             "timestamp": asistencia.timestamp,
         }
+
+
+@ns_asistencia.route("/<int:asistencia_id>")
+@ns_asistencia.response(404, "User not found")
+class Asistencia(Resource):
+    """Listado de asistencia"""
+
+    @ns_asistencia.response(500, "Missing autorization header")
+    @ns_asistencia.doc("Retorna el listado de asistentes paginados")
+    @ns_asistencia.marshal_list_with(showuser, code=200)
+    @ns_asistencia.expect(parser.paginate_model)
+    @jwt_required()
+    def get(self, asistencia_id):
+        """Retorna los asistentes paginados"""
+        page = parser.get("page", default=1)
+        per_page = parser.get("per_page", default=app.config["PER_PAGE"])
+        with app.Session() as session:
+            q = (
+                select(Tb.User)
+                .join(Tb.User.asistencia)
+                .filter(Tb.UsrAsistenciaLnk.asistencia_id == asistencia_id)
+                .group_by(Tb.User.id)
+                .limit(per_page)
+                .offset(per_page * (page - 1))
+            )
+            result = [
+                {
+                    "nombres": r.nombres,
+                    "apellidos": r.apellidos,
+                    "numeroidentificacion": r.numeroidentificacion,
+                    "grado": r.grado,
+                }
+                for r in session.scalars(q).all()
+            ]
+            return result
