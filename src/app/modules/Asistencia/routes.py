@@ -81,8 +81,7 @@ class AsistenciaList(Resource):
         }
 
 
-@ns_asistencia.route("/<int:asistencia_id>")
-@ns_asistencia.response(404, "User not found")
+@ns_asistencia.route("/<int:asistencia_id>/")
 class Asistencia(Resource):
     """Listado de asistencia"""
 
