@@ -7,7 +7,7 @@ from sqlalchemy import types, select
 from sqlalchemy.inspection import inspect
 from functools import wraps
 from flask_restx import reqparse
-
+from dataclasses import dataclass
 
 # api = current_app.api  # type: ignore
 
@@ -230,28 +230,60 @@ def createApiModel(
     return api.model(modelname, res)
 
 
-class PaginateModel:
-    def __init__(self):
-        self._paginate_model = reqparse.RequestParser()
-        self._paginate_model.add_argument(
-            "page", type=int, help="Page to visualize - optional", required=False
+@dataclass
+class Argument:
+    name: str
+    type: object
+    help: str
+    required: bool
+
+
+class ParserModel:
+    _paginate_model = None
+    __args: dict = {}
+
+    def add_argument(self, Argument: Argument):
+        self.__add_argument(
+            name=Argument.name,
+            type=Argument.type,
+            help=Argument.help,
+            required=Argument.required,
         )
-        self._paginate_model.add_argument(
-            "per_page",
-            type=int,
-            help="Maximum results per page - optional",
-            required=False,
-        )
+        return self
+
+    def __add_argument(self, name: str, type=object, help=str, required=bool):
+        self.paginate_model.add_argument(name, type=type, help=help, required=required)
         self.__parsed = False
-        self.__args = None
+        return self
+
+    def add_paginate_arguments(self):
+        self.add_argument(
+            Argument(
+                name="page",
+                type=int,
+                help="Page to visualize - optional",
+                required=False,
+            )
+        )
+        self.add_argument(
+            Argument(
+                name="per_page",
+                type=int,
+                help="Maximum results per page - optional",
+                required=False,
+            )
+        )
+        return self
 
     @property
     def paginate_model(self):
+        if self._paginate_model is None:
+            self._paginate_model = reqparse.RequestParser()
         return self._paginate_model
 
     @property
     def args(self):
-        if self.__args is None:
+        if self.__parsed is None:
             self.__args = self.__parse_args()
         return self.__args
 
@@ -266,13 +298,13 @@ class PaginateModel:
         if __name not in self.__args:
             return IndexError("Element not found!")
 
-    def get(self, parameter, default=None):
-        if parameter not in self.args:
+    def get(self, Argument, default=None):
+        if Argument not in self.args:
             return default
-        if (param := self.args[parameter]) is None:
+        if (param := self.args[Argument]) is None:
             param = default
         return param
 
 
-parser = PaginateModel()
+parser = ParserModel().add_paginate_arguments()
 paginate_model = parser.paginate_model

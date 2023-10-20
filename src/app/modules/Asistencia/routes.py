@@ -2,14 +2,14 @@ from flask import current_app as app
 from flask_restx import Resource
 from flask_jwt_extended import jwt_required
 
-from app.apitools import PaginateModel
+from app.apitools import ParserModel
 from app.toolsapk import Tb
 
 from sqlalchemy import select, func
 
 from .view import ns_asistencia, qr_register_list, asistencia, showuser
 
-parser = PaginateModel()
+parser = ParserModel().add_paginate_arguments()
 api = app.api  # type: ignore
 
 

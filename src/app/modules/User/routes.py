@@ -3,7 +3,7 @@ from flask_restx import Resource, fields
 from sqlalchemy import select
 from flask_jwt_extended import jwt_required
 
-from app.apitools import createApiModel, paginate_model, parser
+from app.apitools import createApiModel, ParserModel, Argument
 from app.toolsapk import Tb, gethash, uuidgenerator
 
 api = app.api  # type: ignore
@@ -37,6 +37,44 @@ usr_list_paginated = api.model(
     "UsersResList", {"usrs": fields.List(fields.Nested(usr))}
 )
 
+parser = ParserModel()
+user_paginate_model = (
+    parser.add_paginate_arguments()
+    .add_argument(
+        Argument(
+            name="nombre",
+            type=str,
+            help="name like to filter - optional",
+            required=False,
+        )
+    )
+    .add_argument(
+        Argument(
+            name="apellido",
+            type=str,
+            help="surname like to filter - optional",
+            required=False,
+        )
+    )
+    .add_argument(
+        Argument(
+            name="grado",
+            type=str,
+            help="grade like to filter - optional",
+            required=False,
+        )
+    )
+    .add_argument(
+        Argument(
+            name="numeroidentificacion",
+            type=str,
+            help="name like to filter - optional",
+            required=False,
+        )
+    )
+    .paginate_model
+)
+
 
 @ns_usrs.route("/")
 class UserList(Resource):
@@ -44,7 +82,7 @@ class UserList(Resource):
 
     @ns_usrs.doc("Consulta la información de usuario")
     @ns_usrs.marshal_with(usr_list_paginated, code=200)
-    @ns_usrs.expect(paginate_model)
+    @ns_usrs.expect(user_paginate_model)
     @jwt_required()
     def get(self):
         """Retorna todos los usuarios
