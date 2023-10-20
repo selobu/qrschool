@@ -283,7 +283,7 @@ class ParserModel:
 
     @property
     def args(self):
-        if self.__parsed is None:
+        if self.__parsed is False:
             self.__args = self.__parse_args()
         return self.__args
 
@@ -297,6 +297,11 @@ class ParserModel:
             self.__parse_args()
         if __name not in self.__args:
             return IndexError("Element not found!")
+        pos = 0
+        for pos, value in enumerate(self.__args.keys()):
+            if value == __name:
+                break
+        return self.paginate_model.args[pos]
 
     def get(self, Argument, default=None):
         if Argument not in self.args:

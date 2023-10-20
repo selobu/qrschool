@@ -34,7 +34,7 @@ usr_register_list = api.model(
 )
 
 usr_list_paginated = api.model(
-    "UsersResList", {"usrs": fields.List(fields.Nested(usr))}
+    "UsersResListPag", {"usrs": fields.List(fields.Nested(usr))}
 )
 
 parser = ParserModel()
@@ -42,7 +42,7 @@ user_paginate_model = (
     parser.add_paginate_arguments()
     .add_argument(
         Argument(
-            name="nombre",
+            name="nombres",
             type=str,
             help="name like to filter - optional",
             required=False,
@@ -50,7 +50,7 @@ user_paginate_model = (
     )
     .add_argument(
         Argument(
-            name="apellido",
+            name="apellidos",
             type=str,
             help="surname like to filter - optional",
             required=False,
@@ -58,9 +58,9 @@ user_paginate_model = (
     )
     .add_argument(
         Argument(
-            name="grado",
-            type=str,
-            help="grade like to filter - optional",
+            name="grado_id",
+            type=int,
+            help="grado_id like integer - optional",
             required=False,
         )
     )
@@ -90,11 +90,27 @@ class UserList(Resource):
         """
         page = parser.get("page", default=1)
         per_page = parser.get("per_page", default=app.config["PER_PAGE"])
-
+        params = {
+            "nombres": parser.get("nombres", None),
+            "apellidos": parser.get("apellidos", None),
+            "grado_id": parser.get("grado_id", None),
+            "numeroidentificacion": parser.get("numeroidentificacion", None),
+        }
         with app.Session() as session:
+            q = select(Tb.User)
+            for (
+                key,
+                value,
+            ) in params.items():
+                if value is None:
+                    continue
+                tipe = parser[key].type
+                if str(tipe) == str(str):
+                    q = q.filter(getattr(Tb.User, key).like(f"%{value.lower()}%"))
+                elif str(tipe) == str(int):
+                    q = q.filter(getattr(Tb.User, key) == value)
             q = (
-                select(Tb.User)
-                .order_by(Tb.User.correo.asc())
+                q.order_by(Tb.User.correo.asc())
                 .limit(per_page)
                 .offset(per_page * (page - 1))
             )
@@ -154,15 +170,3 @@ class User(Resource):
             session.add(user)
             session.commit()
         return user
-
-    if False:
-
-        @ns_usrs.doc("Elimina la información del usuario")
-        @ns_usrs.response(204, "Ususario eliminado")
-        def delete(self, user_id):
-            """Elimina un usuario -- Acción irreversible"""
-            with app.Session.begin() as session:
-                res = select(Tb.User).filter_by(Tb.User.id == user_id)
-                user = session.scalars(res).one()
-                session.delete(user)
-            return 204
