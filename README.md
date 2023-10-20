@@ -32,8 +32,8 @@ Attendance student list by reading QR codes
 | Gunicorn & Docker | ![100%](https://progress-bar.dev/100) | 10/04/2023          |
 | admin shell       | ![100%](https://progress-bar.dev/100) | 09/25/2023          |
 | create profiles   | ![100%](https://progress-bar.dev/100) | 08/16/2023          |
-| Admin interfase   | ![80%](https://progress-bar.dev/80)   | 09/30/2023          |
-| Api               | ![90%](https://progress-bar.dev/90)   | 10/18/2023          |
+| Admin interfase   | ![85%](https://progress-bar.dev/85)   | 10/20/2023          |
+| Api               | ![92%](https://progress-bar.dev/92)   | 10/20/2023          |
 | Api test          | ![10%](https://progress-bar.dev/10)   | -                   |
 | DB migrations     | ![100%](https://progress-bar.dev/100) | 10/15/2023          |
 | Documentation     | ![25%](https://progress-bar.dev/25)   | -                   |
