@@ -20,7 +20,7 @@ Attendance student list by reading QR codes
 
 [api](https://qrschool-selobu.pythonanywhere.com/api/)
 
-[frontend](https://qrschoolapp.gestionhseq.comhttps://qrschool-selobu.pythonanywhere.com/api/)
+[frontend](https://qrschoolapp.gestionhseq.com)
 
 
 ## Project status
