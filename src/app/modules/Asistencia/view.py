@@ -52,3 +52,11 @@ showuser = api.model(
         "grado": fields.Integer(description="User's grade id"),
     },
 )
+
+showconsolidado = api.model(
+    "showconsolidado",
+    {
+        "fecha": fields.DateTime(description="fecha"),
+        "cantidad": fields.Integer(description="Cantidad de ususarios"),
+    },
+)

@@ -5,9 +5,9 @@ from flask_jwt_extended import jwt_required
 from app.apitools import ParserModel
 from app.toolsapk import Tb
 
-from sqlalchemy import select, func
+from sqlalchemy import select, func, cast, Date, text
 
-from .view import ns_asistencia, qr_register_list, asistencia, showuser
+from .view import ns_asistencia, qr_register_list, asistencia, showuser, showconsolidado
 
 parser = ParserModel().add_paginate_arguments()
 api = app.api  # type: ignore
@@ -111,5 +111,32 @@ class Asistencia(Resource):
                     "grado": r.grado,
                 }
                 for r in session.scalars(q).all()
+            ]
+            return result
+
+
+@ns_asistencia.route("/last7/")
+class AsistenciaLast7(Resource):
+    """Listado de asistencia"""
+
+    @ns_asistencia.response(500, "Missing autorization header")
+    @ns_asistencia.doc("Retorna asistencia de los ultimos 7 días")
+    @ns_asistencia.marshal_list_with(showconsolidado, code=200)
+    @jwt_required()
+    def get(self):
+        """Retorna asistencia de los ultimos 7 días"""
+        with app.Session() as session:
+            q = (
+                select(
+                    cast(Tb.Asistencia.timestamp, Date).label("fecha"),
+                    func.count().label("asistencia"),
+                )
+                .join(Tb.Asistencia.userasistencia)
+                .group_by(cast(Tb.Asistencia.timestamp, Date))
+                .order_by(text("fecha desc"))
+                .limit(7)
+            )
+            result = [
+                {"fecha": r[0], "cantidad": r[1]} for r in session.execute(q).all()
             ]
             return result

@@ -44,7 +44,7 @@ user_paginate_model = (
         Argument(
             name="nombres",
             type=str,
-            help="name like to filter - optional",
+            help="name as a filter - optional",
             required=False,
         )
     )
@@ -52,7 +52,7 @@ user_paginate_model = (
         Argument(
             name="apellidos",
             type=str,
-            help="surname like to filter - optional",
+            help="surname as a filter - optional",
             required=False,
         )
     )
@@ -60,7 +60,7 @@ user_paginate_model = (
         Argument(
             name="grado_id",
             type=int,
-            help="grado_id like integer - optional",
+            help="grado_id as an integer - optional",
             required=False,
         )
     )
@@ -68,7 +68,7 @@ user_paginate_model = (
         Argument(
             name="numeroidentificacion",
             type=str,
-            help="name like to filter - optional",
+            help="name as a filter - optional",
             required=False,
         )
     )
