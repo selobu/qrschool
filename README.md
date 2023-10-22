@@ -37,4 +37,4 @@ Attendance student list by reading QR codes
 | Api test          | ![10%](https://progress-bar.dev/10)   | -                   |
 | DB migrations     | ![100%](https://progress-bar.dev/100) | 10/15/2023          |
 | Documentation     | ![25%](https://progress-bar.dev/25)   | -                   |
-| Frontend          | ![35%](https://progress-bar.dev/35)   | 12/15/2023          |
+| Frontend          | ![40%](https://progress-bar.dev/40)   | 12/15/2023          |
