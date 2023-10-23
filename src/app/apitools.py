@@ -241,6 +241,7 @@ class Argument:
 class ParserModel:
     _paginate_model = None
     __args: dict = {}
+    __parsed = False
 
     def add_argument(self, Argument: Argument):
         self.__add_argument(
@@ -283,9 +284,11 @@ class ParserModel:
 
     @property
     def args(self):
-        if self.__parsed is False:
-            self.__args = self.__parse_args()
-        return self.__args
+        return self.__parse_args()
+        if False:
+            if self.__parsed is False:
+                self.__args = self.__parse_args()
+            return self.__args
 
     def __parse_args(self):
         self.__args = self._paginate_model.parse_args()
@@ -293,8 +296,8 @@ class ParserModel:
         return self.__args
 
     def __getitem__(self, __name: str) -> Any:
-        if not self.__parsed:
-            self.__parse_args()
+        # if not self.__parsed:
+        self.__parse_args()
         if __name not in self.__args:
             return IndexError("Element not found!")
         pos = 0
