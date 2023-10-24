@@ -1,12 +1,12 @@
-from flask import current_app as app
+from flask import current_app as app, request
 from flask_restx import Resource
 from flask_jwt_extended import jwt_required
 from flask_jwt_extended import current_user
 
-from app.apitools import ParserModel
+from app.apitools import ParserModel, Argument
 from app.toolsapk import Tb
 from datetime import date
-from sqlalchemy import select, func
+from sqlalchemy import select, func, cast, Date
 
 from .view import (
     ns_ausencia,
@@ -15,7 +15,52 @@ from .view import (
     showconsolidado,
 )
 
-parser = ParserModel().add_paginate_arguments()
+parser = ParserModel()
+user_paginate_model = (
+    parser.add_paginate_arguments()
+    .add_argument(
+        Argument(
+            name="nombres",
+            type=str,
+            help="name as a filter - optional",
+            required=False,
+        )
+    )
+    .add_argument(
+        Argument(
+            name="apellidos",
+            type=str,
+            help="surname as a filter - optional",
+            required=False,
+        )
+    )
+    .add_argument(
+        Argument(
+            name="grado_id",
+            type=int,
+            help="grado_id as an integer - optional",
+            required=False,
+        )
+    )
+    .add_argument(
+        Argument(
+            name="numeroidentificacion",
+            type=str,
+            help="id number as a filter - optional",
+            required=False,
+        )
+    )
+    .add_argument(
+        Argument(
+            name="fecha",
+            type=date,
+            help="date formated as iso 8601 - optional",
+            required=False,
+        )
+    )
+    .paginate_model
+)
+
 api = app.api  # type: ignore
 
 
@@ -30,24 +75,38 @@ class ausenciaList(Resource):
     @jwt_required()
     def get(self):
         """Retorna los listados de ausencia paginados"""
-        page = parser.get("page", default=1)
-        per_page = parser.get("per_page", default=app.config["PER_PAGE"])
+        request.args.get("per_page", None)
+        page = int(request.args.get("page", "1"))
+        per_page = int(request.args.get("per_page", str(app.config["PER_PAGE"])))
+        params = {
+            "nombres": request.args.get("nombres", None),
+            "apellidos": request.args.get("apellidos", None),
+            "grado_id": request.args.get("grado_id", None),
+            "numeroidentificacion": request.args.get("numeroidentificacion", None),
+        }
         with app.Session() as session:
-            q = (
-                select(
-                    Tb.Ausentismo.id,
-                    Tb.Ausentismo.fecha,
-                    Tb.Ausentismo.timestamp,
-                    Tb.User.nombres,
-                    Tb.User.apellidos,
-                    Tb.User.numeroidentificacion,
-                    Tb.User.grado_id,
-                    Tb.User.is_active,
-                )
-                .join(Tb.Ausentismo.userausente)
-                .limit(per_page)
-                .offset(per_page * (page - 1))
-            )
+            q = select(
+                Tb.Ausentismo.id,
+                Tb.Ausentismo.fecha,
+                Tb.Ausentismo.timestamp,
+                Tb.User.nombres,
+                Tb.User.apellidos,
+                Tb.User.numeroidentificacion,
+                Tb.User.grado_id,
+                Tb.User.is_active,
+            ).join(Tb.Ausentismo.userausente)
+            for (key, value) in params.items():
+                if value is None:
+                    continue
+                tipe = parser[key].type
+                if str(tipe) == str(str):
+                    q = q.filter(getattr(Tb.User, key).like(f"%{value.lower()}%"))
+                elif str(tipe) == str(int):
+                    q = q.filter(getattr(Tb.User, key) == value)
+            if (fecha := request.args.get("fecha", None)) is not None:
+                fecha = date.fromisoformat(fecha)
+                q = q.filter(cast(Tb.Ausentismo.fecha, Date) == fecha)
+            q = q.limit(per_page).offset(per_page * (page - 1))
             keys = [
                 "ausenciaid",
                 "fecha",
