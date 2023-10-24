@@ -95,7 +95,7 @@ class ausenciaList(Resource):
                 Tb.User.grado_id,
                 Tb.User.is_active,
             ).join(Tb.Ausentismo.userausente)
-            for (key, value) in params.items():
+            for key, value in params.items():
                 if value is None:
                     continue
                 tipe = parser[key].type
