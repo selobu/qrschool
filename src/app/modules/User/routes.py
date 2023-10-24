@@ -98,10 +98,7 @@ class UserList(Resource):
         }
         with app.Session() as session:
             q = select(Tb.User)
-            for (
-                key,
-                value,
-            ) in params.items():
+            for key, value in params.items():
                 if value is None:
                     continue
                 tipe = parser[key].type
