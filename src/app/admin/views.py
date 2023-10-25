@@ -88,11 +88,43 @@ class AsistenciaView(PermisionView):
         return f"{model.id}"
 
 
+class MatriculaView(PermisionView):
+    can_create = True
+    can_edit = True
+    can_delete = False
+    page_size = 50  # the number of entries to display on the list view
+    column_filters = ["anio", "periodo"]
+
+    def get_pk_value(self, model):
+        return f"{model.id}"
+
+
+class GradoView(PermisionView):
+    can_create = True
+    can_edit = True
+    can_delete = True
+    page_size = 50  # the number of entries to display on the list view
+    column_filters = ["id", "nombre"]
+    column_details_exclude_list = (
+        (
+            [
+                "estudiante",
+            ],
+        ),
+    )
+    form_columns = ["matricula", "nombre", "cupomaximo", "comentariomatricula"]
+
+    def get_pk_value(self, model):
+        return f"{model.id}"
+
+
 def getviews() -> list:
     views = [
         UserView(Tb.User, app.Session()),  # type: ignore
         PerfilModuleview(Tb.PerfilModuloLnk, app.Session(), name="Permisos"),  # type: ignore
         AsistenciaView(Tb.Asistencia, app.Session(), name="Asistencia"),  # type: ignore
+        MatriculaView(Tb.Matricula, app.Session(), name="Matricula"),  # type: ignore
+        GradoView(Tb.Grado, app.Session(), name="Grado"),  # type: ignore
     ]
     return views
 
@@ -109,3 +141,6 @@ class MyAdminIndexView(admin.AdminIndexView):
     def logout_view(self):
         # login.logout_user()
         return redirect(url_for("index"))
+
+    def get_pk_value(self, model):
+        return f"{model.id}"

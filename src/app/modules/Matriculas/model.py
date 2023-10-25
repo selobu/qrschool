@@ -15,6 +15,9 @@ class Matricula(Base):
 
     grado: Mapped["Grado"] = relationship(back_populates="matricula")
 
+    def __repr__(self) -> str:
+        return f"Matricula {self.anio} - {self.periodo}"
+
 
 @map_name_to_table
 class Grado(Base):
@@ -28,3 +31,6 @@ class Grado(Base):
     matricula: Mapped["Matricula"] = relationship(back_populates="grado")
     estudiante: Mapped[List["User"]] = relationship(back_populates="grado")
     asignatura: Mapped["Asignatura"] = relationship(back_populates="grado")
+
+    def __repr__(self) -> str:
+        return f"Gracdo {self.nombre} - {self.matricula}"
