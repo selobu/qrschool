@@ -88,6 +88,7 @@ class UserList(Resource):
         """Retorna todos los usuarios
         límite actual 50 usuarios
         """
+        parser.parseargs()
         page = parser.get("page", default=1)
         per_page = parser.get("per_page", default=app.config["PER_PAGE"])
         params = {

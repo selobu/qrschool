@@ -1,4 +1,4 @@
-from flask import current_app as app, request
+from flask import current_app as app
 from flask_restx import Resource
 from flask_jwt_extended import jwt_required
 from flask_jwt_extended import current_user
@@ -53,7 +53,7 @@ user_paginate_model = (
     .add_argument(
         Argument(
             name="fecha",
-            type=date,
+            type=str,
             help="date formated as iso 8601 - optional",
             required=False,
         )
@@ -75,14 +75,14 @@ class ausenciaList(Resource):
     @jwt_required()
     def get(self):
         """Retorna los listados de ausencia paginados"""
-        request.args.get("per_page", None)
-        page = int(request.args.get("page", "1"))
-        per_page = int(request.args.get("per_page", str(app.config["PER_PAGE"])))
+        parser.parseargs()
+        page = parser.get("page", 1)
+        per_page = parser.get("per_page", app.config["PER_PAGE"])
         params = {
-            "nombres": request.args.get("nombres", None),
-            "apellidos": request.args.get("apellidos", None),
-            "grado_id": request.args.get("grado_id", None),
-            "numeroidentificacion": request.args.get("numeroidentificacion", None),
+            "nombres": parser.get("nombres", None),
+            "apellidos": parser.get("apellidos", None),
+            "grado_id": parser.get("grado_id", None),
+            "numeroidentificacion": parser.get("numeroidentificacion", None),
         }
         with app.Session() as session:
             q = select(
@@ -103,7 +103,7 @@ class ausenciaList(Resource):
                     q = q.filter(getattr(Tb.User, key).like(f"%{value.lower()}%"))
                 elif str(tipe) == str(int):
                     q = q.filter(getattr(Tb.User, key) == value)
-            if (fecha := request.args.get("fecha", None)) is not None:
+            if (fecha := parser.get("fecha", None)) is not None:
                 fecha = date.fromisoformat(fecha)
                 q = q.filter(cast(Tb.Ausentismo.fecha, Date) == fecha)
             q = q.limit(per_page).offset(per_page * (page - 1))
