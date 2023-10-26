@@ -3,7 +3,7 @@ from flask_restx import Resource
 from flask_jwt_extended import jwt_required
 from flask_jwt_extended import current_user
 
-from app.apitools import ParserModel, Argument
+from app.apitools import ParserModel, Argument, changeoutputfmt
 from app.toolsapk import Tb
 from datetime import date
 from sqlalchemy import select, func, cast, Date
@@ -18,6 +18,7 @@ from .view import (
 parser = ParserModel()
 user_paginate_model = (
     parser.add_paginate_arguments()
+    .add_outputfmt()
     .add_argument(
         Argument(
             name="nombres",
@@ -68,6 +69,7 @@ api = app.api  # type: ignore
 class ausenciaList(Resource):
     """Listado de usuarios"""
 
+    @changeoutputfmt(parser)
     @ns_ausencia.response(500, "Missing autorization header")
     @ns_ausencia.doc("Retorna los listados de ausencia paginados")
     @ns_ausencia.marshal_list_with(ausente, code=200)
