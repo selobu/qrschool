@@ -9,6 +9,15 @@ from functools import wraps
 from flask_restx import reqparse
 from dataclasses import dataclass
 
+# ----------------------------
+# export as csv or xlsx files
+from flask import Response
+import csv
+from io import StringIO, BytesIO
+import xlsxwriter
+
+# ----------------------------
+
 # api = current_app.api  # type: ignore
 
 _not_allowed = ["TypeEngine", "TypeDecorator", "UserDefinedType", "PickleType"]
@@ -258,6 +267,18 @@ class ParserModel:
         )
         return self
 
+    def add_outputfmt(self):
+        """Select the output format"""
+        self.add_argument(
+            Argument(
+                name="format",
+                type=str,
+                help="Output format as json <default>, csv, xlsx",
+                required=False,
+            )
+        )
+        return self
+
     def __add_argument(self, name: str, type=object, help=str, required=bool):
         self.paginate_model.add_argument(name, type=type, help=help, required=required)
         self.__parsed = False
@@ -320,3 +341,73 @@ class ParserModel:
 
 parser = ParserModel().add_paginate_arguments()
 paginate_model = parser.paginate_model
+
+
+# ----- change output format
+def _json_tocsv(json):
+    if len(json) == 0:
+        return json
+    with StringIO() as csvfile:
+        writer = csv.DictWriter(
+            csvfile,
+            fieldnames=json[0].keys(),
+            delimiter=";",
+            quotechar="|",
+            quoting=csv.QUOTE_MINIMAL,
+        )
+        writer.writeheader()
+        for row in json:
+            writer.writerow(row)
+        csvfile.seek(0)
+        return Response(
+            csvfile.getvalue(),
+            mimetype="text/csv",
+            headers={"Content-disposition": "attachment; filename=formdata.csv"},
+        )
+
+
+def _json_to_xls(json):
+    if len(json) == 0:
+        return json
+    output = BytesIO()
+    wb = xlsxwriter.Workbook(output)
+    ws = wb.add_worksheet()
+    rownumber = 0
+    for col, item in enumerate(json[0].keys()):
+        ws.write(rownumber, col, item)
+    rownumber += 1
+    for row in json:
+        for col, item in enumerate(row.values()):
+            ws.write(rownumber, col, str(item))
+        rownumber += 1
+    wb.close()
+    return Response(
+        output.getvalue(),
+        mimetype="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        headers={"Content-disposition": "attachment; filename=www_gestionhse_co.xlsx"},
+    )
+
+
+def changeoutputfmt(parser, keyword=None):
+    def decorator(func):
+        @wraps(func)
+        def wrapperfunc(*args, **kwargs):
+            res = func(*args, **kwargs)
+            parser.parseargs()
+            format = parser.get("format", default=None)
+            if format is None:
+                return res
+            if keyword is not None:
+                res = res[keyword]
+            if format.lower() == "csv":
+                return _json_tocsv(res)
+            if format.lower() == "xls":
+                return _json_to_xls(res)
+            return res
+
+        return wrapperfunc
+
+    return decorator
+
+
+# ----- change output format END
