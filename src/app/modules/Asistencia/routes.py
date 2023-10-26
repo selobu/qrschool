@@ -107,7 +107,7 @@ class Asistencia(Resource):
                     "nombres": r.nombres,
                     "apellidos": r.apellidos,
                     "numeroidentificacion": r.numeroidentificacion,
-                    "grado": r.grado,
+                    "grado": r.grado.nombre,
                 }
                 for r in session.scalars(q).all()
             ]

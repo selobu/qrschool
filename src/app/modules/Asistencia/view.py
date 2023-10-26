@@ -49,7 +49,7 @@ showuser = api.model(
         "nombres": fields.String(description="User name"),
         "apellidos": fields.String(description="User surname"),
         "numeroidentificacion": fields.String(description="Id number"),
-        "grado": fields.Integer(description="User's grade id"),
+        "grado": fields.String(description="User's grade"),
     },
 )
 
