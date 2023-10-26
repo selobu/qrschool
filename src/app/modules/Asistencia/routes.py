@@ -102,12 +102,21 @@ class Asistencia(Resource):
                 .limit(per_page)
                 .offset(per_page * (page - 1))
             )
+
+            def __getgrado(grado):
+                try:
+                    if grado is not None:
+                        return grado.nombre
+                except AttributeError:
+                    return ""
+                return ""
+
             result = [
                 {
                     "nombres": r.nombres,
                     "apellidos": r.apellidos,
                     "numeroidentificacion": r.numeroidentificacion,
-                    "grado": r.grado.nombre,
+                    "grado": __getgrado(r.grado),
                 }
                 for r in session.scalars(q).all()
             ]
