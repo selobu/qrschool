@@ -1444,7 +1444,18 @@ MarkupSafe = "*"
 [package.extras]
 email = ["email-validator"]
 
+[[package]]
+name = "xlsxwriter"
+version = "3.1.9"
+description = "A Python module for creating Excel XLSX files."
+optional = false
+python-versions = ">=3.6"
+files = [
+    {file = "XlsxWriter-3.1.9-py3-none-any.whl", hash = "sha256:b61c1a0c786f82644936c0936ec96ee96cd3afb9440094232f7faef9b38689f0"},
+    {file = "XlsxWriter-3.1.9.tar.gz", hash = "sha256:de810bf328c6a4550f4ffd6b0b34972aeb7ffcf40f3d285a0413734f9b63a929"},
+]
+
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10.0"
-content-hash = "ad2f33924049a779d7b89e59a8417ff7a5df08a081325d0f233e7554f9d81d44"
+content-hash = "393b9ec64620a7663386c802e52e305d5ebdf1c1ef34e85f8c129dad608a59be"

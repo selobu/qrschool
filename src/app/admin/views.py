@@ -94,6 +94,7 @@ class MatriculaView(PermisionView):
     can_delete = False
     page_size = 50  # the number of entries to display on the list view
     column_filters = ["anio", "periodo"]
+    form_columns = ["anio", "periodo"]
 
     def get_pk_value(self, model):
         return f"{model.id}"

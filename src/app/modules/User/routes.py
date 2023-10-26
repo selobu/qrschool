@@ -3,7 +3,7 @@ from flask_restx import Resource, fields
 from sqlalchemy import select
 from flask_jwt_extended import jwt_required
 
-from app.apitools import createApiModel, ParserModel, Argument
+from app.apitools import createApiModel, ParserModel, Argument, changeoutputfmt
 from app.toolsapk import Tb, gethash, uuidgenerator
 
 api = app.api  # type: ignore
@@ -40,6 +40,7 @@ usr_list_paginated = api.model(
 parser = ParserModel()
 user_paginate_model = (
     parser.add_paginate_arguments()
+    .add_outputfmt()
     .add_argument(
         Argument(
             name="nombres",
@@ -80,6 +81,7 @@ user_paginate_model = (
 class UserList(Resource):
     """Listado de usuarios"""
 
+    @changeoutputfmt(parser, keyword="usrs")
     @ns_usrs.doc("Consulta la información de usuario")
     @ns_usrs.marshal_with(usr_list_paginated, code=200)
     @ns_usrs.expect(user_paginate_model)
