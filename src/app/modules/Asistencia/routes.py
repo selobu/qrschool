@@ -2,14 +2,34 @@ from flask import current_app as app
 from flask_restx import Resource
 from flask_jwt_extended import jwt_required
 
-from app.apitools import ParserModel, changeoutputfmt
+from app.apitools import ParserModel, changeoutputfmt, Argument
 from app.toolsapk import Tb
 
 from sqlalchemy import select, func, cast, Date, text
 
 from .view import ns_asistencia, qr_register_list, asistencia, showuser, showconsolidado
 
-parser = ParserModel().add_paginate_arguments().add_outputfmt()
+parser = (
+    ParserModel()
+    .add_paginate_arguments()
+    .add_outputfmt()
+    .add_argument(
+        Argument(
+            name="id",
+            type=str,
+            help="name asistencia filter - optional",
+            required=False,
+        )
+    )
+    .add_argument(
+        Argument(
+            name="timestamp",
+            type=str,
+            help="datetime - optional",
+            required=False,
+        )
+    )
+)
 api = app.api  # type: ignore
 
 
@@ -25,23 +45,38 @@ class AsistenciaList(Resource):
     @jwt_required()
     def get(self):
         """Retorna los listados de asistencia paginados"""
-        page = parser.get("page", default=1)
-        per_page = parser.get("per_page", default=app.config["PER_PAGE"])
+        parser.parseargs()
+        filters = {}
+        for key, value in parser.args.items():
+            if key == "format":
+                continue
+            if value is None:
+                continue
+            filters[key] = value
+
+        page = [filters["page"], 1][filters["page"] is None]
+        per_page = [filters["per_page"], app.config["PER_PAGE"]][
+            filters["per_page"] is None
+        ]
+        filters.pop("page")
+        filters.pop("per_page")
+
         with app.Session() as session:
+            q = select(
+                Tb.Asistencia.id,
+                Tb.Asistencia.timestamp,
+                func.count(Tb.Asistencia.id),
+            ).join(Tb.Asistencia.userasistencia)
+            for key, value in filters.items():
+                q = q.filter(getattr(Tb.Asistencia, key).like(f"%{value.lower()}%"))
             q = (
-                select(
-                    Tb.Asistencia.id,
-                    Tb.Asistencia.timestamp,
-                    func.count(Tb.Asistencia.id),
-                )
-                .join(Tb.Asistencia.userasistencia)
-                .order_by(Tb.Asistencia.id.asc())
+                q.order_by(Tb.Asistencia.id.asc())
                 .group_by(Tb.Asistencia.id)
                 .limit(per_page)
                 .offset(per_page * (page - 1))
             )
             result = [
-                {"asistenciaid": r[0], "total": r[2], "timestamp": r[1]}
+                {"id": r[0], "total": r[2], "timestamp": r[1]}
                 for r in session.execute(q).all()
             ]
             return result

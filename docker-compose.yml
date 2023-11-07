@@ -7,6 +7,7 @@ services:
       - "6379:6379"
     volumes:
       - cache:/data
+    restart: always
   db:
     image: mysql:8.0
     volumes:
@@ -67,6 +68,7 @@ services:
       - ./src:/home
     ports:
       - "8081:${SERVING_PORT}"
+    restart: always
 secrets:
   db_password:
     file: ./secrets/db_password.txt

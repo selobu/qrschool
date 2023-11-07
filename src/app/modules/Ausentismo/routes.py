@@ -6,7 +6,7 @@ from flask_jwt_extended import current_user
 from app.apitools import ParserModel, Argument, changeoutputfmt
 from app.toolsapk import Tb
 from datetime import date
-from sqlalchemy import select, func, cast, Date
+from sqlalchemy import select, func
 
 from .view import (
     ns_ausencia,
@@ -78,14 +78,41 @@ class ausenciaList(Resource):
     def get(self):
         """Retorna los listados de ausencia paginados"""
         parser.parseargs()
-        page = parser.get("page", 1)
-        per_page = parser.get("per_page", app.config["PER_PAGE"])
-        params = {
-            "nombres": parser.get("nombres", None),
-            "apellidos": parser.get("apellidos", None),
-            "grado_id": parser.get("grado_id", None),
-            "numeroidentificacion": parser.get("numeroidentificacion", None),
-        }
+        filters = {}
+        for key, value in parser.args.items():
+            if key == "format":
+                continue
+            if value is None:
+                continue
+            filters[key] = value
+
+        page = [filters["page"], 1][filters["page"] is None]
+        per_page = [filters["per_page"], app.config["PER_PAGE"]][
+            filters["per_page"] is None
+        ]
+        filters.pop("page")
+        filters.pop("per_page")
+
+        def _getvalue(key):
+            pairs = {
+                "Ausentismo": [
+                    "id",
+                    "fecha",
+                    "timestamp",
+                ],
+                "User": [
+                    "nombres",
+                    "apellidos",
+                    "numeroidentificacion",
+                    "grado_id",
+                    "is_active",
+                ],
+            }
+            if key in pairs["Ausentismo"]:
+                return getattr(Tb.Ausentismo, key)
+            else:
+                return getattr(Tb.User, key)
+
         with app.Session() as session:
             q = select(
                 Tb.Ausentismo.id,
@@ -97,17 +124,15 @@ class ausenciaList(Resource):
                 Tb.User.grado_id,
                 Tb.User.is_active,
             ).join(Tb.Ausentismo.userausente)
-            for key, value in params.items():
-                if value is None:
-                    continue
+            for key, value in filters.items():
                 tipe = parser[key].type
                 if str(tipe) == str(str):
-                    q = q.filter(getattr(Tb.User, key).like(f"%{value.lower()}%"))
+                    q = q.filter(_getvalue(key).like(f"%{value.lower()}%"))
                 elif str(tipe) == str(int):
-                    q = q.filter(getattr(Tb.User, key) == value)
-            if (fecha := parser.get("fecha", None)) is not None:
-                fecha = date.fromisoformat(fecha)
-                q = q.filter(cast(Tb.Ausentismo.fecha, Date) == fecha)
+                    q = q.filter(_getvalue(key) == value)
+            # if (fecha := parser.get("fecha", None)) is not None:
+            #    fecha = date.fromisoformat(fecha)
+            #    q = q.filter(cast(Tb.Ausentismo.fecha, Date) == fecha)
             q = q.limit(per_page).offset(per_page * (page - 1))
             keys = [
                 "ausenciaid",
