@@ -27,7 +27,7 @@ from os import getenv
 csrf = CSRFProtect()
 
 
-def create_app(settings: str | Config = ""):
+def create_app(settings: Config | str = ProductionConfig):  # type: ignore
     """build the application core.
 
     settings: dict|str = 'local' | 'Python_anywhere' | 'dev' | 'test'
@@ -35,7 +35,7 @@ def create_app(settings: str | Config = ""):
     """
     app = Flask(__name__, static_folder="static", template_folder="templates")
 
-    if not isinstance(settings, dict):
+    if isinstance(settings, str):
         cfg = {
             "local": ProductionConfig,
             "Python_anywhere": PythonAnywhereConfig,
@@ -44,13 +44,8 @@ def create_app(settings: str | Config = ""):
         }
         if settings == "":
             settings = getenv("FLASK_CONFIG", "local")
-
-        if not isinstance(settings, str):
-            raise TypeError(f" => Unknown configuration {settings}")
-
-        if settings not in cfg:
+        elif settings not in cfg:
             raise KeyError(f"=> Unknown flask configuration! {settings}")
-
         settings = cfg[settings]  # type: ignore
 
     app.config.from_object(settings)
