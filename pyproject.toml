@@ -30,6 +30,7 @@ werkzeug = "2.3.6"
 cryptography = "^41.0.4"
 python-dotenv = "^1.0.0"
 xlsxwriter = "^3.1.9"
+msgpack = "^1.0.7"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^7.4.2"

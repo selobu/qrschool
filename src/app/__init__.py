@@ -27,22 +27,32 @@ from os import getenv
 csrf = CSRFProtect()
 
 
-def create_app(settings=None):
-    """Contruct the core application."""
+def create_app(settings: str | Config = ""):
+    """build the application core.
+
+    settings: dict|str = 'local' | 'Python_anywhere' | 'dev' | 'test'
+
+    """
     app = Flask(__name__, static_folder="static", template_folder="templates")
-    if settings is None:
-        FLASK_CONFIG = getenv("FLASK_CONFIG", "local")
+
+    if not isinstance(settings, dict):
         cfg = {
             "local": ProductionConfig,
             "Python_anywhere": PythonAnywhereConfig,
             "dev": DevelopmentConfig,
             "test": TestingConfig,
         }
-        print(f"=> FLASK_CONFIG : {FLASK_CONFIG}")
-        if FLASK_CONFIG in cfg:
-            settings = cfg[FLASK_CONFIG]
-        else:
-            settings = Config
+        if settings == "":
+            settings = getenv("FLASK_CONFIG", "local")
+
+        if not isinstance(settings, str):
+            raise TypeError(f" => Unknown configuration {settings}")
+
+        if settings not in cfg:
+            raise KeyError(f"=> Unknown flask configuration! {settings}")
+
+        settings = cfg[settings]  # type: ignore
+
     app.config.from_object(settings)
 
     # required by FLASK-WTFORMS

@@ -35,7 +35,7 @@ usr_list_paginated = api.model(
 asistencia = api.model(
     "asistencia",
     {
-        "asistenciaid": fields.Integer(description="Asistencia id"),
+        "id": fields.Integer(description="Asistencia id"),
         "total": fields.Integer(
             description="Cantidad total de personas en la asistencia"
         ),

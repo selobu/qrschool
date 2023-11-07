@@ -68,15 +68,18 @@ class ProductionConfig(Config):
     SQLALCHEMY_DATABASE_URI = (
         f"mysql+pymysql://{user}:{userpassword}@{host}:{port}/{database}"
     )
+    ECHO = True
 
 
 class DevelopmentConfig(Config):
     SQLALCHEMY_DATABASE_URI = "sqlite:////tmp/foo.db"
+    ECHO = True
 
 
 class TestingConfig(Config):
     SQLALCHEMY_DATABASE_URI = "sqlite:///:memory:"
     TESTING = True
+    ECHO = True
 
 
 hostpythonanywhere = "selobu.mysql.pythonanywhere-services.com"
