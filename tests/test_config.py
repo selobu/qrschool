@@ -1,5 +1,5 @@
 import pytest
-from .tool import icludepath  # incule app path to be imported as app
+from tool import icludepath  # incule app path to be imported as app
 from app import create_app
 from app.config import DevelopmentConfig, TestingConfig
 

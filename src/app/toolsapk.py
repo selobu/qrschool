@@ -15,7 +15,7 @@ from sqlalchemy.orm import DeclarativeBase, class_mapper
 from sqlalchemy import Date, DateTime
 
 from glob import iglob
-from os.path import basename, relpath, sep, splitext
+from os.path import basename, sep, splitext
 
 authorizations = {"Bearer": {"type": "apiKey", "in": "header", "name": "Authorization"}}
 
@@ -225,7 +225,7 @@ def import_submodules(__path__to_here):
     Import this function in __init__.py and put this line to it:
     __all__ = import_submodules(__path__)"""
     result = []
-    for smfile in iglob(relpath(__path__to_here[0]) + "/*.py"):
+    for smfile in iglob(__path__to_here[0] + "/*.py"):
         if smfile.startswith("src/"):
             smfile = smfile.replace("src/", "")
         submodule = splitext(basename(smfile))[0]
