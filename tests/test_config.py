@@ -1,9 +1,11 @@
 import pytest
-from .tool import icludepath  # incule app path to be imported as app
+from pathlib import Path
+from sys import path as syspath
+
+if (pth := str(Path(__file__).parent.parent.joinpath("src"))) not in syspath:
+    syspath.append(pth)
 from app import create_app
 from app.config import DevelopmentConfig, TestingConfig
-
-icludepath()
 
 
 @pytest.fixture()
