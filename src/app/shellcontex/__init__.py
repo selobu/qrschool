@@ -3,7 +3,7 @@ from app.toolsapk import Tb
 from app.toolsapk import shell_decorated
 from app.toolsapk import import_submodules
 
-__all__ = import_submodules(__path__)
+__all__ = import_submodules(__package__)
 
 
 def init_app(app):
