@@ -21,7 +21,7 @@ authorizations = {"Bearer": {"type": "apiKey", "in": "header", "name": "Authoriz
 
 
 class TbContainer:
-    ...
+    pass
 
 
 Tb = TbContainer()
@@ -160,7 +160,7 @@ def now():
 
 
 class Base(DeclarativeBase):
-    ...
+    pass
 
 
 def gethash(password: str) -> str:
