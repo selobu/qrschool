@@ -164,3 +164,4 @@ Pipfile.lock
 
 # docker composer secrets
 secrets/
+qrschool.wpu
