@@ -10,8 +10,12 @@ port = environ.get("MYSQL_PORT", "3306")
 database = environ.get("MYSQL_DATABASE", "colegio2023")
 host = environ.get("MYSQL_HOST", "localhost")
 echo_value = environ.get("ECHO", False)
-appname = environ.get("APPNAME")
+appname = environ.get("APPNAME", "QRSchool api")
 _rootpath = Path(__file__).parent.parent.parent.joinpath("secrets", "")
+
+userpythonanywhere = "selobu"
+hostpythonanywhere = f"{userpythonanywhere}.mysql.pythonanywhere-services.com"
+databasepythonanywhere = f"{userpythonanywhere}$colegio2023"
 
 
 # reading credentials
@@ -40,7 +44,7 @@ if isinstance(echo_value, str):
 
 
 class Config(object):
-    API_NAME: str = "QRSchool api"
+    API_NAME: str = appname
     VERSION: str = "0.0.2"
     API_URL_PREFIX: str = "/api"
     API_DESCRIPTION: str = "[source code](https://github.com/selobu/my_url)"
@@ -62,13 +66,14 @@ class Config(object):
     ADMIN_TEMPLATE_NAME: str = "bootstrap4"
     TESTING: bool = False
     PER_PAGE: int = 50
+    SQLALCHEMY_DATABASE_URI: str = ""
 
 
 class ProductionConfig(Config):
     SQLALCHEMY_DATABASE_URI = (
         f"mysql+pymysql://{user}:{userpassword}@{host}:{port}/{database}"
     )
-    ECHO = True
+    ECHO = False
 
 
 class DevelopmentConfig(Config):
@@ -80,12 +85,6 @@ class TestingConfig(Config):
     SQLALCHEMY_DATABASE_URI = "sqlite:///:memory:"
     TESTING = True
     ECHO = True
-
-
-hostpythonanywhere = "selobu.mysql.pythonanywhere-services.com"
-databasepythonanywhere = "selobu$colegio2023"
-
-userpythonanywhere = "selobu"
 
 
 class PythonAnywhereConfig(Config):
