@@ -15,7 +15,11 @@ from sqlalchemy.orm import DeclarativeBase, class_mapper
 from sqlalchemy import Date, DateTime
 
 from glob import iglob
-from os.path import basename, sep, splitext
+from os.path import basename, splitext
+from pathlib import Path
+from importlib import import_module
+
+from typing import Union
 
 authorizations = {"Bearer": {"type": "apiKey", "in": "header", "name": "Authorization"}}
 
@@ -220,17 +224,36 @@ def map_name_to_shell(func):
 
 
 # based on https://stackoverflow.com/questions/3365740/how-to-import-all-submodules
-def import_submodules(__path__to_here):
+def import_submodules(__path__to_here: Union[Path | str | list[str]]):
     """Imports all submodules.
     Import this function in __init__.py and put this line to it:
     __all__ = import_submodules(__path__)"""
+    parent_path = Path(__package__).absolute().parent.parent.absolute()
     result = []
-    for smfile in iglob(__path__to_here[0] + "/*.py"):
+    path2search = __path__to_here
+
+    if isinstance(path2search, list):
+        path2search = path2search[:]
+
+    if isinstance(path2search, str):
+        if "." in path2search:
+            path2search = path2search.replace(".", "/")
+        path2search = Path(path2search)
+
+    if not isinstance(path2search, Path):
+        raise FileExistsError("Invalid path to import")
+
+    for smfile in iglob(str(path2search.absolute()) + "/*.py"):
         if smfile.startswith("src/"):
             smfile = smfile.replace("src/", "")
         submodule = splitext(basename(smfile))[0]
-        importstr = ".".join(smfile.split(sep)[:-1])
+
+        to_search = str(path2search).replace(str(parent_path), "")
+        if to_search.startswith("/"):
+            to_search = to_search[1:]
+
+        to_search = to_search.replace("/", ".")
         if not submodule.startswith("_"):
-            __import__(importstr + "." + submodule)
+            import_module(f"{to_search}.{submodule}")
             result.append(submodule)
     return result
