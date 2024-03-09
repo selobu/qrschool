@@ -24,6 +24,7 @@ def _import_submodules(module, item="model"):
 def modulesResolver(app, enabled_modules=None, **kwargs):
     enabled_modules = _import_submodules(modules, "model")
     # Import router endpoints
+    print("importing routes")
     for module_name in enabled_modules:
         try:
             route = importlib.import_module(

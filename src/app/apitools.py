@@ -7,7 +7,9 @@ from sqlalchemy import types, select
 from sqlalchemy.inspection import inspect
 from functools import wraps
 from flask_restx import reqparse
-from dataclasses import dataclass
+from pydantic import validate_call
+from enum import Enum
+
 
 # ----------------------------
 # response in different formats
@@ -75,7 +77,7 @@ fieldtypes = [
 
 
 def _get_res(
-    table, modelname: str = None, readonlyfields: list = [], show: list = []
+    table, modelname: str | None = None, readonlyfields: list = [], show: list = []
 ) -> Model:
     """Private function to obtain model_columns as a list
     Args:
@@ -212,7 +214,7 @@ def put_model(model: Model):
 def createApiModel(
     api: api,
     table,
-    modelname: str = None,
+    modelname: str | None = None,
     readonlyfields: list = [],
     show: list = [],
     additionalfields: dict = {},
@@ -322,14 +324,10 @@ def changeoutputfmt(parser, keyword=None):
 
 
 # ----- change output format END
-
-
-@dataclass
-class Argument:
-    name: str
-    type: object
-    help: str
-    required: bool
+class TypeClass(Enum):
+    str = str
+    bool = bool
+    int = int
 
 
 class ParserModel:
@@ -343,24 +341,25 @@ class ParserModel:
         self.__args = self.__parse_args()
         return self
 
-    def add_argument(self, Argument: Argument):
+    @validate_call
+    def add_argument(
+        self, name: str, type: TypeClass, help: str = "", required: bool = False
+    ):
         self.__add_argument(
-            name=Argument.name,
-            type=Argument.type,
-            help=Argument.help,
-            required=Argument.required,
+            name=name,
+            type=type,
+            help=help,
+            required=required,
         )
         return self
 
     def add_outputfmt(self):
         """Select the output format"""
         self.add_argument(
-            Argument(
-                name="format",
-                type=str,
-                help=f"Output format as json <default>, {'|'.join(outoptions)}",
-                required=False,
-            )
+            name="format",
+            type=str,
+            help=f"Output format as json <default>, {'|'.join(outoptions)}",
+            required=False,
         )
         return self
 
@@ -371,20 +370,16 @@ class ParserModel:
 
     def add_paginate_arguments(self):
         self.add_argument(
-            Argument(
-                name="page",
-                type=int,
-                help="Page to visualize - optional",
-                required=False,
-            )
+            name="page",
+            type=int,
+            help="Page to visualize - optional",
+            required=False,
         )
         self.add_argument(
-            Argument(
-                name="per_page",
-                type=int,
-                help="Maximum results per page - optional",
-                required=False,
-            )
+            name="per_page",
+            type=int,
+            help="Maximum results per page - optional",
+            required=False,
         )
         return self
 
