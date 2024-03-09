@@ -2,7 +2,7 @@ from flask import current_app as app
 from flask_restx import Resource
 from flask_jwt_extended import jwt_required
 
-from app.apitools import ParserModel, changeoutputfmt
+from app.apitools import FilterParams, allow_to_change_output_fmt
 from app.toolsapk import Tb
 
 from sqlalchemy import select, func, cast, Date, text
@@ -10,7 +10,7 @@ from sqlalchemy import select, func, cast, Date, text
 from .view import ns_asistencia, qr_register_list, asistencia, showuser, showconsolidado
 
 parser = (
-    ParserModel()
+    FilterParams()
     .add_paginate_arguments()
     .add_outputfmt()
     .add_argument("id", type=str, help="name asistencia filter")
@@ -23,7 +23,7 @@ api = app.api  # type: ignore
 class AsistenciaList(Resource):
     """Listado de usuarios"""
 
-    @changeoutputfmt(parser)
+    @allow_to_change_output_fmt(parser)
     @ns_asistencia.response(500, "Missing autorization header")
     @ns_asistencia.doc("Consulta el codigo qr de los usuarios")
     @ns_asistencia.marshal_list_with(asistencia, code=200)
@@ -104,7 +104,7 @@ class AsistenciaList(Resource):
 class Asistencia(Resource):
     """Listado de asistencia"""
 
-    @changeoutputfmt(parser)
+    @allow_to_change_output_fmt(parser)
     @ns_asistencia.response(500, "Missing autorization header")
     @ns_asistencia.doc("Retorna el listado de asistentes paginados")
     @ns_asistencia.marshal_list_with(showuser, code=200)
@@ -144,14 +144,14 @@ class Asistencia(Resource):
             return result
 
 
-parseroutput = ParserModel().add_outputfmt()
+parseroutput = FilterParams().add_outputfmt()
 
 
 @ns_asistencia.route("/last7/")
 class AsistenciaLast7(Resource):
     """Listado de asistencia"""
 
-    @changeoutputfmt(parser)
+    @allow_to_change_output_fmt(parser)
     @ns_asistencia.response(500, "Missing autorization header")
     @ns_asistencia.doc("Retorna asistencia de los ultimos 7 días")
     @ns_asistencia.marshal_list_with(showconsolidado, code=200)

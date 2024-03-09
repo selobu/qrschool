@@ -3,7 +3,7 @@ from flask_restx import Resource
 from flask_jwt_extended import jwt_required
 from flask_jwt_extended import current_user
 
-from app.apitools import ParserModel, changeoutputfmt
+from app.apitools import FilterParams, allow_to_change_output_fmt
 from app.toolsapk import Tb
 from datetime import date
 from sqlalchemy import select, func
@@ -15,16 +15,15 @@ from .view import (
     showconsolidado,
 )
 
-parser = ParserModel()
-user_paginate_model = (
-    parser.add_paginate_arguments()
+query_params = (
+    FilterParams()
+    .add_paginate_arguments()
     .add_outputfmt()
     .add_argument("nombres", type=str, help="name as a filter")
     .add_argument("apellidos", type=str, help="surname as a filter")
     .add_argument("grado_id", type=int, help="grado_id as an integer")
     .add_argument("numeroidentificacion", type=str, help="id number as a filter")
     .add_argument("fecha", type=str, help="date formated as iso 8601")
-    .paginate_model
 )
 
 api = app.api  # type: ignore
@@ -34,17 +33,17 @@ api = app.api  # type: ignore
 class ausenciaList(Resource):
     """Listado de usuarios"""
 
-    @changeoutputfmt(parser)
+    @allow_to_change_output_fmt(query_params)
     @ns_ausencia.response(500, "Missing autorization header")
     @ns_ausencia.doc("Retorna los listados de ausencia paginados")
     @ns_ausencia.marshal_list_with(ausente, code=200)
-    @ns_ausencia.expect(parser.paginate_model)
+    @ns_ausencia.expect(query_params.paginate_model)
     @jwt_required()
     def get(self):
         """Retorna los listados de ausencia paginados"""
-        parser.parseargs()
+        query_params.parseargs()
         filters = {}
-        for key, value in parser.args.items():
+        for key, value in query_params.args.items():
             if key == "format":
                 continue
             if value is None:
@@ -90,7 +89,7 @@ class ausenciaList(Resource):
                 Tb.User.is_active,
             ).join(Tb.Ausentismo.userausente)
             for key, value in filters.items():
-                tipe = parser[key].type
+                tipe = query_params[key].type
                 if str(tipe) == str(str):
                     q = q.filter(_getvalue(key).like(f"%{value.lower()}%"))
                 elif str(tipe) == str(int):
