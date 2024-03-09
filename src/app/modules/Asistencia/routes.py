@@ -2,7 +2,7 @@ from flask import current_app as app
 from flask_restx import Resource
 from flask_jwt_extended import jwt_required
 
-from app.apitools import ParserModel, changeoutputfmt, Argument
+from app.apitools import ParserModel, changeoutputfmt
 from app.toolsapk import Tb
 
 from sqlalchemy import select, func, cast, Date, text
@@ -13,22 +13,8 @@ parser = (
     ParserModel()
     .add_paginate_arguments()
     .add_outputfmt()
-    .add_argument(
-        Argument(
-            name="id",
-            type=str,
-            help="name asistencia filter - optional",
-            required=False,
-        )
-    )
-    .add_argument(
-        Argument(
-            name="timestamp",
-            type=str,
-            help="datetime - optional",
-            required=False,
-        )
-    )
+    .add_argument("id", type=str, help="name asistencia filter")
+    .add_argument("timestamp", type=str, help="datetime")
 )
 api = app.api  # type: ignore
 

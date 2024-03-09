@@ -15,7 +15,7 @@ flask-restx = "^1.1.0"
 flask-sqlalchemy = "^3.1.1"
 itsdangerous = "^2.1.2"
 pre-commit = "^3.4.0"
-pydantic = "^2.4.2"
+pydantic = {extras = ["email"], version = "^2.6.3"}
 pyjwt = "^2.8.0"
 pymysql = "^1.1.0"
 flask-admin = "^1.6.1"

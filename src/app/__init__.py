@@ -46,7 +46,7 @@ def create_app(settings: Config | str = ProductionConfig):  # type: ignore
             settings = getenv("FLASK_CONFIG", "local")
         elif settings not in cfg:
             raise KeyError(f"=> Unknown flask configuration! {settings}")
-        settings = cfg[settings]  # type: ignore
+        settings: Config = cfg[settings]  # type: ignore
 
     app.config.from_object(settings)
     # required by FLASK-WTFORMS

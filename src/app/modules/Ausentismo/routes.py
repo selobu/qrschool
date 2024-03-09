@@ -3,7 +3,7 @@ from flask_restx import Resource
 from flask_jwt_extended import jwt_required
 from flask_jwt_extended import current_user
 
-from app.apitools import ParserModel, Argument, changeoutputfmt
+from app.apitools import ParserModel, changeoutputfmt
 from app.toolsapk import Tb
 from datetime import date
 from sqlalchemy import select, func
@@ -19,46 +19,11 @@ parser = ParserModel()
 user_paginate_model = (
     parser.add_paginate_arguments()
     .add_outputfmt()
-    .add_argument(
-        Argument(
-            name="nombres",
-            type=str,
-            help="name as a filter - optional",
-            required=False,
-        )
-    )
-    .add_argument(
-        Argument(
-            name="apellidos",
-            type=str,
-            help="surname as a filter - optional",
-            required=False,
-        )
-    )
-    .add_argument(
-        Argument(
-            name="grado_id",
-            type=int,
-            help="grado_id as an integer - optional",
-            required=False,
-        )
-    )
-    .add_argument(
-        Argument(
-            name="numeroidentificacion",
-            type=str,
-            help="id number as a filter - optional",
-            required=False,
-        )
-    )
-    .add_argument(
-        Argument(
-            name="fecha",
-            type=str,
-            help="date formated as iso 8601 - optional",
-            required=False,
-        )
-    )
+    .add_argument("nombres", type=str, help="name as a filter")
+    .add_argument("apellidos", type=str, help="surname as a filter")
+    .add_argument("grado_id", type=int, help="grado_id as an integer")
+    .add_argument("numeroidentificacion", type=str, help="id number as a filter")
+    .add_argument("fecha", type=str, help="date formated as iso 8601")
     .paginate_model
 )
 

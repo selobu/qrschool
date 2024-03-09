@@ -3,7 +3,7 @@ from flask_restx import Resource, fields
 from sqlalchemy import select
 from flask_jwt_extended import jwt_required
 
-from app.apitools import createApiModel, ParserModel, Argument, changeoutputfmt
+from app.apitools import createApiModel, ParserModel, changeoutputfmt
 from app.toolsapk import Tb, gethash, uuidgenerator
 
 api = app.api  # type: ignore
@@ -41,38 +41,10 @@ parser = ParserModel()
 user_paginate_model = (
     parser.add_paginate_arguments()
     .add_outputfmt()
-    .add_argument(
-        Argument(
-            name="nombres",
-            type=str,
-            help="name as a filter - optional",
-            required=False,
-        )
-    )
-    .add_argument(
-        Argument(
-            name="apellidos",
-            type=str,
-            help="surname as a filter - optional",
-            required=False,
-        )
-    )
-    .add_argument(
-        Argument(
-            name="grado_id",
-            type=int,
-            help="grado_id as an integer - optional",
-            required=False,
-        )
-    )
-    .add_argument(
-        Argument(
-            name="numeroidentificacion",
-            type=str,
-            help="name as a filter - optional",
-            required=False,
-        )
-    )
+    .add_argument("nombres", type=str, help="name as a filter")
+    .add_argument("apellidos", type=str, help="surname as a filter")
+    .add_argument("grado_id", type=int, help="grado_id as an integer")
+    .add_argument("numeroidentificacion", type=str, help="name as a filter")
     .paginate_model
 )
 
