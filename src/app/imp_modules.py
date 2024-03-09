@@ -25,12 +25,15 @@ def modulesResolver(app, enabled_modules=None, **kwargs):
     enabled_modules = _import_submodules(modules, "model")
     # Import router endpoints
     print("importing routes")
-    for module_name in enabled_modules:
+    to_import = [f"app.modules.{module_name}.routes" for module_name in enabled_modules]
+    while len(to_import) > 0:
+        module_name = to_import.pop(0)
         try:
-            route = importlib.import_module(
-                f"app.modules.{module_name}.routes", package=__name__
-            )
+            route = importlib.import_module(module_name, package=__name__)
         except ModuleNotFoundError as e:
+            if ".routes" not in module_name:
+                continue
+            to_import.append(module_name.replace(".routes", ".view"))
             e
             pass
             # print(f"-> No se pudo importar  app.{module_name}.routes\n{e}")
