@@ -1,7 +1,7 @@
 # coding:utf-8
 from os import environ
 from pathlib import Path
-from pydantic import BaseModel, SecretStr, EmailStr
+from pydantic import BaseModel, SecretStr, EmailStr, HttpUrl
 from pydantic import Field
 from typing import Union
 
@@ -31,6 +31,13 @@ if isinstance(echo_value, str):
         echo_value = False
 
 
+class APIContact(BaseModel):
+    name: str
+    email: EmailStr
+    url: HttpUrl
+    telegram: HttpUrl
+
+
 class Config(BaseModel):
     host: str
     port: Union[int, str, None] = Field(union_mode="left_to_right")
@@ -44,12 +51,12 @@ class Config(BaseModel):
     API_DESCRIPTION: str = "[source code](https://github.com/selobu/my_url)"
     admin_email: EmailStr = ""
     items_per_user: int = 50
-    API_CONTACT: object = {
-        "name": "lteam",
-        "email": "sebastian.lopez@gestionhseq.com",
-        "url": "https://lteam.gestionhseq.com",
-        "telegram": "https://t.me/selopez",
-    }
+    API_CONTACT: APIContact = APIContact(
+        name="lteam",
+        email="sebastian.lopez@gestionhseq.com",
+        url="https://lteam.gestionhseq.com",
+        telegram="https://t.me/selopez",
+    )
     JWT_SECRET_KEY: SecretStr = getData("jwt_password.txt", "JWT_SECRET_KEY_FILE", "")
     WTF_CSRF_SECRET_KEY: SecretStr = (
         getData("jwt_password.txt", "JWT_SECRET_KEY_FILE", "") * 2

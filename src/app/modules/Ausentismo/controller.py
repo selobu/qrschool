@@ -1,10 +1,9 @@
-from app.toolsapk import Tb
-from .model import Ausentismo
 from sqlalchemy import select, func
-from app.modules.User.model import User
 from flask import current_app as app
 from datetime import date
 from flask_jwt_extended import current_user
+from .model import Ausentismo
+from app.modules.User.model import User
 
 
 class AusenciaController:
@@ -65,7 +64,7 @@ class AusenciaController:
                     q = q.filter(_getvalue(key) == value)
             # if (fecha := parser.get("fecha", None)) is not None:
             #    fecha = date.fromisoformat(fecha)
-            #    q = q.filter(cast(Tb.Ausentismo.fecha, Date) == fecha)
+            #    q = q.filter(cast(Ausentismo.fecha, Date) == fecha)
             q = q.limit(per_page).offset(per_page * (page - 1))
             keys = [
                 "ausenciaid",
@@ -96,7 +95,7 @@ class AusenciaController:
                     : [len(responsable), 200][len(responsable) > 200]
                 ]
                 ausencias.append(
-                    Tb.Ausentismo(
+                    Ausentismo(
                         fecha=fecha,
                         userausente_id=userausente_id,
                         comentario=comentario,

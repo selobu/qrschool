@@ -1,68 +1,26 @@
 from flask import current_app as app
-from app.apitools import createApiModel, FilterParams, allow_to_change_output_fmt
-from flask_restx import fields
-from app.toolsapk import Tb
+from app.apitools import FilterParams, allow_to_change_output_fmt, get_pyd_model
 from flask_restx import Resource
 from flask_jwt_extended import jwt_required
 
 from .controller import AusenciaController, AusenciaLast7Controller
-
-api = app.api  # type: ignore
-
-ns_ausencia = api.namespace("ausencia", description="Registrar ausencia de usuarios")
-
-usr = createApiModel(api, Tb.User, "Usuario", readonlyfields=["active"])  # type: ignore
-
-ausencia_register_list = api.model(
-    "MissingRegisterList",
-    {
-        "ids": fields.List(
-            fields.String(description="User id", required=True),
-            description="Listado de identificación de usuarios",
-        ),
-        "Comentario": fields.String(description="Comentario ausencia", required=True),
-        "fecha": fields.Date(description="Fecha de ausencia", required=True),
-    },
+from .pdModels import (
+    MissingRegisterList,
+    UsersResList,
+    Ausente,
+    ShowUser,
+    ShowConsolidado,
 )
 
-usr_list_paginated = api.model(
-    "UsersResList", {"usrs": fields.List(fields.Nested(usr))}
-)
-ausente = api.model(
-    "ausente",
-    {
-        "ausenciaid": fields.Integer(description="ausencia id"),
-        "fecha": fields.Date(description="Fecha ausencia reportada"),
-        "timestamp": fields.DateTime(description="Fecha de registro en el sistema"),
-        "nombres": fields.String(description="Nombres usuario ausente"),
-        "apellidos": fields.String(description="Apellidos usuario ausente"),
-        "numeroidentificacion": fields.String(
-            description="Identificacion usuario ausente"
-        ),
-        "grado_id": fields.Integer(description="Identificacion del grado"),
-        "activo": fields.Boolean(
-            description="Indica si el ususario está activo en el sistema"
-        ),
-    },
+ns_ausencia = app.api.namespace(
+    "ausencia", description="Registrar ausencia de usuarios"
 )
 
-showuser = api.model(
-    "showuser",
-    {
-        "nombres": fields.String(description="User name"),
-        "apellidos": fields.String(description="User surname"),
-        "numeroidentificacion": fields.String(description="Id number"),
-        "grado": fields.Integer(description="User's grade id"),
-    },
-)
-
-showconsolidado = api.model(
-    "showconsolidado",
-    {
-        "fecha": fields.DateTime(description="fecha"),
-        "cantidad": fields.Integer(description="Cantidad de usuarios"),
-    },
-)
+ausencia_register_list = get_pyd_model(MissingRegisterList)
+usr_list_paginated = get_pyd_model(UsersResList)
+ausente = get_pyd_model(Ausente)
+showuser = get_pyd_model(ShowUser)
+showconsolidado = get_pyd_model(ShowConsolidado)
 
 
 query_params = (

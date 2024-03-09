@@ -18,10 +18,9 @@ def init_app(app, csrf=None):
     )
 
     contact = app.config["API_CONTACT"]
-    if isinstance(contact, dict):
-        name = contact["name"]
-        contacturl = contact["url"]
-        telegram = contact["telegram"]
+    name = contact.name
+    contacturl = contact.url
+    telegram = contact.telegram
     doc = f"{app.config['API_DESCRIPTION']}\n{name}\n{contacturl}\n{telegram}\n"
     api = Api(
         app_blueprint,

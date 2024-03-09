@@ -3,14 +3,14 @@ from flask_restx import Resource, fields
 from sqlalchemy import select
 from flask_jwt_extended import jwt_required
 
-from app.apitools import createApiModel, FilterParams, allow_to_change_output_fmt
+from app.apitools import createApiModelView, FilterParams, allow_to_change_output_fmt
 from app.toolsapk import Tb, gethash, uuidgenerator
 
 api = app.api  # type: ignore
 ns_usrs = api.namespace("usuario", description="Gestionar usuarios")
 
-usr = createApiModel(api, Tb.User, "Usuario", readonlyfields=["active"])  # type: ignore
-usr_post = createApiModel(
+usr = createApiModelView(api, Tb.User, "Usuario", readonlyfields=["active"])  # type: ignore
+usr_post = createApiModelView(
     api,
     Tb.User,  # type: ignore
     "Usuario",

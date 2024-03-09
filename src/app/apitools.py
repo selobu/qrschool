@@ -1,5 +1,5 @@
 # coding:utf-8
-__all__ = ["createApiModel", "allow_to_change_output_fmt"]
+__all__ = ["createApiModelView", "allow_to_change_output_fmt"]
 from typing import Any
 from flask_restx import Model, fields, api
 from flask import current_app
@@ -9,6 +9,7 @@ from functools import wraps
 from flask_restx import reqparse
 from pydantic import validate_call
 from enum import Enum
+from dataclasses import asdict
 
 
 # ----------------------------
@@ -211,7 +212,7 @@ def put_model(model: Model):
     return decorator
 
 
-def createApiModel(
+def createApiModelView(
     api: api,
     table,
     modelname: str | None = None,
@@ -429,3 +430,7 @@ class FilterParams:
 
 parser = FilterParams().add_paginate_arguments()
 paginate_model = parser.paginate_model
+
+
+def get_pyd_model(Model):
+    return current_app.api.model(Model.__name__, asdict(Model()))
