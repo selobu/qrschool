@@ -4,18 +4,18 @@ from flask_restx import Resource, fields
 from sqlalchemy import select
 
 
-from app.apitools import createApiModel, paginate_model, parser
+from app.apitools import createApiModelView, paginate_model, parser
 from app.toolsapk import Tb
 
 api = app.api  # type: ignore
 ns_qrs = api.namespace("qr", description="Gestionar códigos")
 
-qr = createApiModel(api, Tb.Qr, "Código Qr")  # type: ignore
+qr = createApiModelView(api, Tb.Qr, "Código Qr")  # type: ignore
 qr_list = api.model("QrList", {"qrs": fields.List(fields.Nested(qr))})
 
-qr_register = createApiModel(api, Tb.Qr, "Código Qr", readonlyfields=["timestamp"])  # type: ignore
+qr_register = createApiModelView(api, Tb.Qr, "Código Qr", readonlyfields=["timestamp"])  # type: ignore
 qr_register_list = api.model("QrList", {"qrs": fields.List(fields.Nested(qr_register))})
-usr = createApiModel(api, Tb.User, "Usuario")  # type: ignore
+usr = createApiModelView(api, Tb.User, "Usuario")  # type: ignore
 
 
 @ns_qrs.route("/")

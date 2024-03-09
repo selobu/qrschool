@@ -34,7 +34,8 @@ Tb = TbContainer()
 def map_name_to_table(cls):
     """Decorator to map table names into the TbContainer"""
     if hasattr(Tb, cls.__name__):
-        raise Exception(f"ya esta declarada la tabla {cls.__name__}")
+        print(f"Warning: ya esta declarada la tabla {cls.__name__}")
+        return
     setattr(Tb, cls.__name__, cls)
 
     @staticmethod
