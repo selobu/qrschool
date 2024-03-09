@@ -1,5 +1,5 @@
 # coding:utf-8
-__all__ = ["createApiModel", "changeoutputfmt"]
+__all__ = ["createApiModel", "allow_to_change_output_fmt"]
 from typing import Any
 from flask_restx import Model, fields, api
 from flask import current_app
@@ -303,7 +303,7 @@ outparser = {"csv": _json_tocsv, "xlsx": _json_to_xlsx, "msgpack": _json_to_msgp
 outoptions = outparser.keys()  # type: ignore
 
 
-def changeoutputfmt(parser, keyword=None):
+def allow_to_change_output_fmt(parser, keyword=None):
     def decorator(func):
         @wraps(func)
         def wrapperfunc(*args, **kwargs):
@@ -330,7 +330,7 @@ class TypeClass(Enum):
     int = int
 
 
-class ParserModel:
+class FilterParams:
     _paginate_model = None
     __args: dict = {}
 
@@ -383,6 +383,14 @@ class ParserModel:
         )
         return self
 
+    def __call__(self):
+        if self._paginate_model is None:
+            self._paginate_model = reqparse.RequestParser()
+        return self._paginate_model
+
+    def get_paginate_model(self):
+        return self.paginate_model
+
     @property
     def paginate_model(self):
         if self._paginate_model is None:
@@ -419,5 +427,5 @@ class ParserModel:
         return param
 
 
-parser = ParserModel().add_paginate_arguments()
+parser = FilterParams().add_paginate_arguments()
 paginate_model = parser.paginate_model
