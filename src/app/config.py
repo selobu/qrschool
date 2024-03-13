@@ -88,7 +88,14 @@ DevelopmentConfig = Config(eng="sqlite", host="", port=None, db="tmp/foo.db", EC
 
 
 TestingConfig = Config(
-    eng="sqlite", host="", port=None, db=":memory:", TESTING=True, ECHO=True
+    user="",
+    pwd="",
+    eng="sqlite",
+    host="",
+    port="",
+    db=":memory:",
+    TESTING=True,
+    ECHO=True,
 )
 
 
