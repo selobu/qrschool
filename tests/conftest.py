@@ -1,14 +1,14 @@
 import pytest
 from .tool import icludepath  # incule app path to be imported as app
 from app import create_app
-from app.config import DevelopmentConfig
+from app.config import PythonAnywhereConfig
 
 icludepath()
 
 
 @pytest.fixture
 def app():
-    app = create_app(DevelopmentConfig)
+    app = create_app(PythonAnywhereConfig)
     app.config.update(TESTING=True)
     yield app
 
@@ -20,7 +20,7 @@ def client(app):
 
 @pytest.fixture
 def runner():
-    app.config.update(DevelopmentConfig)
+    app.config.update(PythonAnywhereConfig)
     return app.test_cli_runner()
 
 

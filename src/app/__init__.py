@@ -50,7 +50,7 @@ def create_app(settings: Config | str = ProductionConfig):  # type: ignore
 
     app.config.from_object(settings)
     # required by FLASK-WTFORMS
-    app.secret_key = app.config["WTF_CSRF_SECRET_KEY"]
+    app.secret_key = app.config["WTF_CSRF_SECRET_KEY"].get_secret_value()
 
     with app.app_context():
         csrf.init_app(app)
