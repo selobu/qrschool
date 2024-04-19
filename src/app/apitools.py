@@ -1,5 +1,5 @@
 # coding:utf-8
-__all__ = ["createApiModelView", "allow_to_change_output_fmt"]
+__all__ = ["createApiModelView", "allow_to_change_output_fmt", "BaseMeta"]
 from typing import Any
 from flask_restx import Model, fields, api
 from flask import current_app
@@ -447,3 +447,28 @@ def get_pyd_model(Model):
         "model": current_app.api.model(Model.__name__, asdict(Model())),
     }
     return _models[name]["model"]
+
+
+class BaseMeta:
+    __names: dict = dict()
+
+    def __init_subclass__(cls, *args, **kwargs):
+        cls.__name__
+        if (name := cls.__name__) in cls.__names:
+            # If they are used from the same path
+            if cls.__names[name]["module"] == str(cls):
+                return cls.__names[name]["model"]
+            raise KeyError(
+                f'{ cls } :=> The model { name } is already defined in { cls.__names[name]["module"] }'
+            )
+        cls.__names[name] = {"module": str(cls), "model": None}
+        super().__init_subclass__(*args, **kwargs)
+
+    def get_model(self):
+        names = self.__class__._BaseMeta__names
+        classname = self.__class__.__name__
+        if (model := names[classname]["model"]) is not None:
+            return model
+
+        names[classname]["model"] = get_pyd_model(self.__class__)
+        return names[classname]["model"]

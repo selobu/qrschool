@@ -1,4 +1,4 @@
-from app.apitools import createApiModelView
+from app.apitools import createApiModelView, BaseMeta
 from flask_restx.fields import List, String, Integer, DateTime, Nested, Date
 from app.toolsapk import Tb
 from dataclasses import dataclass
@@ -8,7 +8,7 @@ usr = createApiModelView(app.api, Tb.User, "Usuario", readonlyfields=["active"])
 
 
 @dataclass
-class QrRegisterList:
+class QrRegisterList(BaseMeta):
     qrs: List = List(
         String(description="User QR code", required=True),
         description="Listado de códigos Qr",
@@ -16,14 +16,14 @@ class QrRegisterList:
 
 
 @dataclass
-class AsistenciaModel:
+class AsistenciaModel(BaseMeta):
     id: Integer = Integer(description="Asistencia id")
     total: Integer = Integer(description="Cantidad total de personas en la asistencia")
     timestamp: DateTime = DateTime(description="Fecha de registro")
 
 
 @dataclass
-class Showuser:
+class Showuser(BaseMeta):
     nombres: String = String(description="User name")
     apellidos: String = String(description="User surname")
     numeroidentificacion: String = String(description="Id number")
@@ -31,11 +31,11 @@ class Showuser:
 
 
 @dataclass
-class ShowConsolidado:
+class ShowConsolidado(BaseMeta):
     fecha: Date = Date(description="Fecha")
     cantidad: Integer = Integer(description="Cantidad de ususarios")
 
 
 @dataclass
-class UsersResList:
+class UsersResList(BaseMeta):
     usrs: List = List(Nested(usr))

@@ -1,7 +1,7 @@
 from flask import current_app as app
 from flask_restx import Resource
 from flask_jwt_extended import jwt_required
-from app.apitools import FilterParams, allow_to_change_output_fmt, get_pyd_model
+from app.apitools import FilterParams, allow_to_change_output_fmt
 
 from .controller import (
     AsistenciaListController,
@@ -16,11 +16,11 @@ from .pdModels import (
     UsersResList,
 )
 
-qr_register_list = get_pyd_model(QrRegisterList)
-asistencia = get_pyd_model(AsistenciaModel)
-showuser = get_pyd_model(Showuser)
-showconsolidado = get_pyd_model(ShowConsolidado)
-usr_list_paginated = get_pyd_model(UsersResList)
+qr_register_list = QrRegisterList().get_model()
+asistencia = AsistenciaModel().get_model()
+showuser = Showuser().get_model()
+showconsolidado = ShowConsolidado().get_model()
+usr_list_paginated = UsersResList().get_model()
 
 ns_asistencia = app.api.namespace(
     "asistencia", description="Registrar asistencia de usuarios"

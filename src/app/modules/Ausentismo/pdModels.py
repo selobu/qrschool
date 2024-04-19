@@ -1,6 +1,6 @@
 from flask_restx.fields import List, String, Date, Integer, DateTime, Boolean, Nested
 from dataclasses import dataclass
-from app.apitools import createApiModelView
+from app.apitools import createApiModelView, BaseMeta
 from app.toolsapk import Tb
 from flask import current_app as app
 
@@ -8,7 +8,7 @@ usr = createApiModelView(app.api, Tb.User, "Usuario", readonlyfields=["active"])
 
 
 @dataclass
-class MissingRegisterList:
+class MissingRegisterList(BaseMeta):
     ids: List = List(
         String(description="User id", required=True),
         description="Listado de identificación de usuarios",
@@ -18,12 +18,12 @@ class MissingRegisterList:
 
 
 @dataclass
-class AusentismoUsersResList:
+class AusentismoUsersResList(BaseMeta):
     usrs: List = List(Nested(usr))
 
 
 @dataclass
-class Ausente:
+class Ausente(BaseMeta):
     ausenciaid: Integer = Integer(description="ausencia id")
     fecha: Date = Date(description="Fecha ausencia reportada")
     timestamp: DateTime = DateTime(description="Fecha de registro en el sistema")
@@ -37,7 +37,7 @@ class Ausente:
 
 
 @dataclass
-class ShowUser:
+class ShowUser(BaseMeta):
     nombres: String = String(description="User name")
     apellidos: String = String(description="User surname")
     numeroidentificacion: String = String(description="Id number")
@@ -45,6 +45,6 @@ class ShowUser:
 
 
 @dataclass
-class AusentismoShowConsolidado:
+class AusentismoShowConsolidado(BaseMeta):
     fecha: Date = Date(description="fecha")
     cantidad: Integer = Integer(description="Cantidad de usuarios")

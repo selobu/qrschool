@@ -1,5 +1,5 @@
 from flask import current_app as app
-from app.apitools import FilterParams, allow_to_change_output_fmt, get_pyd_model
+from app.apitools import FilterParams, allow_to_change_output_fmt
 from flask_restx import Resource
 from flask_jwt_extended import jwt_required
 
@@ -16,11 +16,11 @@ ns_ausencia = app.api.namespace(
     "ausencia", description="Registrar ausencia de usuarios"
 )
 
-ausencia_register_list = get_pyd_model(MissingRegisterList)
-usr_list_paginated = get_pyd_model(AusentismoUsersResList)
-ausente = get_pyd_model(Ausente)
-showuser = get_pyd_model(ShowUser)
-ausentismoShowConsolidado = get_pyd_model(AusentismoShowConsolidado)
+ausencia_register_list = MissingRegisterList().get_model()
+usr_list_paginated = AusentismoUsersResList().get_model()
+ausente = Ausente().get_model()
+showuser = ShowUser().get_model()
+ausentismoShowConsolidado = AusentismoShowConsolidado().get_model()
 
 
 query_params = (
