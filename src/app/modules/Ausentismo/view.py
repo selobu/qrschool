@@ -6,10 +6,10 @@ from flask_jwt_extended import jwt_required
 from .controller import AusenciaController, AusenciaLast7Controller
 from .pdModels import (
     MissingRegisterList,
-    UsersResList,
+    AusentismoUsersResList,
     Ausente,
     ShowUser,
-    ShowConsolidado,
+    AusentismoShowConsolidado,
 )
 
 ns_ausencia = app.api.namespace(
@@ -17,10 +17,10 @@ ns_ausencia = app.api.namespace(
 )
 
 ausencia_register_list = get_pyd_model(MissingRegisterList)
-usr_list_paginated = get_pyd_model(UsersResList)
+usr_list_paginated = get_pyd_model(AusentismoUsersResList)
 ausente = get_pyd_model(Ausente)
 showuser = get_pyd_model(ShowUser)
-showconsolidado = get_pyd_model(ShowConsolidado)
+ausentismoShowConsolidado = get_pyd_model(AusentismoShowConsolidado)
 
 
 query_params = (
@@ -64,7 +64,7 @@ class AusenciaLast7(Resource):
 
     @ns_ausencia.response(500, "Missing autorization header")
     @ns_ausencia.doc("Retorna la ausencia de los ultimos 7 días")
-    @ns_ausencia.marshal_list_with(showconsolidado, code=200)
+    @ns_ausencia.marshal_list_with(ausentismoShowConsolidado, code=200)
     @jwt_required()
     def get(self):
         """Retorna ausencia de los ultimos 7 días"""

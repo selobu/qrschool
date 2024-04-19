@@ -18,7 +18,7 @@ class MissingRegisterList:
 
 
 @dataclass
-class UsersResList:
+class AusentismoUsersResList:
     usrs: List = List(Nested(usr))
 
 
@@ -45,6 +45,6 @@ class ShowUser:
 
 
 @dataclass
-class ShowConsolidado:
+class AusentismoShowConsolidado:
     fecha: Date = Date(description="fecha")
     cantidad: Integer = Integer(description="Cantidad de usuarios")

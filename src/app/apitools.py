@@ -431,6 +431,19 @@ class FilterParams:
 parser = FilterParams().add_paginate_arguments()
 paginate_model = parser.paginate_model
 
+_models: dict = dict()
+
 
 def get_pyd_model(Model):
-    return current_app.api.model(Model.__name__, asdict(Model()))
+    if (name := Model.__name__) in _models:
+        # If they are used from the same path
+        if _models[name]["module"] == str(Model):
+            return _models[name]["model"]
+        raise KeyError(
+            f'{ Model } :=> The model { name } is already defined in { _models[name]["module"] }'
+        )
+    _models[name] = {
+        "module": str(Model),
+        "model": current_app.api.model(Model.__name__, asdict(Model())),
+    }
+    return _models[name]["model"]
