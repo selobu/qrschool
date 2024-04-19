@@ -77,12 +77,12 @@ class Asistencia(Resource):
 
 @ns_asistencia.route("/last7/")
 class AsistenciaLast7(Resource):
-    """Listado de asistencia"""
+    """Listado de asistencia ultimos 7"""
 
-    @allow_to_change_output_fmt(parser)
+    @allow_to_change_output_fmt(parseroutput)
     @ns_asistencia.response(500, "Missing autorization header")
     @ns_asistencia.doc("Retorna asistencia de los ultimos 7 días")
-    @ns_asistencia.marshal_list_with(showconsolidado, code=200)
+    @ns_asistencia.marshal_with(showconsolidado, code=200)
     @ns_asistencia.expect(parseroutput.paginate_model)
     @jwt_required()
     def get(self):

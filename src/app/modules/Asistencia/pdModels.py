@@ -1,5 +1,5 @@
 from app.apitools import createApiModelView
-from flask_restx.fields import List, String, Integer, DateTime, Nested
+from flask_restx.fields import List, String, Integer, DateTime, Nested, Date
 from app.toolsapk import Tb
 from dataclasses import dataclass
 from flask import current_app as app
@@ -17,10 +17,8 @@ class QrRegisterList:
 
 @dataclass
 class AsistenciaModel:
-    id: Integer = (Integer(description="Asistencia id"),)
-    total: Integer = (
-        Integer(description="Cantidad total de personas en la asistencia"),
-    )
+    id: Integer = Integer(description="Asistencia id")
+    total: Integer = Integer(description="Cantidad total de personas en la asistencia")
     timestamp: DateTime = DateTime(description="Fecha de registro")
 
 
@@ -34,7 +32,7 @@ class Showuser:
 
 @dataclass
 class ShowConsolidado:
-    fecha: DateTime = DateTime(description="fecha")
+    fecha: Date = Date(description="Fecha")
     cantidad: Integer = Integer(description="Cantidad de ususarios")
 
 

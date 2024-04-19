@@ -46,5 +46,5 @@ class ShowUser:
 
 @dataclass
 class ShowConsolidado:
-    fecha: DateTime = (DateTime(description="fecha"),)
-    cantidad: Integer = (Integer(description="Cantidad de usuarios"),)
+    fecha: Date = Date(description="fecha")
+    cantidad: Integer = Integer(description="Cantidad de usuarios")
