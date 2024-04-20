@@ -2,9 +2,8 @@ from flask_restx.fields import List, String, Date, Integer, DateTime, Boolean, N
 from dataclasses import dataclass
 from app.apitools import createApiModelView, BaseMeta
 from app.toolsapk import Tb
-from flask import current_app as app
 
-usr = createApiModelView(app.api, Tb.User, "Usuario", readonlyfields=["active"])  # type: ignore
+usr = createApiModelView("Usuario", Tb.User, readonlyfields=["active"])  # type: ignore
 
 
 @dataclass

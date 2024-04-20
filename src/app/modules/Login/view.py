@@ -2,14 +2,12 @@ from flask import current_app as app
 from flask_jwt_extended import jwt_required
 from flask_restx import Resource
 from .controller import LoginController
-from app.apitools import get_pyd_model
-
 from .pdModels import Auth, LoginResponse
 
 ns_login = app.api.namespace("login", description="autenticacion")
 
-auth = get_pyd_model(Auth)
-loginResponse = get_pyd_model(LoginResponse)
+auth = Auth().get_model()
+loginResponse = LoginResponse().get_model()
 
 
 # Create a route to authenticate your users and return JWTs. The

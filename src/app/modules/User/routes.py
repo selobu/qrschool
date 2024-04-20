@@ -9,11 +9,10 @@ from app.toolsapk import Tb, gethash, uuidgenerator
 api = app.api  # type: ignore
 ns_usrs = api.namespace("usuario", description="Gestionar usuarios")
 
-usr = createApiModelView(api, Tb.User, "Usuario", readonlyfields=["active"])  # type: ignore
+usr = createApiModelView("Usuario", Tb.User, readonlyfields=["active"])  # type: ignore
 usr_post = createApiModelView(
-    api,
-    Tb.User,  # type: ignore
     "Usuario",
+    Tb.User,  # type: ignore
     readonlyfields=[
         "timestamp",
         "perfil_id",
@@ -29,11 +28,11 @@ usr_post = createApiModelView(
     },
 )
 
-usr_register_list = api.model(
+usr_register_list = createApiModelView(
     "UsersResList", {"usrs": fields.List(fields.Nested(usr_post))}
 )
 
-usr_list_paginated = api.model(
+usr_list_paginated = createApiModelView(
     "UsersResListPag", {"usrs": fields.List(fields.Nested(usr))}
 )
 

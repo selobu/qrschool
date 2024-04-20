@@ -1,55 +1,29 @@
 # coding:utf-8
 
 from flask_jwt_extended import jwt_required
-from flask_restx import Resource, fields
+from flask_restx import Resource
 from sqlalchemy import select
 from flask import current_app
 from app.apitools import (
-    createApiModelView,
     get_model_list,
     post_model_list,
     get_model,
     put_model,
 )
 from app.toolsapk import Tb
+from .pdModels import (
+    matricula,
+    matricula_register_list,
+    matricula_register,
+    grado,
+    grado_register_list,
+    grado_register,
+    usr,
+    qr_users_list,
+)
 
 api = current_app.api  # type: ignore
 ns_matricula = api.namespace("matricula", description="Gestionar matriculas")
-
-grado = createApiModelView(api, Tb.Grado, "Grado")  # type: ignore
-grado_list = api.model("GradoLista", {"grados": fields.List(fields.Nested(grado))})
-
-
-grado_register = createApiModelView(
-    api,
-    Tb.Grado,  # type: ignore
-    "CodigoGrado",
-)
-grado_register_list = api.model(
-    "GradoLista", {"grados": fields.List(fields.Nested(grado_register))}
-)
-
-matricula = createApiModelView(api, Tb.Matricula, "Matricula")  # type: ignore
-matricula_list = api.model(
-    "MatriculaList", {"matriculas": fields.List(fields.Nested(matricula))}
-)
-
-matricula_register = createApiModelView(
-    api,
-    Tb.Matricula,  # type: ignore
-    "CodigoMatricula",
-    readonlyfields=["grado"],
-)
-
-matricula_register_list = api.model(
-    "MatriculaList", {"matriculas": fields.List(fields.Nested(matricula_register))}
-)
-
-qr_users_list = api.model(
-    "QrRegisterList", {"qrs": fields.List(fields.String(required=True))}
-)
-
-usr = createApiModelView(api, Tb.User, "Usuario")  # type: ignore
 
 
 @ns_matricula.route("/")

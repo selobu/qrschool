@@ -1,15 +1,16 @@
 from dataclasses import dataclass
 from flask_restx.fields import String, Boolean, List
+from app.apitools import BaseMeta
 
 
 @dataclass
-class Auth:
+class Auth(BaseMeta):
     email: String = String(description="direccion de correo registrado")
     password: String = String(description="Contraseña")
 
 
 @dataclass
-class LoginResponse:
+class LoginResponse(BaseMeta):
     status: String = String(description="estado de la autenticacion")
     auth: Boolean = Boolean(description="está autenticado?")
     fresh_access_token: String = String(description="fresh access token")

@@ -1,21 +1,13 @@
 from flask import current_app as app
 from flask_jwt_extended import jwt_required
-from flask_restx import Resource, fields
+from flask_restx import Resource
 from sqlalchemy import select
-
-
-from app.apitools import createApiModelView, paginate_model, parser
+from app.apitools import paginate_model, parser
 from app.toolsapk import Tb
+from .pdModels import qr, usr
 
 api = app.api  # type: ignore
 ns_qrs = api.namespace("qr", description="Gestionar códigos")
-
-qr = createApiModelView(api, Tb.Qr, "Código Qr")  # type: ignore
-qr_list = api.model("QrList", {"qrs": fields.List(fields.Nested(qr))})
-
-qr_register = createApiModelView(api, Tb.Qr, "Código Qr", readonlyfields=["timestamp"])  # type: ignore
-qr_register_list = api.model("QrList", {"qrs": fields.List(fields.Nested(qr_register))})
-usr = createApiModelView(api, Tb.User, "Usuario")  # type: ignore
 
 
 @ns_qrs.route("/")
@@ -40,22 +32,22 @@ class QrList(Resource):
             )
             return session.scalars(q).all()
 
-    if False:
+    # if False:
 
-        @ns_qrs.doc("Registra un codigo qr")
-        @ns_qrs.expect(qr_register_list)
-        @ns_qrs.marshal_list_with(qr, code=201)
-        def post(self):
-            """Registra un qr nuevo"""
-            qrlist = api.payload["qrs"]
-            # Session.begin() set automatically the commit once it takes out the with statement
-            res = list()
-            with app.Session.begin() as session:
-                for qr in qrlist:
-                    res.append(Tb.Qr.register(**qr))
-                session.add_all(res)
-                session.commit()
-            return res
+    #     @ns_qrs.doc("Registra un codigo qr")
+    #     @ns_qrs.expect(qr_register_list)
+    #     @ns_qrs.marshal_list_with(qr, code=201)
+    #     def post(self):
+    #         """Registra un qr nuevo"""
+    #         qrlist = api.payload["qrs"]
+    #         # Session.begin() set automatically the commit once it takes out the with statement
+    #         res = list()
+    #         with app.Session.begin() as session:
+    #             for qr in qrlist:
+    #                 res.append(Tb.Qr.register(**qr))
+    #             session.add_all(res)
+    #             session.commit()
+    #         return res
 
 
 @ns_qrs.route("/usergetqr/<int:user_id>")
@@ -97,16 +89,16 @@ class Qr(Resource):
             qr = session.scalars(res).one()
             return qr.usuario
 
-    if False:
+    # if False:
 
-        @ns_qrs.doc("Genera un nuevo código QR del usuario")
-        @ns_qrs.expect(qr_register)
-        @ns_qrs.marshal_with(qr)
-        def put(self, qr_id):
-            """Actualiza el código QR del usuario"""
-            with app.Session() as session:
-                # se actualiza la información de usuario
-                qr = Tb.Qr.register(id=qr_id, **api.payload)
-                session.add(qr)
-                session.commit()
-            return qr
+    #     @ns_qrs.doc("Genera un nuevo código QR del usuario")
+    #     @ns_qrs.expect(qr_register)
+    #     @ns_qrs.marshal_with(qr)
+    #     def put(self, qr_id):
+    #         """Actualiza el código QR del usuario"""
+    #         with app.Session() as session:
+    #             # se actualiza la información de usuario
+    #             qr = Tb.Qr.register(id=qr_id, **api.payload)
+    #             session.add(qr)
+    #             session.commit()
+    #         return qr

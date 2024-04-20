@@ -213,9 +213,8 @@ def put_model(model: Model):
 
 
 def createApiModelView(
-    api: api,
-    table,
     modelname: str | None = None,
+    table: object | dict = {},
     readonlyfields: list = [],
     show: list = [],
     additionalfields: dict = {},
@@ -233,7 +232,11 @@ def createApiModelView(
     Return:
         Model
     """
-    res = _get_res(table, modelname, readonlyfields, show)
+    api = current_app.api
+    if not isinstance(table, dict):
+        res = _get_res(table, modelname, readonlyfields, show)
+    else:
+        res = table
     if len(additionalfields) > 0:
         # adding more fields
         for key, value in additionalfields.items():
