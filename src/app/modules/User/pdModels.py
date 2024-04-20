@@ -25,7 +25,7 @@ usr_post = createApiModelView(
 
 
 @dataclass
-class UsersResList(BaseMeta):
+class UsersResListUsr(BaseMeta):
     usrs: List = List(Nested(usr_post))
 
 
@@ -34,5 +34,5 @@ class UsersResListPag(BaseMeta):
     usrs: List = List(Nested(usr))
 
 
-usr_register_list = UsersResList().get_model()
+usr_register_list = UsersResListUsr().get_model()
 usr_list_paginated = UsersResListPag().get_model()
