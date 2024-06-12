@@ -16,7 +16,8 @@ from flask_restx import reqparse
 from pydantic import validate_call
 from enum import Enum
 from dataclasses import asdict
-from typing import Self
+
+# from typing import Self
 
 
 # ----------------------------
@@ -348,14 +349,14 @@ class FilterParams:
     def __init__(self):
         self.__parsed = False
 
-    def parseargs(self) -> Self:
+    def parseargs(self):  # -> Self:
         self.__args = self.__parse_args()
         return self
 
     @validate_call
     def add_argument(
         self, name: str, type: TypeClass, help: str = "", required: bool = False
-    ) -> Self:
+    ):  # -> Self:
         self.__add_argument(
             name=name,
             type=type,
@@ -367,7 +368,7 @@ class FilterParams:
     def add_default_error_msgs(self, decorator):
         pass
 
-    def add_outputfmt(self) -> Self:
+    def add_outputfmt(self):  # -> Self:
         """Select the output format"""
         self.add_argument(
             name="format",
@@ -377,12 +378,14 @@ class FilterParams:
         )
         return self
 
-    def __add_argument(self, name: str, type=object, help=str, required=bool) -> Self:
+    def __add_argument(
+        self, name: str, type=object, help=str, required=bool
+    ):  # -> Self:
         self.paginate_model.add_argument(name, type=type, help=help, required=required)
         self.__parsed = False
         return self
 
-    def add_paginate_arguments(self) -> Self:
+    def add_paginate_arguments(self):  # -> Self:
         self.add_argument(
             name="page",
             type=int,
