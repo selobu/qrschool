@@ -64,6 +64,8 @@ class LoginController:
                 modules = session.scalars(res).all()
 
         if passwordhash == readedhash:
+            if isinstance(email, bytes):
+                email = email.decode("utf-8")
             access_token = create_access_token(identity=email, fresh=True)
             fresh_access_token = create_refresh_token(identity=email)
             return {
