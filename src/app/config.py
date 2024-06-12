@@ -69,10 +69,14 @@ class Config(BaseModel):
         default=SecretStr(getData("jwt_password.txt", "JWT_SECRET_KEY_FILE", "")),
         frozen=True,
     )
-    WTF_CSRF_SECRET_KEY: SecretStr = Field(
-        default=SecretStr(getData("jwt_password.txt", "JWT_SECRET_KEY_FILE", "") * 2),
+    WTF_CSRF_SECRET_KEY: str = Field(
+        default=getData("jwt_password.txt", "JWT_SECRET_KEY_FILE", "") * 2,
         frozen=True,
     )
+    # SecretStr = Field(
+    #     default=SecretStr(getData("jwt_password.txt", "JWT_SECRET_KEY_FILE", "") * 2),
+    #     frozen=True,
+    # )
     app: object = {}
     engine: object = {}
     ECHO: bool = Field(default=echo_value, frozen=True)  # type:ignore

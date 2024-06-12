@@ -1,4 +1,14 @@
-__all__ = ["Tb", "select", "uuidgenerator", "now", "Base", "import_submodules"]
+__all__ = [
+    "Tb",
+    "select",
+    "uuidgenerator",
+    "now",
+    "Base",
+    "import_submodules",
+    "map_name_to_shell",
+    "activeuser_required",
+    "admin_required",
+]
 import hashlib
 from datetime import datetime, timedelta
 from functools import wraps

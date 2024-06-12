@@ -1,12 +1,17 @@
 from flask import current_app as app
 from flask_jwt_extended import jwt_required
 from flask_restx import Resource
-from app.apitools import paginate_model, parser
+from app.apitools import parser, FilterParams
+
+# , setdefaulterrors
 from .pdModels import qr, usr, qr_register_list, qr_register
 from .controller import QrListController, UserGetQrController, QrController
 
 api = app.api  # type: ignore
 ns_qrs = api.namespace("qr", description="Gestionar códigos")
+# setdefaulterrors(ns_qrs)
+
+parser = FilterParams().add_paginate_arguments().add_outputfmt()  # noqa: F811
 
 
 @ns_qrs.route("/")
@@ -16,7 +21,7 @@ class QrList(Resource):
     @ns_qrs.response(500, "Missing autorization header")
     @ns_qrs.doc("Consulta el codigo qr de los usuarios")
     @ns_qrs.marshal_list_with(qr, code=200)
-    @ns_qrs.expect(paginate_model)
+    @ns_qrs.expect(parser.paginate_model)
     @jwt_required()
     def get(self):
         """Retorna todos los qr"""
@@ -25,6 +30,7 @@ class QrList(Resource):
     @ns_qrs.doc("Registra un codigo qr")
     @ns_qrs.expect(qr_register_list)
     @ns_qrs.marshal_list_with(qr, code=201)
+    @jwt_required()
     def post(self):
         """Registra un qr nuevo"""
         return QrListController.post(api.payload)
