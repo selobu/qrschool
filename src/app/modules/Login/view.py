@@ -1,4 +1,4 @@
-from flask import current_app as app
+from flask import current_app as app, request
 from flask_jwt_extended import jwt_required
 from flask_restx import Resource
 from .controller import LoginController
@@ -31,4 +31,5 @@ class Login(Resource):
     @ns_login.expect(auth)
     @ns_login.marshal_with(loginResponse, code=200)
     def post(self):
-        return LoginController.post(app.api)
+        data = request.data
+        return LoginController.post(app.api, data)
