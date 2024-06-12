@@ -27,7 +27,7 @@ class LoginController:
         }, 202
 
     @staticmethod
-    def post(api, data):
+    def post(api):
         data = api.payload
         email = data["email"]
         passwordhash = gethash(data["password"])
