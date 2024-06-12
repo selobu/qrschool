@@ -65,10 +65,14 @@ class Config(BaseModel):
         ),
         frozen=True,
     )
-    JWT_SECRET_KEY: SecretStr = Field(
-        default=SecretStr(getData("jwt_password.txt", "JWT_SECRET_KEY_FILE", "")),
+    JWT_SECRET_KEY: str = Field(
+        default=getData("jwt_password.txt", "JWT_SECRET_KEY_FILE", ""),
         frozen=True,
     )
+    # SecretStr = Field(
+    #     default=SecretStr(getData("jwt_password.txt", "JWT_SECRET_KEY_FILE", "")),
+    #     frozen=True,
+    # )
     WTF_CSRF_SECRET_KEY: str = Field(
         default=getData("jwt_password.txt", "JWT_SECRET_KEY_FILE", "") * 2,
         frozen=True,
