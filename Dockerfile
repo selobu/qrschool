@@ -11,6 +11,6 @@ RUN pip3 install poetry
 RUN poetry config virtualenvs.create false
 RUN poetry install
 
-# reading port from gobal variable
+# reading port from global variable
 EXPOSE ${SERVING_PORT}
 CMD ["gunicorn","--config", "gunicorn_config.py", "main:app"]

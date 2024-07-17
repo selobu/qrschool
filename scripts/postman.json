@@ -1,0 +1,469 @@
+{
+  "description": "\nlteam\nhttps://lteam.gestionhseq.com/\nhttps://t.me/selopez\n",
+  "folders": [
+    {
+      "collectionId": "1ce38e0f-1185-5702-bcbe-2eeef990774c",
+      "description": "Registrar asistencia de usuarios",
+      "id": "a619fff1-6c72-50ab-a18b-bd940fc11f69",
+      "name": "asistencia",
+      "order": [
+        "c9ae4e34-5a19-5a3f-bbc9-5194b8439f90",
+        "f42dc3ee-bd18-5a2a-a474-f23f625b7628",
+        "86795c15-1b4d-5873-ab93-b80c86dcc38c",
+        "2a7f65b2-20b1-5bb1-9110-7a603a7c3065"
+      ]
+    },
+    {
+      "collectionId": "1ce38e0f-1185-5702-bcbe-2eeef990774c",
+      "description": "Registrar ausencia de usuarios",
+      "id": "cb28c5f0-021d-5ccb-baf6-279af7b55e10",
+      "name": "ausencia",
+      "order": [
+        "dd20dbe6-9b26-5f1a-b3bb-ed029eff7e72",
+        "58155dc8-d321-560b-a0a7-335cb8a0a999",
+        "1a2591ea-7da4-5576-91d2-861b64920a18"
+      ]
+    },
+    {
+      "collectionId": "1ce38e0f-1185-5702-bcbe-2eeef990774c",
+      "description": "autenticacion",
+      "id": "acc1f62e-d9d2-5d97-882d-c05756fda790",
+      "name": "login",
+      "order": [
+        "133fb3d2-af93-5f35-ba76-382a660d4d57",
+        "0e726816-afdd-54ab-a4c0-a289bb6be0cf"
+      ]
+    },
+    {
+      "collectionId": "1ce38e0f-1185-5702-bcbe-2eeef990774c",
+      "description": "Gestionar matriculas",
+      "id": "f5d78adc-ac0e-5731-aa1a-6d6d0556f4bc",
+      "name": "matricula",
+      "order": [
+        "c65eb3ca-4efa-5f2b-8538-fc14927551ed",
+        "28dedb33-875f-5657-87c2-8a95ce5cef5c",
+        "0f3b7ee2-21db-5f0a-a8f0-b8dd31c75095",
+        "90d5b2fc-58ce-572d-95d1-2099c8cb9aad",
+        "dfab06bf-68e6-5be4-84a0-8d839d5299a4",
+        "51830577-cba7-5562-a490-aaab2f546145",
+        "2e84cb59-aecb-520d-b612-f743003591fc",
+        "745cbd1d-000a-5f73-a06a-d5e635a5aac8",
+        "02fa39e7-50aa-58a4-8635-d120b6eeb14a",
+        "cad982f9-0ada-5a11-a49f-cfa9c54d65fd",
+        "042282eb-02d9-5cbd-b11c-1762f18ebb03"
+      ]
+    },
+    {
+      "collectionId": "1ce38e0f-1185-5702-bcbe-2eeef990774c",
+      "description": "Gestionar c\u00f3digos",
+      "id": "102d4e69-ba68-5de8-bbaf-ee16e7f276ab",
+      "name": "qr",
+      "order": [
+        "6f031fb7-0f93-599a-a280-ad933757df71",
+        "3f7ab2ba-764a-5d40-88ac-3caa94b5d03c",
+        "2527118b-3755-582c-b4c5-6dc407f1029e",
+        "7ddb39e2-164c-547c-958f-11a55e293cd7",
+        "db89a186-cc95-529f-92f7-2c62e63e2ed2"
+      ]
+    },
+    {
+      "collectionId": "1ce38e0f-1185-5702-bcbe-2eeef990774c",
+      "description": "Gestionar usuarios",
+      "id": "9b3b40bb-cc81-543b-87b0-e71145707c60",
+      "name": "usuario",
+      "order": [
+        "2ca3b3e3-9e34-58ec-a896-29a3f8a6a281",
+        "a845a4ec-fdfa-59c5-b95e-d0a3b1a2fc98",
+        "01fbc7b6-0a14-5599-890e-9d6fc65d3f3e",
+        "a15c7b31-d51d-5c4a-beb9-c55baaf21202"
+      ]
+    }
+  ],
+  "id": "1ce38e0f-1185-5702-bcbe-2eeef990774c",
+  "name": "QRSchool api 0.0.2",
+  "order": ["e2a9221f-454f-56c2-a1cd-56dc211228c9"],
+  "requests": [
+    {
+      "collectionId": "1ce38e0f-1185-5702-bcbe-2eeef990774c",
+      "description": "The API Swagger specifications as JSON",
+      "headers": "Authorization:",
+      "id": "e2a9221f-454f-56c2-a1cd-56dc211228c9",
+      "method": "GET",
+      "name": "Swagger specifications",
+      "time": 1719591491,
+      "url": "{{api}}/swagger.json"
+    },
+    {
+      "collectionId": "1ce38e0f-1185-5702-bcbe-2eeef990774c",
+      "description": "Retorna los listados de asistencia paginados",
+      "folder": "a619fff1-6c72-50ab-a18b-bd940fc11f69",
+      "headers": "X-Fields:\nAuthorization:",
+      "id": "c9ae4e34-5a19-5a3f-bbc9-5194b8439f90",
+      "method": "GET",
+      "name": "Consulta el codigo qr de los usuarios",
+      "pathVariables": {},
+      "time": 1719591491,
+      "url": "{{api}}/asistencia/"
+    },
+    {
+      "collectionId": "1ce38e0f-1185-5702-bcbe-2eeef990774c",
+      "description": "Registra listado de asistencia",
+      "folder": "a619fff1-6c72-50ab-a18b-bd940fc11f69",
+      "headers": "Content-Type:application/json\nX-Fields:\nAuthorization:",
+      "id": "f42dc3ee-bd18-5a2a-a474-f23f625b7628",
+      "method": "POST",
+      "name": "Registra un usuario",
+      "pathVariables": {},
+      "time": 1719591491,
+      "url": "{{api}}/asistencia/"
+    },
+    {
+      "collectionId": "1ce38e0f-1185-5702-bcbe-2eeef990774c",
+      "description": "Retorna asistencia de los ultimos 7 d\u00edas",
+      "folder": "a619fff1-6c72-50ab-a18b-bd940fc11f69",
+      "headers": "X-Fields:\nAuthorization:",
+      "id": "86795c15-1b4d-5873-ab93-b80c86dcc38c",
+      "method": "GET",
+      "name": "Retorna asistencia de los ultimos 7 d\u00edas",
+      "pathVariables": {},
+      "time": 1719591491,
+      "url": "{{api}}/asistencia/last7/"
+    },
+    {
+      "collectionId": "1ce38e0f-1185-5702-bcbe-2eeef990774c",
+      "description": "Retorna los asistentes paginados",
+      "folder": "a619fff1-6c72-50ab-a18b-bd940fc11f69",
+      "headers": "X-Fields:\nAuthorization:",
+      "id": "2a7f65b2-20b1-5bb1-9110-7a603a7c3065",
+      "method": "GET",
+      "name": "Retorna el listado de asistentes paginados",
+      "pathVariables": {
+        "asistencia_id": 0
+      },
+      "time": 1719591491,
+      "url": "{{api}}/asistencia/:asistencia_id/"
+    },
+    {
+      "collectionId": "1ce38e0f-1185-5702-bcbe-2eeef990774c",
+      "description": "Retorna los listados de ausencia paginados",
+      "folder": "cb28c5f0-021d-5ccb-baf6-279af7b55e10",
+      "headers": "X-Fields:\nAuthorization:",
+      "id": "dd20dbe6-9b26-5f1a-b3bb-ed029eff7e72",
+      "method": "GET",
+      "name": "Retorna los listados de ausencia paginados",
+      "pathVariables": {},
+      "time": 1719591491,
+      "url": "{{api}}/ausencia/"
+    },
+    {
+      "collectionId": "1ce38e0f-1185-5702-bcbe-2eeef990774c",
+      "description": "Registra ausencia de un usuario",
+      "folder": "cb28c5f0-021d-5ccb-baf6-279af7b55e10",
+      "headers": "Content-Type:application/json\nAuthorization:",
+      "id": "58155dc8-d321-560b-a0a7-335cb8a0a999",
+      "method": "POST",
+      "name": "Registra ausencia de un usuario",
+      "pathVariables": {},
+      "time": 1719591491,
+      "url": "{{api}}/ausencia/"
+    },
+    {
+      "collectionId": "1ce38e0f-1185-5702-bcbe-2eeef990774c",
+      "description": "Retorna ausencia de los ultimos 7 d\u00edas",
+      "folder": "cb28c5f0-021d-5ccb-baf6-279af7b55e10",
+      "headers": "X-Fields:\nAuthorization:",
+      "id": "1a2591ea-7da4-5576-91d2-861b64920a18",
+      "method": "GET",
+      "name": "Retorna la ausencia de los ultimos 7 d\u00edas",
+      "pathVariables": {},
+      "time": 1719591491,
+      "url": "{{api}}/ausencia/last7/"
+    },
+    {
+      "collectionId": "1ce38e0f-1185-5702-bcbe-2eeef990774c",
+      "folder": "acc1f62e-d9d2-5d97-882d-c05756fda790",
+      "headers": "Authorization:",
+      "id": "133fb3d2-af93-5f35-ba76-382a660d4d57",
+      "method": "GET",
+      "name": "get_login",
+      "time": 1719591491,
+      "url": "{{api}}/login/"
+    },
+    {
+      "collectionId": "1ce38e0f-1185-5702-bcbe-2eeef990774c",
+      "folder": "acc1f62e-d9d2-5d97-882d-c05756fda790",
+      "headers": "Content-Type:application/json\nX-Fields:\nAuthorization:",
+      "id": "0e726816-afdd-54ab-a4c0-a289bb6be0cf",
+      "method": "POST",
+      "name": "post_login",
+      "pathVariables": {},
+      "time": 1719591491,
+      "url": "{{api}}/login/"
+    },
+    {
+      "collectionId": "1ce38e0f-1185-5702-bcbe-2eeef990774c",
+      "description": "Consulta todos los per\u00eddos de matr\u00edcula",
+      "folder": "f5d78adc-ac0e-5731-aa1a-6d6d0556f4bc",
+      "headers": "X-Fields:\nAuthorization:",
+      "id": "c65eb3ca-4efa-5f2b-8538-fc14927551ed",
+      "method": "GET",
+      "name": "Consulta todos los periodos de matr\u00edcula",
+      "pathVariables": {},
+      "time": 1719591491,
+      "url": "{{api}}/matricula/"
+    },
+    {
+      "collectionId": "1ce38e0f-1185-5702-bcbe-2eeef990774c",
+      "description": "Registra uno o mas procesos de matr\u00edculas",
+      "folder": "f5d78adc-ac0e-5731-aa1a-6d6d0556f4bc",
+      "headers": "Content-Type:application/json\nX-Fields:\nAuthorization:",
+      "id": "28dedb33-875f-5657-87c2-8a95ce5cef5c",
+      "method": "POST",
+      "name": "Registra uno o mas procesos de matr\u00edculas",
+      "pathVariables": {},
+      "time": 1719591491,
+      "url": "{{api}}/matricula/"
+    },
+    {
+      "collectionId": "1ce38e0f-1185-5702-bcbe-2eeef990774c",
+      "description": "Retorna todos los grados",
+      "folder": "f5d78adc-ac0e-5731-aa1a-6d6d0556f4bc",
+      "headers": "X-Fields:\nAuthorization:",
+      "id": "0f3b7ee2-21db-5f0a-a8f0-b8dd31c75095",
+      "method": "GET",
+      "name": "Consulta todos los grados",
+      "pathVariables": {},
+      "time": 1719591491,
+      "url": "{{api}}/matricula/grado/"
+    },
+    {
+      "collectionId": "1ce38e0f-1185-5702-bcbe-2eeef990774c",
+      "description": "Registra uno o mas grados",
+      "folder": "f5d78adc-ac0e-5731-aa1a-6d6d0556f4bc",
+      "headers": "Content-Type:application/json\nX-Fields:\nAuthorization:",
+      "id": "90d5b2fc-58ce-572d-95d1-2099c8cb9aad",
+      "method": "POST",
+      "name": "Registra uno o mas grados",
+      "pathVariables": {},
+      "time": 1719591491,
+      "url": "{{api}}/matricula/grado/"
+    },
+    {
+      "collectionId": "1ce38e0f-1185-5702-bcbe-2eeef990774c",
+      "description": "Consulta el listado de estudiantes de un grado",
+      "folder": "f5d78adc-ac0e-5731-aa1a-6d6d0556f4bc",
+      "headers": "X-Fields:\nAuthorization:",
+      "id": "dfab06bf-68e6-5be4-84a0-8d839d5299a4",
+      "method": "GET",
+      "name": "Consulta el listado de estudiantes de un grado",
+      "pathVariables": {
+        "gradoid": 0
+      },
+      "time": 1719591491,
+      "url": "{{api}}/matricula/grado/users/:gradoid/"
+    },
+    {
+      "collectionId": "1ce38e0f-1185-5702-bcbe-2eeef990774c",
+      "description": "Registra un listado de estudiantes de un grado",
+      "folder": "f5d78adc-ac0e-5731-aa1a-6d6d0556f4bc",
+      "headers": "Content-Type:application/json\nX-Fields:\nAuthorization:",
+      "id": "51830577-cba7-5562-a490-aaab2f546145",
+      "method": "POST",
+      "name": "Registra un listado de estudiantes de un grado",
+      "pathVariables": {
+        "gradoid": 0
+      },
+      "time": 1719591491,
+      "url": "{{api}}/matricula/grado/users/:gradoid/"
+    },
+    {
+      "collectionId": "1ce38e0f-1185-5702-bcbe-2eeef990774c",
+      "description": "Elimina el listado de estudiantes de un grado",
+      "folder": "f5d78adc-ac0e-5731-aa1a-6d6d0556f4bc",
+      "headers": "Content-Type:application/json\nX-Fields:\nAuthorization:",
+      "id": "2e84cb59-aecb-520d-b612-f743003591fc",
+      "method": "DELETE",
+      "name": "Elimina el listado de estudiantes de un grado",
+      "pathVariables": {
+        "gradoid": 0
+      },
+      "time": 1719591491,
+      "url": "{{api}}/matricula/grado/users/:gradoid/"
+    },
+    {
+      "collectionId": "1ce38e0f-1185-5702-bcbe-2eeef990774c",
+      "description": "Modifica uno grado",
+      "folder": "f5d78adc-ac0e-5731-aa1a-6d6d0556f4bc",
+      "headers": "Content-Type:application/json\nX-Fields:\nAuthorization:",
+      "id": "745cbd1d-000a-5f73-a06a-d5e635a5aac8",
+      "method": "PUT",
+      "name": "Modifica uno grado",
+      "pathVariables": {
+        "id": 0
+      },
+      "time": 1719591491,
+      "url": "{{api}}/matricula/grado/:id"
+    },
+    {
+      "collectionId": "1ce38e0f-1185-5702-bcbe-2eeef990774c",
+      "description": "Consulta un grado",
+      "folder": "f5d78adc-ac0e-5731-aa1a-6d6d0556f4bc",
+      "headers": "X-Fields:\nAuthorization:",
+      "id": "02fa39e7-50aa-58a4-8635-d120b6eeb14a",
+      "method": "GET",
+      "name": "Consulta un grado",
+      "pathVariables": {
+        "id": 0
+      },
+      "time": 1719591491,
+      "url": "{{api}}/matricula/grado/:id"
+    },
+    {
+      "collectionId": "1ce38e0f-1185-5702-bcbe-2eeef990774c",
+      "description": "Actualiza una matricula",
+      "folder": "f5d78adc-ac0e-5731-aa1a-6d6d0556f4bc",
+      "headers": "Content-Type:application/json\nX-Fields:\nAuthorization:",
+      "id": "cad982f9-0ada-5a11-a49f-cfa9c54d65fd",
+      "method": "PUT",
+      "name": "Registra o actualiza matr\u00edculas",
+      "pathVariables": {
+        "id": 0
+      },
+      "time": 1719591491,
+      "url": "{{api}}/matricula/:id"
+    },
+    {
+      "collectionId": "1ce38e0f-1185-5702-bcbe-2eeef990774c",
+      "description": "Consulta una matr\u00edcula",
+      "folder": "f5d78adc-ac0e-5731-aa1a-6d6d0556f4bc",
+      "headers": "X-Fields:\nAuthorization:",
+      "id": "042282eb-02d9-5cbd-b11c-1762f18ebb03",
+      "method": "GET",
+      "name": "Consulta una matr\u00edcula",
+      "pathVariables": {
+        "id": 0
+      },
+      "time": 1719591491,
+      "url": "{{api}}/matricula/:id"
+    },
+    {
+      "collectionId": "1ce38e0f-1185-5702-bcbe-2eeef990774c",
+      "description": "Retorna todos los qr",
+      "folder": "102d4e69-ba68-5de8-bbaf-ee16e7f276ab",
+      "headers": "X-Fields:\nAuthorization:",
+      "id": "6f031fb7-0f93-599a-a280-ad933757df71",
+      "method": "GET",
+      "name": "Consulta el codigo qr de los usuarios",
+      "pathVariables": {},
+      "time": 1719591491,
+      "url": "{{api}}/qr/"
+    },
+    {
+      "collectionId": "1ce38e0f-1185-5702-bcbe-2eeef990774c",
+      "description": "Registra un qr nuevo",
+      "folder": "102d4e69-ba68-5de8-bbaf-ee16e7f276ab",
+      "headers": "Content-Type:application/json\nX-Fields:\nAuthorization:",
+      "id": "3f7ab2ba-764a-5d40-88ac-3caa94b5d03c",
+      "method": "POST",
+      "name": "Registra un codigo qr",
+      "pathVariables": {},
+      "time": 1719591491,
+      "url": "{{api}}/qr/"
+    },
+    {
+      "collectionId": "1ce38e0f-1185-5702-bcbe-2eeef990774c",
+      "description": "Retorna el qr usuario",
+      "folder": "102d4e69-ba68-5de8-bbaf-ee16e7f276ab",
+      "headers": "Authorization:",
+      "id": "2527118b-3755-582c-b4c5-6dc407f1029e",
+      "method": "GET",
+      "name": "Informaci\u00f3n del qr dado su user_id",
+      "pathVariables": {
+        "user_id": 0
+      },
+      "time": 1719591491,
+      "url": "{{api}}/qr/usergetqr/:user_id"
+    },
+    {
+      "collectionId": "1ce38e0f-1185-5702-bcbe-2eeef990774c",
+      "description": "Actualiza el c\u00f3digo QR del usuario",
+      "folder": "102d4e69-ba68-5de8-bbaf-ee16e7f276ab",
+      "headers": "Content-Type:application/json\nX-Fields:\nAuthorization:",
+      "id": "7ddb39e2-164c-547c-958f-11a55e293cd7",
+      "method": "PUT",
+      "name": "Genera un nuevo c\u00f3digo QR del usuario",
+      "pathVariables": {
+        "qr_id": ""
+      },
+      "time": 1719591491,
+      "url": "{{api}}/qr/:qr_id"
+    },
+    {
+      "collectionId": "1ce38e0f-1185-5702-bcbe-2eeef990774c",
+      "description": "Retorna los datos del usuario",
+      "folder": "102d4e69-ba68-5de8-bbaf-ee16e7f276ab",
+      "headers": "X-Fields:\nAuthorization:",
+      "id": "db89a186-cc95-529f-92f7-2c62e63e2ed2",
+      "method": "GET",
+      "name": "Informaci\u00f3n del qr",
+      "pathVariables": {
+        "qr_id": ""
+      },
+      "time": 1719591491,
+      "url": "{{api}}/qr/:qr_id"
+    },
+    {
+      "collectionId": "1ce38e0f-1185-5702-bcbe-2eeef990774c",
+      "description": "Retorna todos los usuarios",
+      "folder": "9b3b40bb-cc81-543b-87b0-e71145707c60",
+      "headers": "X-Fields:\nAuthorization:",
+      "id": "2ca3b3e3-9e34-58ec-a896-29a3f8a6a281",
+      "method": "GET",
+      "name": "Consulta la informaci\u00f3n de usuario",
+      "pathVariables": {},
+      "time": 1719591491,
+      "url": "{{api}}/usuario/"
+    },
+    {
+      "collectionId": "1ce38e0f-1185-5702-bcbe-2eeef990774c",
+      "description": "Registra un usuario nuevo",
+      "folder": "9b3b40bb-cc81-543b-87b0-e71145707c60",
+      "headers": "Content-Type:application/json\nX-Fields:\nAuthorization:",
+      "id": "a845a4ec-fdfa-59c5-b95e-d0a3b1a2fc98",
+      "method": "POST",
+      "name": "Registra un usuario",
+      "pathVariables": {},
+      "time": 1719591491,
+      "url": "{{api}}/usuario/"
+    },
+    {
+      "collectionId": "1ce38e0f-1185-5702-bcbe-2eeef990774c",
+      "description": "Actualiza la informaci\u00f3n de un usuario",
+      "folder": "9b3b40bb-cc81-543b-87b0-e71145707c60",
+      "headers": "Content-Type:application/json\nX-Fields:\nAuthorization:",
+      "id": "01fbc7b6-0a14-5599-890e-9d6fc65d3f3e",
+      "method": "PUT",
+      "name": "Actualiza la informaci\u00f3n del usuario",
+      "pathVariables": {
+        "user_id": 0
+      },
+      "time": 1719591491,
+      "url": "{{api}}/usuario/:user_id"
+    },
+    {
+      "collectionId": "1ce38e0f-1185-5702-bcbe-2eeef990774c",
+      "description": "Retorna la informaci\u00f3n del usuario",
+      "folder": "9b3b40bb-cc81-543b-87b0-e71145707c60",
+      "headers": "X-Fields:\nAuthorization:",
+      "id": "a15c7b31-d51d-5c4a-beb9-c55baaf21202",
+      "method": "GET",
+      "name": "Informaci\u00f3n del usuario dado su id",
+      "pathVariables": {
+        "user_id": 0
+      },
+      "time": 1719591491,
+      "url": "{{api}}/usuario/:user_id"
+    }
+  ],
+  "timestamp": 1719591491
+}

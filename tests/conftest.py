@@ -1,26 +1,38 @@
 import pytest
 from .tool import icludepath  # incule app path to be imported as app
 from app import create_app
-from app.config import PythonAnywhereConfig
+from app.config import DevelopmentConfig
 
 icludepath()
 
 
 @pytest.fixture
 def app():
-    app = create_app(PythonAnywhereConfig)
+    app = create_app(DevelopmentConfig)
     app.config.update(TESTING=True)
     yield app
 
 
 @pytest.fixture
 def client(app):
-    return app.test_client()
+    return app.test_client(allow_subdomain_redirects=True)
+
+
+@pytest.fixture
+def auth(client):
+    with client:
+        data = {"email": "selobu@gmail.com", "password": "123456789"}
+        response = client.post("/api/login/", json=data)
+        # assert response.json["auth"] == True
+        return {
+            "fresh_access_token": response.json["fresh_access_token"],
+            "access_token": response.json["access_token"],
+        }
 
 
 @pytest.fixture
 def runner():
-    app.config.update(PythonAnywhereConfig)
+    app.config.update(DevelopmentConfig)
     return app.test_cli_runner()
 
 

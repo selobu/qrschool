@@ -46,6 +46,9 @@ class Config(BaseModel):
     port: Union[int, str, None] = Field(
         union_mode="left_to_right", frozen=True, examples=[8080, 8081]
     )
+    dbport: Union[int, str, None] = Field(
+        union_mode="left_to_right", frozen=True, examples=[3306]
+    )
     db: str = Field(frozen=True)
     eng: str = Field(frozen=True)
     user: str = environ.get("MYSQL_USER", "adminuser")
@@ -83,6 +86,7 @@ class Config(BaseModel):
     # )
     app: object = {}
     engine: object = {}
+    SERVER_NAME: str | None = None
     ECHO: bool = Field(default=echo_value, frozen=True)  # type:ignore
     APP_NAME: str = Field(
         default=environ.get("APPNAME", "QRSchool api"), frozen=True
@@ -102,7 +106,7 @@ class Config(BaseModel):
         if self.host not in (None, "None", ""):
             uri += f"@{self.host}"
         if self.port not in (None, "None", ""):
-            uri += f":{self.port}"
+            uri += f":{self.dbport}"
         uri += f"/{self.db}"
 
         return uri
@@ -128,7 +132,8 @@ class Config(BaseModel):
 ProductionConfig = Config(
     eng="mysql+pymysql",
     host=environ.get("MYSQL_HOST", "127.0.0.1"),
-    port=environ.get("MYSQL_PORT", "3306"),
+    port=environ.get("PORT", "80"),
+    dbport=environ.get("MYSQL_PORT", "3306"),
     db=environ.get("MYSQL_DATABASE", "colegio2023"),
     ECHO=False,
 )
@@ -137,7 +142,8 @@ ProductionConfig = Config(
 DevelopmentConfig = Config(
     eng="mysql+pymysql",
     host=environ.get("MYSQL_HOST", "127.0.0.1"),
-    port=environ.get("MYSQL_PORT", "3306"),
+    port=environ.get("PORT", "8081"),
+    dbport=environ.get("MYSQL_PORT", "3306"),
     db=environ.get("MYSQL_DATABASE", "colegio2023"),
     ECHO=True,
 )
@@ -149,6 +155,7 @@ TestingConfig = Config(
     eng="sqlite",
     host="",
     port="",
+    dbport="",
     db=":memory:",
     TESTING=True,
     ECHO=True,
@@ -158,6 +165,7 @@ TestingConfig = Config(
 PythonAnywhereConfig = Config(
     eng="mysql+pymysql",
     port=None,
+    dbport=None,
     user="selobu",
     host="selobu.mysql.pythonanywhere-services.com",
     db="selobu$colegio2023",

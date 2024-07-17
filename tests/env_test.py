@@ -17,8 +17,8 @@ keys = {
     "admin_email": str,
     "items_per_user": int,
     "API_CONTACT": object,
-    "JWT_SECRET_KEY": SecretStr,
-    "WTF_CSRF_SECRET_KEY": SecretStr,
+    "JWT_SECRET_KEY": str,  # SecretStr,
+    "WTF_CSRF_SECRET_KEY": str,  # SecretStr,
     "app": object,
     "engine": object,
     "ECHO": bool,
@@ -44,7 +44,7 @@ class TestConfig(unittest.TestCase):
         conf = TestingConfig
         for variable, var_type in [
             ("user", str),
-            ("JWT_SECRET_KEY", SecretStr),
+            ("JWT_SECRET_KEY", str),  # SecretStr),
             ("host", str),
             ("db", str),
             ("host", str),
