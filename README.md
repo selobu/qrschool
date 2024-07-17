@@ -22,9 +22,11 @@ Attendance student list by reading QR codes
 
 [frontend](https://qrschoolapp.gestionhseq.com)
 
+[Postman file](https://github.com/selobu/qrschool/blob/main/scripts/postman.json)
+
 
 ## Project status
-
+º
 | Item              | status                                | Due date MM/DD/YYYY |
 | ----------------- | ------------------------------------- | ------------------- |
 | GitHub Actions    | ![100%](https://progress-bar.dev/100) | 08/11/2023          |
