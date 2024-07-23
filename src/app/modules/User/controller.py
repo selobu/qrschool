@@ -1,6 +1,7 @@
 from flask import current_app as app
 from sqlalchemy import select
 from app.toolsapk import Tb, gethash, uuidgenerator
+from werkzeug.exceptions import BadRequest
 
 
 class UserListController:
@@ -42,7 +43,7 @@ class UserListController:
                 session.add_all(res)
                 session.commit()
         except Exception as e:
-            return f"Error adding the new user:{type(e).__name__}\n{e}", 400
+            raise BadRequest(f"Error adding the new user: {e.__cause__}")
 
         with app.Session() as session:
             # Se generan los códigos qr de todos los usuarios agregados y se registra la contraseña
