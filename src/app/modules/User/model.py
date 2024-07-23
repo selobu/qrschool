@@ -80,7 +80,6 @@ class User(Base):
         return res
 
 
-@map_name_to_table
 class PerfilSchool(Enum):
     SIN = "SIN"
     ESTUDIANTE = "ESTUDIANTE"

@@ -35,11 +35,15 @@ class UserListController:
         userlist = payload
         # Session.begin() set automatically the commit once it takes out the with statement
         res = list()
-        with app.Session() as session:
-            for user in userlist:
-                res.append(Tb.User.register(**user))
-            session.add_all(res)
-            session.commit()
+        try:
+            with app.Session() as session:
+                for user in userlist:
+                    res.append(Tb.User.register(**user))
+                session.add_all(res)
+                session.commit()
+        except Exception as e:
+            return f"Error adding the new user:{type(e).__name__}\n{e}", 400
+
         with app.Session() as session:
             # Se generan los códigos qr de todos los usuarios agregados y se registra la contraseña
             qrs = list()

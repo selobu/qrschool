@@ -38,6 +38,7 @@ class UserList(Resource):
     @ns_usrs.doc("Registra un usuario")
     @ns_usrs.expect(usr_register_list)
     @ns_usrs.marshal_list_with(usr, code=201)
+    @ns_usrs.response(400, "Can't create the new user")
     def post(self):
         """Registra un usuario nuevo"""
         return UserListController.post(api.payload)
