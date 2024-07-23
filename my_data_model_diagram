@@ -1,0 +1,357 @@
+// Interactive Data Models
+digraph {
+	graph [bgcolor="#EEEEEE" rankdir=TB splines=spline]
+	node [fontname=Roboto fontsize=12 shape=none]
+	edge [fontname=Roboto fontsize=10]
+	Asignatura [label=<
+        <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0">
+        <TR><TD COLSPAN="2" BGCOLOR="#3F51B5"><FONT COLOR="white">Asignatura</FONT></TD></TR>
+        <TR>
+                         <TD BGCOLOR="#BBDEFB">id</TD>
+                         <TD BGCOLOR="#BBDEFB">INTEGER (PK)</TD>
+                         </TR><TR>
+                         <TD BGCOLOR="#BBDEFB">nombre</TD>
+                         <TD BGCOLOR="#BBDEFB">VARCHAR(255) ()</TD>
+                         </TR><TR>
+                         <TD BGCOLOR="#BBDEFB">grado_id</TD>
+                         <TD BGCOLOR="#BBDEFB">INTEGER ()</TD>
+                         </TR><TR>
+                         <TD BGCOLOR="#BBDEFB">docente_id</TD>
+                         <TD BGCOLOR="#BBDEFB">INTEGER ()</TD>
+                         </TR></TABLE>> URL="http://Asignatura_details.html"]
+	Asignatura -> Grado [label=grado color="#1E88E5" style=dashed tooltip="Relation between Asignatura and Grado"]
+	Asignatura -> User [label=docente color="#1E88E5" style=dashed tooltip="Relation between Asignatura and User"]
+	Asignatura -> Horario [label=horario color="#1E88E5" style=dashed tooltip="Relation between Asignatura and Horario"]
+	Asistencia [label=<
+        <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0">
+        <TR><TD COLSPAN="2" BGCOLOR="#3F51B5"><FONT COLOR="white">Asistencia</FONT></TD></TR>
+        <TR>
+                         <TD BGCOLOR="#BBDEFB">id</TD>
+                         <TD BGCOLOR="#BBDEFB">INTEGER (PK)</TD>
+                         </TR><TR>
+                         <TD BGCOLOR="#BBDEFB">timestamp</TD>
+                         <TD BGCOLOR="#BBDEFB">DATETIME ()</TD>
+                         </TR></TABLE>> URL="http://Asistencia_details.html"]
+	Asistencia -> UsrAsistenciaLnk [label=userasistencia color="#1E88E5" style=dashed tooltip="Relation between Asistencia and UsrAsistenciaLnk"]
+	Ausentismo [label=<
+        <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0">
+        <TR><TD COLSPAN="2" BGCOLOR="#3F51B5"><FONT COLOR="white">Ausentismo</FONT></TD></TR>
+        <TR>
+                         <TD BGCOLOR="#BBDEFB">id</TD>
+                         <TD BGCOLOR="#BBDEFB">INTEGER (PK)</TD>
+                         </TR><TR>
+                         <TD BGCOLOR="#BBDEFB">fecha</TD>
+                         <TD BGCOLOR="#BBDEFB">DATE ()</TD>
+                         </TR><TR>
+                         <TD BGCOLOR="#BBDEFB">timestamp</TD>
+                         <TD BGCOLOR="#BBDEFB">DATETIME ()</TD>
+                         </TR><TR>
+                         <TD BGCOLOR="#BBDEFB">userausente_id</TD>
+                         <TD BGCOLOR="#BBDEFB">INTEGER ()</TD>
+                         </TR><TR>
+                         <TD BGCOLOR="#BBDEFB">responsableRegistro</TD>
+                         <TD BGCOLOR="#BBDEFB">VARCHAR(200) ()</TD>
+                         </TR><TR>
+                         <TD BGCOLOR="#BBDEFB">comentario</TD>
+                         <TD BGCOLOR="#BBDEFB">VARCHAR(1200) ()</TD>
+                         </TR></TABLE>> URL="http://Ausentismo_details.html"]
+	Ausentismo -> User [label=userausente color="#1E88E5" style=dashed tooltip="Relation between Ausentismo and User"]
+	Auth [label=<
+        <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0">
+        <TR><TD COLSPAN="2" BGCOLOR="#3F51B5"><FONT COLOR="white">Auth</FONT></TD></TR>
+        <TR>
+                         <TD BGCOLOR="#BBDEFB">usuario_id</TD>
+                         <TD BGCOLOR="#BBDEFB">INTEGER (PK)</TD>
+                         </TR><TR>
+                         <TD BGCOLOR="#BBDEFB">timestamp</TD>
+                         <TD BGCOLOR="#BBDEFB">DATETIME ()</TD>
+                         </TR><TR>
+                         <TD BGCOLOR="#BBDEFB">hash</TD>
+                         <TD BGCOLOR="#BBDEFB">VARCHAR(100) ()</TD>
+                         </TR></TABLE>> URL="http://Auth_details.html"]
+	Auth -> User [label=usuario color="#1E88E5" style=dashed tooltip="Relation between Auth and User"]
+	Calendario [label=<
+        <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0">
+        <TR><TD COLSPAN="2" BGCOLOR="#3F51B5"><FONT COLOR="white">Calendario</FONT></TD></TR>
+        <TR>
+                         <TD BGCOLOR="#BBDEFB">id</TD>
+                         <TD BGCOLOR="#BBDEFB">INTEGER (PK)</TD>
+                         </TR><TR>
+                         <TD BGCOLOR="#BBDEFB">nombre</TD>
+                         <TD BGCOLOR="#BBDEFB">VARCHAR(255) ()</TD>
+                         </TR><TR>
+                         <TD BGCOLOR="#BBDEFB">Desripcion</TD>
+                         <TD BGCOLOR="#BBDEFB">VARCHAR(1200) ()</TD>
+                         </TR><TR>
+                         <TD BGCOLOR="#BBDEFB">propietario_id</TD>
+                         <TD BGCOLOR="#BBDEFB">INTEGER ()</TD>
+                         </TR></TABLE>> URL="http://Calendario_details.html"]
+	Calendario -> User [label=propietario color="#1E88E5" style=dashed tooltip="Relation between Calendario and User"]
+	Calendario -> Evento [label=evento color="#1E88E5" style=dashed tooltip="Relation between Calendario and Evento"]
+	Evaluacion [label=<
+        <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0">
+        <TR><TD COLSPAN="2" BGCOLOR="#3F51B5"><FONT COLOR="white">Evaluacion</FONT></TD></TR>
+        <TR>
+                         <TD BGCOLOR="#BBDEFB">id</TD>
+                         <TD BGCOLOR="#BBDEFB">INTEGER (PK)</TD>
+                         </TR><TR>
+                         <TD BGCOLOR="#BBDEFB">fecha</TD>
+                         <TD BGCOLOR="#BBDEFB">DATE ()</TD>
+                         </TR><TR>
+                         <TD BGCOLOR="#BBDEFB">resultado</TD>
+                         <TD BGCOLOR="#BBDEFB">INTEGER ()</TD>
+                         </TR><TR>
+                         <TD BGCOLOR="#BBDEFB">comentario</TD>
+                         <TD BGCOLOR="#BBDEFB">VARCHAR(800) ()</TD>
+                         </TR><TR>
+                         <TD BGCOLOR="#BBDEFB">aprobado</TD>
+                         <TD BGCOLOR="#BBDEFB">BOOLEAN ()</TD>
+                         </TR><TR>
+                         <TD BGCOLOR="#BBDEFB">periodo</TD>
+                         <TD BGCOLOR="#BBDEFB">INTEGER ()</TD>
+                         </TR><TR>
+                         <TD BGCOLOR="#BBDEFB">evaluado_id</TD>
+                         <TD BGCOLOR="#BBDEFB">INTEGER ()</TD>
+                         </TR></TABLE>> URL="http://Evaluacion_details.html"]
+	Evaluacion -> User [label=evaluado color="#1E88E5" style=dashed tooltip="Relation between Evaluacion and User"]
+	Evento [label=<
+        <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0">
+        <TR><TD COLSPAN="2" BGCOLOR="#3F51B5"><FONT COLOR="white">Evento</FONT></TD></TR>
+        <TR>
+                         <TD BGCOLOR="#BBDEFB">id</TD>
+                         <TD BGCOLOR="#BBDEFB">INTEGER (PK)</TD>
+                         </TR><TR>
+                         <TD BGCOLOR="#BBDEFB">timestamp</TD>
+                         <TD BGCOLOR="#BBDEFB">DATETIME ()</TD>
+                         </TR><TR>
+                         <TD BGCOLOR="#BBDEFB">titulo</TD>
+                         <TD BGCOLOR="#BBDEFB">VARCHAR(255) ()</TD>
+                         </TR><TR>
+                         <TD BGCOLOR="#BBDEFB">fechaHora</TD>
+                         <TD BGCOLOR="#BBDEFB">DATE ()</TD>
+                         </TR><TR>
+                         <TD BGCOLOR="#BBDEFB">invitados</TD>
+                         <TD BGCOLOR="#BBDEFB">VARCHAR(1200) ()</TD>
+                         </TR><TR>
+                         <TD BGCOLOR="#BBDEFB">ubicacion</TD>
+                         <TD BGCOLOR="#BBDEFB">VARCHAR(100) ()</TD>
+                         </TR><TR>
+                         <TD BGCOLOR="#BBDEFB">descripcion</TD>
+                         <TD BGCOLOR="#BBDEFB">VARCHAR(1200) ()</TD>
+                         </TR><TR>
+                         <TD BGCOLOR="#BBDEFB">calendario_id</TD>
+                         <TD BGCOLOR="#BBDEFB">INTEGER ()</TD>
+                         </TR></TABLE>> URL="http://Evento_details.html"]
+	Evento -> Calendario [label=calendario color="#1E88E5" style=dashed tooltip="Relation between Evento and Calendario"]
+	Evento -> NotificacionEventos [label=notificacion color="#1E88E5" style=dashed tooltip="Relation between Evento and NotificacionEventos"]
+	Grado [label=<
+        <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0">
+        <TR><TD COLSPAN="2" BGCOLOR="#3F51B5"><FONT COLOR="white">Grado</FONT></TD></TR>
+        <TR>
+                         <TD BGCOLOR="#BBDEFB">id</TD>
+                         <TD BGCOLOR="#BBDEFB">INTEGER (PK)</TD>
+                         </TR><TR>
+                         <TD BGCOLOR="#BBDEFB">nombre</TD>
+                         <TD BGCOLOR="#BBDEFB">VARCHAR(50) ()</TD>
+                         </TR><TR>
+                         <TD BGCOLOR="#BBDEFB">cupomaximo</TD>
+                         <TD BGCOLOR="#BBDEFB">INTEGER ()</TD>
+                         </TR><TR>
+                         <TD BGCOLOR="#BBDEFB">matricula_id</TD>
+                         <TD BGCOLOR="#BBDEFB">INTEGER ()</TD>
+                         </TR><TR>
+                         <TD BGCOLOR="#BBDEFB">comentariomatricula</TD>
+                         <TD BGCOLOR="#BBDEFB">VARCHAR(1200) ()</TD>
+                         </TR></TABLE>> URL="http://Grado_details.html"]
+	Grado -> Matricula [label=matricula color="#1E88E5" style=dashed tooltip="Relation between Grado and Matricula"]
+	Grado -> User [label=estudiante color="#1E88E5" style=dashed tooltip="Relation between Grado and User"]
+	Grado -> Asignatura [label=asignatura color="#1E88E5" style=dashed tooltip="Relation between Grado and Asignatura"]
+	GrupoEtnico [label=<
+        <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0">
+        <TR><TD COLSPAN="2" BGCOLOR="#3F51B5"><FONT COLOR="white">GrupoEtnico</FONT></TD></TR>
+        <TR>
+                         <TD BGCOLOR="#BBDEFB">id</TD>
+                         <TD BGCOLOR="#BBDEFB">INTEGER (PK)</TD>
+                         </TR><TR>
+                         <TD BGCOLOR="#BBDEFB">grupo</TD>
+                         <TD BGCOLOR="#BBDEFB">VARCHAR(200) ()</TD>
+                         </TR></TABLE>> URL="http://GrupoEtnico_details.html"]
+	GrupoEtnico -> User [label=usuario color="#1E88E5" style=dashed tooltip="Relation between GrupoEtnico and User"]
+	Horario [label=<
+        <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0">
+        <TR><TD COLSPAN="2" BGCOLOR="#3F51B5"><FONT COLOR="white">Horario</FONT></TD></TR>
+        <TR>
+                         <TD BGCOLOR="#BBDEFB">id</TD>
+                         <TD BGCOLOR="#BBDEFB">INTEGER (PK)</TD>
+                         </TR><TR>
+                         <TD BGCOLOR="#BBDEFB">diasemana</TD>
+                         <TD BGCOLOR="#BBDEFB">INTEGER ()</TD>
+                         </TR><TR>
+                         <TD BGCOLOR="#BBDEFB">horaInicio</TD>
+                         <TD BGCOLOR="#BBDEFB">INTEGER ()</TD>
+                         </TR><TR>
+                         <TD BGCOLOR="#BBDEFB">minutoInicio</TD>
+                         <TD BGCOLOR="#BBDEFB">INTEGER ()</TD>
+                         </TR><TR>
+                         <TD BGCOLOR="#BBDEFB">horaFinal</TD>
+                         <TD BGCOLOR="#BBDEFB">INTEGER ()</TD>
+                         </TR><TR>
+                         <TD BGCOLOR="#BBDEFB">minutoFinal</TD>
+                         <TD BGCOLOR="#BBDEFB">INTEGER ()</TD>
+                         </TR><TR>
+                         <TD BGCOLOR="#BBDEFB">asignatura_id</TD>
+                         <TD BGCOLOR="#BBDEFB">INTEGER ()</TD>
+                         </TR></TABLE>> URL="http://Horario_details.html"]
+	Horario -> Asignatura [label=asignatura color="#1E88E5" style=dashed tooltip="Relation between Horario and Asignatura"]
+	Matricula [label=<
+        <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0">
+        <TR><TD COLSPAN="2" BGCOLOR="#3F51B5"><FONT COLOR="white">Matricula</FONT></TD></TR>
+        <TR>
+                         <TD BGCOLOR="#BBDEFB">id</TD>
+                         <TD BGCOLOR="#BBDEFB">INTEGER (PK)</TD>
+                         </TR><TR>
+                         <TD BGCOLOR="#BBDEFB">anio</TD>
+                         <TD BGCOLOR="#BBDEFB">INTEGER ()</TD>
+                         </TR><TR>
+                         <TD BGCOLOR="#BBDEFB">periodo</TD>
+                         <TD BGCOLOR="#BBDEFB">INTEGER ()</TD>
+                         </TR></TABLE>> URL="http://Matricula_details.html"]
+	Matricula -> Grado [label=grado color="#1E88E5" style=dashed tooltip="Relation between Matricula and Grado"]
+	Module [label=<
+        <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0">
+        <TR><TD COLSPAN="2" BGCOLOR="#3F51B5"><FONT COLOR="white">Module</FONT></TD></TR>
+        <TR>
+                         <TD BGCOLOR="#BBDEFB">modulename</TD>
+                         <TD BGCOLOR="#BBDEFB">VARCHAR(200) (PK)</TD>
+                         </TR></TABLE>> URL="http://Module_details.html"]
+	Module -> PerfilModuloLnk [label=perfil color="#1E88E5" style=dashed tooltip="Relation between Module and PerfilModuloLnk"]
+	NotificacionEventos [label=<
+        <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0">
+        <TR><TD COLSPAN="2" BGCOLOR="#3F51B5"><FONT COLOR="white">NotificacionEventos</FONT></TD></TR>
+        <TR>
+                         <TD BGCOLOR="#BBDEFB">id</TD>
+                         <TD BGCOLOR="#BBDEFB">INTEGER (PK)</TD>
+                         </TR><TR>
+                         <TD BGCOLOR="#BBDEFB">tiempoantes</TD>
+                         <TD BGCOLOR="#BBDEFB">INTEGER ()</TD>
+                         </TR><TR>
+                         <TD BGCOLOR="#BBDEFB">lineatiempo</TD>
+                         <TD BGCOLOR="#BBDEFB">VARCHAR(50) ()</TD>
+                         </TR><TR>
+                         <TD BGCOLOR="#BBDEFB">evento_id</TD>
+                         <TD BGCOLOR="#BBDEFB">INTEGER ()</TD>
+                         </TR></TABLE>> URL="http://NotificacionEventos_details.html"]
+	NotificacionEventos -> Evento [label=evento color="#1E88E5" style=dashed tooltip="Relation between NotificacionEventos and Evento"]
+	Perfil [label=<
+        <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0">
+        <TR><TD COLSPAN="2" BGCOLOR="#3F51B5"><FONT COLOR="white">Perfil</FONT></TD></TR>
+        <TR>
+                         <TD BGCOLOR="#BBDEFB">nombreperfil</TD>
+                         <TD BGCOLOR="#BBDEFB">VARCHAR(13) (PK)</TD>
+                         </TR></TABLE>> URL="http://Perfil_details.html"]
+	Perfil -> User [label=user color="#1E88E5" style=dashed tooltip="Relation between Perfil and User"]
+	Perfil -> PerfilModuloLnk [label=modulo color="#1E88E5" style=dashed tooltip="Relation between Perfil and PerfilModuloLnk"]
+	PerfilModuloLnk [label=<
+        <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0">
+        <TR><TD COLSPAN="2" BGCOLOR="#3F51B5"><FONT COLOR="white">PerfilModuloLnk</FONT></TD></TR>
+        <TR>
+                         <TD BGCOLOR="#BBDEFB">perfil_id</TD>
+                         <TD BGCOLOR="#BBDEFB">VARCHAR(13) (PK)</TD>
+                         </TR><TR>
+                         <TD BGCOLOR="#BBDEFB">modulo_id</TD>
+                         <TD BGCOLOR="#BBDEFB">VARCHAR(200) (PK)</TD>
+                         </TR><TR>
+                         <TD BGCOLOR="#BBDEFB">has_permision</TD>
+                         <TD BGCOLOR="#BBDEFB">BOOLEAN ()</TD>
+                         </TR></TABLE>> URL="http://PerfilModuloLnk_details.html"]
+	PerfilModuloLnk -> Perfil [label=perfil color="#1E88E5" style=dashed tooltip="Relation between PerfilModuloLnk and Perfil"]
+	PerfilModuloLnk -> Module [label=modulo color="#1E88E5" style=dashed tooltip="Relation between PerfilModuloLnk and Module"]
+	Qr [label=<
+        <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0">
+        <TR><TD COLSPAN="2" BGCOLOR="#3F51B5"><FONT COLOR="white">Qr</FONT></TD></TR>
+        <TR>
+                         <TD BGCOLOR="#BBDEFB">id</TD>
+                         <TD BGCOLOR="#BBDEFB">INTEGER (PK)</TD>
+                         </TR><TR>
+                         <TD BGCOLOR="#BBDEFB">timestamp</TD>
+                         <TD BGCOLOR="#BBDEFB">DATETIME ()</TD>
+                         </TR><TR>
+                         <TD BGCOLOR="#BBDEFB">code</TD>
+                         <TD BGCOLOR="#BBDEFB">VARCHAR(55) ()</TD>
+                         </TR><TR>
+                         <TD BGCOLOR="#BBDEFB">usuario_id</TD>
+                         <TD BGCOLOR="#BBDEFB">INTEGER ()</TD>
+                         </TR></TABLE>> URL="http://Qr_details.html"]
+	Qr -> User [label=usuario color="#1E88E5" style=dashed tooltip="Relation between Qr and User"]
+	User [label=<
+        <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0">
+        <TR><TD COLSPAN="2" BGCOLOR="#3F51B5"><FONT COLOR="white">User</FONT></TD></TR>
+        <TR>
+                         <TD BGCOLOR="#BBDEFB">id</TD>
+                         <TD BGCOLOR="#BBDEFB">INTEGER (PK)</TD>
+                         </TR><TR>
+                         <TD BGCOLOR="#BBDEFB">is_active</TD>
+                         <TD BGCOLOR="#BBDEFB">BOOLEAN ()</TD>
+                         </TR><TR>
+                         <TD BGCOLOR="#BBDEFB">timestamp</TD>
+                         <TD BGCOLOR="#BBDEFB">DATETIME ()</TD>
+                         </TR><TR>
+                         <TD BGCOLOR="#BBDEFB">nombres</TD>
+                         <TD BGCOLOR="#BBDEFB">VARCHAR(255) ()</TD>
+                         </TR><TR>
+                         <TD BGCOLOR="#BBDEFB">apellidos</TD>
+                         <TD BGCOLOR="#BBDEFB">VARCHAR(255) ()</TD>
+                         </TR><TR>
+                         <TD BGCOLOR="#BBDEFB">numeroidentificacion</TD>
+                         <TD BGCOLOR="#BBDEFB">VARCHAR(255) ()</TD>
+                         </TR><TR>
+                         <TD BGCOLOR="#BBDEFB">fechaNacimiento</TD>
+                         <TD BGCOLOR="#BBDEFB">DATE ()</TD>
+                         </TR><TR>
+                         <TD BGCOLOR="#BBDEFB">rh</TD>
+                         <TD BGCOLOR="#BBDEFB">VARCHAR(3) ()</TD>
+                         </TR><TR>
+                         <TD BGCOLOR="#BBDEFB">telefonoContacto</TD>
+                         <TD BGCOLOR="#BBDEFB">VARCHAR(15) ()</TD>
+                         </TR><TR>
+                         <TD BGCOLOR="#BBDEFB">correo</TD>
+                         <TD BGCOLOR="#BBDEFB">VARCHAR(100) (Unique)</TD>
+                         </TR><TR>
+                         <TD BGCOLOR="#BBDEFB">perfil_nombre</TD>
+                         <TD BGCOLOR="#BBDEFB">VARCHAR(13) ()</TD>
+                         </TR><TR>
+                         <TD BGCOLOR="#BBDEFB">grado_id</TD>
+                         <TD BGCOLOR="#BBDEFB">INTEGER ()</TD>
+                         </TR><TR>
+                         <TD BGCOLOR="#BBDEFB">direccion</TD>
+                         <TD BGCOLOR="#BBDEFB">VARCHAR(500) ()</TD>
+                         </TR><TR>
+                         <TD BGCOLOR="#BBDEFB">telefono</TD>
+                         <TD BGCOLOR="#BBDEFB">VARCHAR(20) ()</TD>
+                         </TR><TR>
+                         <TD BGCOLOR="#BBDEFB">grupoetnico_id</TD>
+                         <TD BGCOLOR="#BBDEFB">INTEGER ()</TD>
+                         </TR></TABLE>> URL="http://User_details.html"]
+	User -> Qr [label=qr_id color="#1E88E5" style=dashed tooltip="Relation between User and Qr"]
+	User -> Auth [label=password_id color="#1E88E5" style=dashed tooltip="Relation between User and Auth"]
+	User -> Perfil [label=perfil color="#1E88E5" style=dashed tooltip="Relation between User and Perfil"]
+	User -> Calendario [label=calendario color="#1E88E5" style=dashed tooltip="Relation between User and Calendario"]
+	User -> Grado [label=grado color="#1E88E5" style=dashed tooltip="Relation between User and Grado"]
+	User -> GrupoEtnico [label=grupoetnico color="#1E88E5" style=dashed tooltip="Relation between User and GrupoEtnico"]
+	User -> Ausentismo [label=ausente color="#1E88E5" style=dashed tooltip="Relation between User and Ausentismo"]
+	User -> Asignatura [label=docente color="#1E88E5" style=dashed tooltip="Relation between User and Asignatura"]
+	User -> Evaluacion [label=evaluacion color="#1E88E5" style=dashed tooltip="Relation between User and Evaluacion"]
+	User -> UsrAsistenciaLnk [label=asistencia color="#1E88E5" style=dashed tooltip="Relation between User and UsrAsistenciaLnk"]
+	UsrAsistenciaLnk [label=<
+        <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0">
+        <TR><TD COLSPAN="2" BGCOLOR="#3F51B5"><FONT COLOR="white">UsrAsistenciaLnk</FONT></TD></TR>
+        <TR>
+                         <TD BGCOLOR="#BBDEFB">asistencia_id</TD>
+                         <TD BGCOLOR="#BBDEFB">INTEGER (PK)</TD>
+                         </TR><TR>
+                         <TD BGCOLOR="#BBDEFB">user_id</TD>
+                         <TD BGCOLOR="#BBDEFB">INTEGER (PK)</TD>
+                         </TR></TABLE>> URL="http://UsrAsistenciaLnk_details.html"]
+	UsrAsistenciaLnk -> Asistencia [label=asistencia color="#1E88E5" style=dashed tooltip="Relation between UsrAsistenciaLnk and Asistencia"]
+	UsrAsistenciaLnk -> User [label=user color="#1E88E5" style=dashed tooltip="Relation between UsrAsistenciaLnk and User"]
+}
