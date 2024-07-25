@@ -9,6 +9,7 @@ from sqlalchemy import select
 import app.modules as _modules
 from app.modules.User.model import PerfilSchool
 from pathlib import Path
+from app.shellcontex.whatnext import whatsnext as whatisnext
 
 
 def _listsubmodules(filepath):
@@ -56,6 +57,11 @@ def init_app(app):
             user.perfil_nombre = "SIN"
             session.add(user)
             session.commit()
+
+    @cli.command(help="step by step configuration instructions.")
+    def whatsnext():
+        click.echo("next step is:")
+        whatisnext()
 
     @cli.command(help="Update profiles")
     def updateprofiles():
