@@ -4,6 +4,7 @@ from flask import current_app as app
 from app.toolsapk import map_name_to_shell
 from app.toolsapk import Tb, gethash
 import getpass
+from app.modules.User.model import PerfilSchool
 
 
 def regadmin(
@@ -22,7 +23,7 @@ def regadmin(
             is_active=True,
             nombres=name,
             apellidos=lastname,
-            perfil_nombre="administrador",
+            perfil_nombre=PerfilSchool.ADMINISTRADOR.value,
             correo=email,
             fechaNacimiento=fechaNacimiento,
             rh=rh,
@@ -30,6 +31,7 @@ def regadmin(
             telefono=telefono,
             numeroidentificacion=numeroidentificacion,
         )
+
         session.add(user)
         session.commit()
         userid = user.id
@@ -75,3 +77,17 @@ def registeradmin():
     )
 
     print("Usuario administrador creado exitosamente")
+
+
+if __name__ == "__main__":
+    regadmin(
+        name="Sebastian",
+        lastname="Lopez",
+        numeroidentificacion=75100175,
+        fechaNacimiento="1981-12-17",
+        rh="O+",
+        direccion="Calle siemppre viva",
+        telefono="3196032071",
+        email="selobu@gmail.com",
+        password="123456789",
+    )
