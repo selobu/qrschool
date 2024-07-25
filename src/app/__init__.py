@@ -26,8 +26,14 @@ from os import getenv
 
 csrf = CSRFProtect()
 
+runningLocal = getenv("RUNNING_LOCAL", False)
+if runningLocal == "True":
+    defaultConfig = ProductionConfig
+else:
+    defaultConfig = PythonAnywhereConfig
 
-def create_app(settings: Config | str = ProductionConfig):  # type: ignore
+
+def create_app(settings: Config | str = defaultConfig):  # type: ignore
     """build the application core.
 
     settings: dict|str = 'local' | 'Python_anywhere' | 'dev' | 'test'
