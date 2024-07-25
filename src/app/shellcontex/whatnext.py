@@ -2,7 +2,7 @@
 __all__ = ["whatsnext"]
 
 from app.toolsapk import map_name_to_shell
-from sqlalchemy import select, func
+from sqlalchemy import select, func, text
 from app.toolsapk import shell_decorated
 from app.modules.User.model import PerfilSchool
 import app.modules as _modules
@@ -28,6 +28,14 @@ def whatsnext():
     # if table_created.lower() not in ("n", "no", ""):
     #    shell_decorated["createdb"]()
     # check if profiles exist
+
+    # chek if there are files defined
+    with app.Session() as session:
+        if len(session.execute(text("SHOW TABLES")).fetchall()) < 2:
+            raise ValueError(
+                "The database seams to be empty\nexecute the command:\nflask db upgrade"
+            )
+
     missing = []
     with app.Session() as session:
         q = select(app.Tb.Perfil.nombreperfil).limit(20)
@@ -43,12 +51,13 @@ def whatsnext():
         update_profile = input("Desea actualizar los perfiles? y/n [n]: ")
     else:
         print("all profiles are registered!")
-    if update_profile in ("y", "yes"):
+    if update_profile.lower() in ("y", "yes"):
         with app.Session() as session:
             session.add_all(
                 [app.Tb.Perfil.register(nombreperfil=miss) for miss in missing]
             )
             session.commit()
+
     # Check if admin exist
     with app.Session() as session:
         q = (
@@ -62,7 +71,7 @@ def whatsnext():
     if cantidadadministradores == 0:
         if input(
             "No se detectaron usuarios administadores, desea agregar uno? y/n [y]: "
-        ) in (None, "", "y", "yes"):
+        ).lower() in (None, "", "y", "yes"):
             shell_decorated["registeradmin"]()
     # current modules
     available_modules = _listsubmodules(_modules.__file__)
@@ -84,7 +93,7 @@ def whatsnext():
             session.commit()
         print(f"Se actualizaron con exito los módulos {missingmodules}")
         print("es necesario actualizar el listado de permisos")
-    # actualizar los modulos
+    # actualizar los permisos por cada modulo
     with app.Session() as session:
         q = select(app.Tb.Perfil.nombreperfil)
         perfiles = [r.value for r in session.scalars(q).all()]
