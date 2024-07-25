@@ -11,6 +11,17 @@ from flask import current_app
 from app.toolsapk import Base, Tb, map_name_to_table, uuidgenerator, now, gethash
 
 
+class FactorRH(Enum):
+    Op = "O+"
+    On = "O-"
+    Ap = "A+"
+    An = "A-"
+    Bp = "B+"
+    Bn = "B-"
+    ABp = "AB+"
+    ABn = "AB-"
+
+
 # limita el uso del proyecto segun el servicio contratado
 @map_name_to_table
 class User(Base):
@@ -23,10 +34,10 @@ class User(Base):
     apellidos: Mapped[str] = mapped_column(String(255))
     numeroidentificacion: Mapped[str] = mapped_column(String(255))
     fechaNacimiento: Mapped[date]
-    rh: Mapped[str] = mapped_column(String(3))
+    rh: Mapped[FactorRH] = mapped_column(String(3))
     telefonoContacto: Mapped[Optional[str]] = mapped_column(String(15))
     correo: Mapped[Optional[str]] = mapped_column(String(100), unique=True)
-    perfil_nombre: Mapped[Optional[int]] = mapped_column(
+    perfil_nombre: Mapped[Optional[str]] = mapped_column(
         ForeignKey("perfil.nombreperfil")
     )
     grado_id: Mapped[Optional[int]] = mapped_column(ForeignKey("grado.id"))
@@ -37,7 +48,7 @@ class User(Base):
     qr_id: Mapped["Qr"] = relationship(back_populates="usuario")
     password_id: Mapped["Auth"] = relationship(back_populates="usuario")
 
-    perfil: Mapped["Perfil"] = relationship(uselist=False, back_populates="user")
+    perfil: Mapped["Perfil"] = relationship(back_populates="user")
     calendario: Mapped["Calendario"] = relationship(
         uselist=False, back_populates="propietario"
     )
