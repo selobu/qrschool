@@ -3,12 +3,18 @@ from flask import current_app as app
 from .model import Asistencia, UsrAsistenciaLnk
 from app.modules.User.model import User
 from app.modules.Qr.model import Qr
+from flask import request
 
 
 class AsistenciaListController:
     @staticmethod
     def get(parser):
-        parser.parseargs()
+        request.args
+        try:
+            parser.parseargs()
+        except Exception as e:
+            print(e)
+            parser = request
         filters = {}
         for key, value in parser.args.items():
             if key == "format":
@@ -23,6 +29,8 @@ class AsistenciaListController:
         ]
         filters.pop("page")
         filters.pop("per_page")
+        page = int(page)
+        per_page = int(per_page)
 
         with app.Session() as session:
             q = select(
