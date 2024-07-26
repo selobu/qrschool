@@ -2,8 +2,7 @@ from sqlalchemy import select, func
 from flask import current_app as app
 from datetime import date
 from flask_jwt_extended import current_user
-from .model import Ausentismo
-from app.modules.User.model import User
+from app import Tb
 
 
 class AusenciaController:
@@ -41,21 +40,21 @@ class AusenciaController:
                 ],
             }
             if key in pairs["Ausentismo"]:
-                return getattr(Ausentismo, key)
+                return getattr(Tb.Ausentismo, key)
             else:
-                return getattr(User, key)
+                return getattr(Tb.User, key)
 
         with app.Session() as session:
             q = select(
-                Ausentismo.id,
-                Ausentismo.fecha,
-                Ausentismo.timestamp,
-                User.nombres,
-                User.apellidos,
-                User.numeroidentificacion,
-                User.grado_id,
-                User.is_active,
-            ).join(Ausentismo.userausente)
+                Tb.Ausentismo.id,
+                Tb.Ausentismo.fecha,
+                Tb.Ausentismo.timestamp,
+                Tb.User.nombres,
+                Tb.User.apellidos,
+                Tb.User.numeroidentificacion,
+                Tb.User.grado_id,
+                Tb.User.is_active,
+            ).join(Tb.Ausentismo.userausente)
             for key, value in filters.items():
                 tipe = query_params[key].type
                 if str(tipe) == str(str):
@@ -95,7 +94,7 @@ class AusenciaController:
                     : [len(responsable), 200][len(responsable) > 200]
                 ]
                 ausencias.append(
-                    Ausentismo(
+                    Tb.Ausentismo(
                         fecha=fecha,
                         userausente_id=userausente_id,
                         comentario=comentario,
@@ -113,12 +112,12 @@ class AusenciaLast7Controller:
         with app.Session() as session:
             q = (
                 select(
-                    Ausentismo.fecha,
+                    Tb.Ausentismo.fecha,
                     func.count(),
                 )
-                .join(Ausentismo.userausente)
-                .group_by(Ausentismo.fecha)
-                .order_by(Ausentismo.fecha.desc())
+                .join(Tb.Ausentismo.userausente)
+                .group_by(Tb.Ausentismo.fecha)
+                .order_by(Tb.Ausentismo.fecha.desc())
                 .limit(7)
             )
             result = [

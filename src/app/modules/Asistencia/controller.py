@@ -10,11 +10,7 @@ class AsistenciaListController:
     @staticmethod
     def get(parser):
         request.args
-        try:
-            parser.parseargs()
-        except Exception as e:
-            print(e)
-            parser = request
+        parser.parseargs()
         filters = {}
         for key, value in parser.args.items():
             if key == "format":
