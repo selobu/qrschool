@@ -1,15 +1,15 @@
 from sqlalchemy import select, func, cast, text, Date
 from flask import current_app as app
-from .model import Asistencia, UsrAsistenciaLnk
+from app import Tb
+
+# Asistencia, UsrAsistenciaLnk
 from app.modules.User.model import User
 from app.modules.Qr.model import Qr
-from flask import request
 
 
 class AsistenciaListController:
     @staticmethod
     def get(parser):
-        request.args
         parser.parseargs()
         filters = {}
         for key, value in parser.args.items():
@@ -30,15 +30,15 @@ class AsistenciaListController:
 
         with app.Session() as session:
             q = select(
-                Asistencia.id,
-                Asistencia.timestamp,
-                func.count(Asistencia.id),
-            ).join(Asistencia.userasistencia)
+                Tb.Asistencia.id,
+                Tb.Asistencia.timestamp,
+                func.count(Tb.Asistencia.id),
+            ).join(Tb.Asistencia.userasistencia)
             for key, value in filters.items():
-                q = q.filter(getattr(Asistencia, key).like(f"%{value.lower()}%"))
+                q = q.filter(getattr(Tb.Asistencia, key).like(f"%{value.lower()}%"))
             q = (
-                q.order_by(Asistencia.id.asc())
-                .group_by(Asistencia.id)
+                q.order_by(Tb.Asistencia.id.asc())
+                .group_by(Tb.Asistencia.id)
                 .limit(per_page)
                 .offset(per_page * (page - 1))
             )
@@ -53,7 +53,7 @@ class AsistenciaListController:
         qrlist = api.payload["qrs"]
         with app.Session() as session:
             with session.begin():
-                asistencia = Asistencia()
+                asistencia = Tb.Asistencia()
                 session.add(asistencia)
             asistencia_id = asistencia.id
 
@@ -65,7 +65,7 @@ class AsistenciaListController:
                 )
                 users = session.scalars(q).all()
                 lnks = [
-                    UsrAsistenciaLnk(asistencia_id=asistencia_id, user_id=userid)
+                    Tb.UsrAsistenciaLnk(asistencia_id=asistencia_id, user_id=userid)
                     for userid in users
                 ]
                 session.add_all(lnks)
@@ -85,7 +85,7 @@ class AsistenciaController:
             q = (
                 select(User)
                 .join(User.asistencia)
-                .filter(UsrAsistenciaLnk.asistencia_id == asistencia_id)
+                .filter(Tb.UsrAsistenciaLnk.asistencia_id == asistencia_id)
                 .group_by(User.id)
                 .limit(per_page)
                 .offset(per_page * (page - 1))
@@ -117,11 +117,11 @@ class AsistenciaLast7Controller:
         with app.Session() as session:
             q = (
                 select(
-                    cast(Asistencia.timestamp, Date).label("fecha"),
+                    cast(Tb.Asistencia.timestamp, Date).label("fecha"),
                     func.count().label("asistencia"),
                 )
-                .join(Asistencia.userasistencia)
-                .group_by(cast(Asistencia.timestamp, Date))
+                .join(Tb.Asistencia.userasistencia)
+                .group_by(cast(Tb.Asistencia.timestamp, Date))
                 .order_by(text("fecha desc"))
                 .limit(7)
             )
