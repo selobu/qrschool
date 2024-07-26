@@ -60,7 +60,7 @@ class UserView(PermisionView):
         ],
     )
     form_columns = [
-        "perfil",
+        "perfil_nombre",
         "grado",
         "grupoetnico",
         "is_active",
