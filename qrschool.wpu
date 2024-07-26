@@ -4,19 +4,8 @@
 # Wing project file : User-specific branch                       #
 ##################################################################
 [user attributes]
-debug.breakpoints = {loc('src/app/modules/Asistencia/controller.py'): {38: (0,
-        None,
-        1,
-        0),
-        44: (0,
-             None,
-             1,
-             0),
-        47: (0,
-             None,
-             1,
-             0)},
-                     loc('tests/api_test/sesion_test.py'): {5: (0,
+debug.breakpoints = {loc('tests/api_test/sesion_test.py'): {5: (0,
+
         None,
         1,
         0)}}
@@ -995,6 +984,7 @@ guimgr.overall-gui-state = {'windowing-policy': 'combined-window',
          49)],
                            'code-line': '                    Tb.UsrAsistenciaLnk(asistencia_id=asistencia_id, user_id=userid)\n',
                            'first-line': 46,
+
                            'folded-linenos': [],
                            'sel-line': 65,
                            'sel-line-start': 2140,
