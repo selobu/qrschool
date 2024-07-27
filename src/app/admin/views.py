@@ -44,7 +44,7 @@ class PerfilModuleview(PermisionView):
 
 class UserView(PermisionView):
     can_delete = False
-    column_editable_list = ["is_active"]
+    column_editable_list = ["is_active", "perfil_nombre"]
     column_filters = ["nombres", "apellidos", "numeroidentificacion", "grado", "correo"]
     column_details_exclude_list = (
         [
