@@ -40,18 +40,21 @@ class APIContact(BaseModel):
 
 
 class Config(BaseModel):
-    host: str = Field(
+    HOST: str = Field(
         frozen=True, description="host", examples=["hocalhost", "127.0.0.1"]
     )
-    port: Union[int, str, None] = Field(
+    PORT: Union[int, str, None] = Field(
         union_mode="left_to_right", frozen=True, examples=[8080, 8081]
     )
-    dbport: Union[int, str, None] = Field(
+    DBPORT: Union[int, str, None] = Field(
         union_mode="left_to_right", frozen=True, examples=[3306]
     )
-    db: str = Field(frozen=True)
-    eng: str = Field(frozen=True)
-    user: str = environ.get("MYSQL_USER", "adminuser")
+    DB: str = Field(frozen=True)
+    ENG: str = Field(frozen=True)
+    USER: str = environ.get("MYSQL_USER", "adminuser")
+    SSH_HOST: str = ""
+    SSH_PORT: int | None = None
+    SSH_USER: str = ""
     pwd: SecretStr = SecretStr(getData("db_password.txt", "MYSQL_PASSWORD_FILE", ""))
     API_NAME: str = environ.get("APPNAME", "QRSchool api")
     VERSION: str = Field(frozen=True, default="0.0.2")
@@ -100,18 +103,18 @@ class Config(BaseModel):
 
     @property
     def SQLALCHEMY_DATABASE_URI(self) -> str:
-        uri = f"{self.eng}://"
-        if self.user not in (None, "None", ""):
-            uri += f"{self.user}:{self.pwd.get_secret_value()}"
-        if self.host not in (None, "None", ""):
-            uri += f"@{self.host}"
-        if self.port not in (None, "None", ""):
-            uri += f":{self.dbport}"
-        uri += f"/{self.db}"
+        uri = f"{self.ENG}://"
+        if self.USER not in (None, "None", ""):
+            uri += f"{self.USER}:{self.pwd.get_secret_value()}"
+        if self.HOST not in (None, "None", ""):
+            uri += f"@{self.HOST}"
+        if self.PORT not in (None, "None", ""):
+            uri += f":{self.DBPORT}"
+        uri += f"/{self.DB}"
 
         return uri
 
-    @field_validator("host")
+    @field_validator("HOST")
     @classmethod
     def validate_ip_regex(cls, ip_address: str) -> str:
         if ip_address == "":
@@ -130,43 +133,45 @@ class Config(BaseModel):
 
 
 ProductionConfig = Config(
-    eng="mysql+pymysql",
-    host=environ.get("MYSQL_HOST", "127.0.0.1"),
-    port=environ.get("PORT", "80"),
-    dbport=environ.get("MYSQL_PORT", "3306"),
-    db=environ.get("MYSQL_DATABASE", "colegio2023"),
+    ENG="mysql+pymysql",
+    HOST=environ.get("MYSQL_HOST", "127.0.0.1"),
+    PORT=environ.get("PORT", "80"),
+    DBPORT=environ.get("MYSQL_PORT", "3306"),
+    DB=environ.get("MYSQL_DATABASE", "colegio2023"),
     ECHO=False,
 )
 
 
 DevelopmentConfig = Config(
-    eng="mysql+pymysql",
-    host=environ.get("MYSQL_HOST", "127.0.0.1"),
-    port=environ.get("PORT", "8081"),
-    dbport=environ.get("MYSQL_PORT", "3306"),
-    db=environ.get("MYSQL_DATABASE", "colegio2023"),
+    ENG="mysql+pymysql",
+    HOST=environ.get("MYSQL_HOST", "127.0.0.1"),
+    PORT=environ.get("PORT", "8081"),
+    DBPORT=environ.get("MYSQL_PORT", "3306"),
+    DB=environ.get("MYSQL_DATABASE", "colegio2023"),
     ECHO=True,
 )
 
 
 TestingConfig = Config(
-    user="",
+    USER="",
     pwd="",
-    eng="sqlite",
-    host="",
-    port="",
-    dbport="",
-    db=":memory:",
+    ENG="sqlite",
+    HOST="",
+    PORT="",
+    DBPORT="",
+    DB=":memory:",
     TESTING=True,
     ECHO=True,
 )
 
-
 PythonAnywhereConfig = Config(
-    eng="mysql+pymysql",
-    port=None,
-    dbport=None,
-    user="selobu",
-    host="selobu.mysql.pythonanywhere-services.com",
-    db="selobu$colegio2023",
+    ENG="mysql+pymysql",
+    PORT=None,
+    DBPORT=3306,
+    SSH_PORT=3306,
+    SSH_HOST="ssh.pythonanywhere.com",
+    SSH_USER="selobu@gmail.com",
+    USER="selobu",
+    HOST="selobu.mysql.pythonanywhere-services.com",
+    DB="selobu$colegio2023",
 )

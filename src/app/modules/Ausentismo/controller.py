@@ -23,6 +23,8 @@ class AusenciaController:
         ]
         filters.pop("page")
         filters.pop("per_page")
+        page = int(page)
+        per_page = int(per_page)
 
         def _getvalue(key):
             pairs = {
