@@ -3,8 +3,8 @@ from flask import current_app as app
 from app import Tb
 
 # Asistencia, UsrAsistenciaLnk
-from app.modules.User.model import User
-from app.modules.Qr.model import Qr
+# from app.modules.User.model import User
+# from app.modules.Qr.model import Qr
 
 
 class AsistenciaListController:
@@ -25,8 +25,6 @@ class AsistenciaListController:
         ]
         filters.pop("page")
         filters.pop("per_page")
-        page = int(page)
-        per_page = int(per_page)
 
         with app.Session() as session:
             q = select(
@@ -59,9 +57,9 @@ class AsistenciaListController:
 
             with session.begin():
                 q = (
-                    select(User.id)
-                    .join(Qr, Qr.usuario_id == User.qr_id)
-                    .filter(Qr.code.in_(qrlist))
+                    select(Tb.User.id)
+                    .join(Tb.Qr, Tb.Qr.usuario_id == Tb.User.qr_id)
+                    .filter(Tb.Qr.code.in_(qrlist))
                 )
                 users = session.scalars(q).all()
                 lnks = [
@@ -81,12 +79,13 @@ class AsistenciaController:
     def get(parser, asistencia_id):
         page = parser.get("page", default=1)
         per_page = parser.get("per_page", default=app.config["PER_PAGE"])
+
         with app.Session() as session:
             q = (
-                select(User)
-                .join(User.asistencia)
+                select(Tb.User)
+                .join(Tb.User.asistencia)
                 .filter(Tb.UsrAsistenciaLnk.asistencia_id == asistencia_id)
-                .group_by(User.id)
+                .group_by(Tb.User.id)
                 .limit(per_page)
                 .offset(per_page * (page - 1))
             )
