@@ -30,6 +30,8 @@ class LoginController:
     def post(api):
         data = api.payload
         email = data["email"]
+        if email.endswith("\t"):
+            email = email[:-1]
         passwordhash = gethash(data["password"])
         with app.Session() as session:
             # verifying credentials
@@ -38,7 +40,20 @@ class LoginController:
                 .join(Tb.Auth.usuario)
                 .filter(Tb.User.correo == email)
             )
-            readedhash, user = session.execute(res).all()[0]
+            result = session.execute(res).all()
+            if len(result) == 0:
+                return {
+                    "status": "not authenticated",
+                    "auth": False,
+                    "active": False,
+                    "fresh_access_token": "",
+                    "access_token": "",
+                    "email": email,
+                    "username": "",
+                    "qr": "",
+                    "modules": [],
+                }, 400
+            readedhash, user = result[0]
             readmodules = False
             if user.perfil is not None:
                 perfil = user.perfil_nombre.name

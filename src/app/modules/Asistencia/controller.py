@@ -3,8 +3,6 @@ from flask import current_app as app
 from app import Tb
 
 # Asistencia, UsrAsistenciaLnk
-# from app.modules.User.model import User
-# from app.modules.Qr.model import Qr
 
 
 class AsistenciaListController:
@@ -58,7 +56,7 @@ class AsistenciaListController:
             with session.begin():
                 q = (
                     select(Tb.User.id)
-                    .join(Tb.Qr, Tb.Qr.usuario_id == Tb.User.qr_id)
+                    .join(Tb.Qr, Tb.Qr.usuario_id == Tb.User.id)
                     .filter(Tb.Qr.code.in_(qrlist))
                 )
                 users = session.scalars(q).all()
