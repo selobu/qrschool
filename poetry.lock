@@ -538,26 +538,27 @@ Flask-SQLAlchemy = ">=1.0"
 
 [[package]]
 name = "flask-restx"
-version = "1.1.0"
+version = "1.3.0"
 description = "Fully featured framework for fast, easy and documented API development with Flask"
 optional = false
 python-versions = "*"
 files = [
-    {file = "flask-restx-1.1.0.tar.gz", hash = "sha256:62b6b6c9de65e5960cf4f8b35e1bd3eca6998838a01b2f71e2a9d4c14a4ccd14"},
-    {file = "flask_restx-1.1.0-py2.py3-none-any.whl", hash = "sha256:eaff65f6edd400ee00b40475496d61a4937b28371dfed039d3fd180d206fee4e"},
+    {file = "flask-restx-1.3.0.tar.gz", hash = "sha256:4f3d3fa7b6191fcc715b18c201a12cd875176f92ba4acc61626ccfd571ee1728"},
+    {file = "flask_restx-1.3.0-py2.py3-none-any.whl", hash = "sha256:636c56c3fb3f2c1df979e748019f084a938c4da2035a3e535a4673e4fc177691"},
 ]
 
 [package.dependencies]
 aniso8601 = ">=0.82"
 Flask = ">=0.8,<2.0.0 || >2.0.0"
+importlib-resources = "*"
 jsonschema = "*"
 pytz = "*"
 werkzeug = "!=2.0.0"
 
 [package.extras]
-dev = ["Faker (==2.0.0)", "black", "blinker", "invoke (==2.0.0)", "mock (==3.0.5)", "pytest (==7.0.1)", "pytest-benchmark (==3.4.1)", "pytest-cov (==4.0.0)", "pytest-flask (==1.2.0)", "pytest-mock (==3.6.1)", "pytest-profiling (==1.7.0)", "tox", "twine (==3.8.0)", "tzlocal"]
+dev = ["Faker (==2.0.0)", "black", "blinker", "invoke (==2.2.0)", "mock (==3.0.5)", "pytest (==7.0.1)", "pytest-benchmark (==3.4.1)", "pytest-cov (==4.0.0)", "pytest-flask (==1.3.0)", "pytest-mock (==3.6.1)", "pytest-profiling (==1.7.0)", "setuptools", "tox", "twine (==3.8.0)", "tzlocal"]
 doc = ["Sphinx (==5.3.0)", "alabaster (==0.7.12)", "sphinx-issues (==3.0.1)"]
-test = ["Faker (==2.0.0)", "blinker", "invoke (==2.0.0)", "mock (==3.0.5)", "pytest (==7.0.1)", "pytest-benchmark (==3.4.1)", "pytest-cov (==4.0.0)", "pytest-flask (==1.2.0)", "pytest-mock (==3.6.1)", "pytest-profiling (==1.7.0)", "twine (==3.8.0)", "tzlocal"]
+test = ["Faker (==2.0.0)", "blinker", "invoke (==2.2.0)", "mock (==3.0.5)", "pytest (==7.0.1)", "pytest-benchmark (==3.4.1)", "pytest-cov (==4.0.0)", "pytest-flask (==1.3.0)", "pytest-mock (==3.6.1)", "pytest-profiling (==1.7.0)", "setuptools", "twine (==3.8.0)", "tzlocal"]
 
 [[package]]
 name = "flask-sqlalchemy"
@@ -728,6 +729,21 @@ files = [
     {file = "idna-3.6-py3-none-any.whl", hash = "sha256:c05567e9c24a6b9faaa835c4821bad0590fbb9d5779e7caa6e1cc4978e7eb24f"},
     {file = "idna-3.6.tar.gz", hash = "sha256:9ecdbbd083b06798ae1e86adcbfe8ab1479cf864e4ee30fe4e46a003d12491ca"},
 ]
+
+[[package]]
+name = "importlib-resources"
+version = "6.4.0"
+description = "Read resources from Python packages"
+optional = false
+python-versions = ">=3.8"
+files = [
+    {file = "importlib_resources-6.4.0-py3-none-any.whl", hash = "sha256:50d10f043df931902d4194ea07ec57960f66a80449ff867bfe782b4c486ba78c"},
+    {file = "importlib_resources-6.4.0.tar.gz", hash = "sha256:cdb2b453b8046ca4e3798eb1d84f3cce1446a0e8e7b5ef4efb600f19fc398145"},
+]
+
+[package.extras]
+docs = ["furo", "jaraco.packaging (>=9.3)", "jaraco.tidelift (>=1.4)", "rst.linker (>=1.9)", "sphinx (<7.2.5)", "sphinx (>=3.5)", "sphinx-lint"]
+testing = ["jaraco.test (>=5.4)", "pytest (>=6)", "pytest-checkdocs (>=2.4)", "pytest-cov", "pytest-enabler (>=2.2)", "pytest-mypy", "pytest-ruff (>=0.2.1)", "zipp (>=3.17)"]
 
 [[package]]
 name = "iniconfig"
@@ -1765,13 +1781,13 @@ files = [
 
 [[package]]
 name = "werkzeug"
-version = "2.3.6"
+version = "2.3.3"
 description = "The comprehensive WSGI web application library."
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "Werkzeug-2.3.6-py3-none-any.whl", hash = "sha256:935539fa1413afbb9195b24880778422ed620c0fc09670945185cce4d91a8890"},
-    {file = "Werkzeug-2.3.6.tar.gz", hash = "sha256:98c774df2f91b05550078891dee5f0eb0cb797a522c757a2452b9cee5b202330"},
+    {file = "Werkzeug-2.3.3-py3-none-any.whl", hash = "sha256:4866679a0722de00796a74086238bb3b98d90f423f05de039abb09315487254a"},
+    {file = "Werkzeug-2.3.3.tar.gz", hash = "sha256:a987caf1092edc7523edb139edb20c70571c4a8d5eed02e0b547b4739174d091"},
 ]
 
 [package.dependencies]
@@ -1811,4 +1827,4 @@ files = [
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10.0"
-content-hash = "30c3fb2dcd77185edf00260df5a8983a772352fe6de8e17346eb5817da8833af"
+content-hash = "c9852416281f7a3aa48d5d3f32460d4a5514edf81811707699e265fc9919b297"
