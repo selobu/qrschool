@@ -7,7 +7,7 @@ __all__ = [
 ]
 from typing import Any
 from flask_restx import Model, fields, api
-from flask import current_app, request
+from flask import current_app
 from sqlalchemy import types, select
 from sqlalchemy.inspection import inspect
 from functools import wraps
@@ -358,7 +358,7 @@ class FilterParams:
     ):  # -> Self:
         self.__add_argument(
             name=name,
-            type=type,
+            type=type.value,
             help=help,
             required=required,
         )
@@ -420,11 +420,7 @@ class FilterParams:
         return self.__args
 
     def __parse_args(self):
-        try:
-            args = self._paginate_model.parse_args()
-        except Exception:
-            self._paginate_model = request
-            args = self._paginate_model.args
+        args = self._paginate_model.parse_args()
         self.__parsed = True
         return args
 

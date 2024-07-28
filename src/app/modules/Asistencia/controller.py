@@ -23,8 +23,6 @@ class AsistenciaListController:
         ]
         filters.pop("page")
         filters.pop("per_page")
-        page = int(page)
-        per_page = int(per_page)
 
         with app.Session() as session:
             q = select(
@@ -79,8 +77,7 @@ class AsistenciaController:
     def get(parser, asistencia_id):
         page = parser.get("page", default=1)
         per_page = parser.get("per_page", default=app.config["PER_PAGE"])
-        page = int(page)
-        per_page = int(per_page)
+
         with app.Session() as session:
             q = (
                 select(Tb.User)
