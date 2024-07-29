@@ -17,6 +17,9 @@ Attendance student list by reading QR codes
 # Tech manual (es)
 [tech manual](https://qrschooltechmanual.gestionhseq.com)
 
+# User's manual (es)
+[user's manual](https://selobu.github.io/qrschool/)
+
 ## Demos
 [backend](https://qrschool-selobu.pythonanywhere.com/)
 
