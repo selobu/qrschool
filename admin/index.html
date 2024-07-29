@@ -22,7 +22,7 @@
     
     
       
-        <title>Configuración inicial - QRschool</title>
+        <title>initial configuration - QRschool</title>
       
     
     
@@ -78,7 +78,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#configuracion-inicial" class="md-skip">
+        <a href="#initial-configuration" class="md-skip">
           Skip to content
         </a>
       
@@ -113,7 +113,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Configuración inicial
+              initial configuration
             
           </span>
         </div>
@@ -316,7 +316,7 @@
         
   
   <span class="md-ellipsis">
-    Licencia
+    License
   </span>
   
 
@@ -337,7 +337,7 @@
         
   
   <span class="md-ellipsis">
-    Contacto
+    Contact
   </span>
   
 
@@ -567,7 +567,7 @@
         
   
   <span class="md-ellipsis">
-    Código QR
+    QR code
   </span>
   
 
@@ -588,7 +588,7 @@
         
   
   <span class="md-ellipsis">
-    Perfiles
+    Profiles
   </span>
   
 
@@ -609,7 +609,7 @@
         
   
   <span class="md-ellipsis">
-    Asistencia
+    Attendance
   </span>
   
 
@@ -630,7 +630,7 @@
         
   
   <span class="md-ellipsis">
-    Ausencia
+    Absence
   </span>
   
 
@@ -780,9 +780,9 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#actualice-la-base-de-datos-a-la-ultima-version" class="md-nav__link">
+  <a href="#upgrade-database-to-latest-version" class="md-nav__link">
     <span class="md-ellipsis">
-      Actualice la base de datos a la última versión.
+      Upgrade database to latest version
     </span>
   </a>
   
@@ -803,15 +803,16 @@
                   
 
 
-<h1 id="configuracion-inicial">Configuración inicial</h1>
-<p>Antes de iniciar a trabajar con el api deberá seguir los siguientes pasos:</p>
+<h1 id="initial-configuration">initial configuration</h1>
+<p>Before starting work with the api you must do the following steps:</p>
 <ol>
-<li>Cree la base de datos "colegio2023" usando mysql o mysqladmin, utilize la codificación utf-8.</li>
-<li>Use el shell de flask para guiarlo a través de el proceso de instalación.</li>
+<li>Create the database "colegio2023" using mysql or mysqladmin, please use utf-8
+   encoding.</li>
+<li>Use the flask shell to guide you through the rest of setup process</li>
 </ol>
 <div class="highlight"><pre><span></span><code>$<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>src
 </code></pre></div>
-<p>Entonces active el entorno visual</p>
+<p>Then activate the virtual environment</p>
 <div class="termy">
 
 <div class="highlight"><pre><span></span><code>$<span class="w"> </span>pipenv<span class="w"> </span>shell
@@ -827,7 +828,7 @@ $<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>src
 
 </div>
 
-<h2 id="actualice-la-base-de-datos-a-la-ultima-version">Actualice la base de datos a la última versión.</h2>
+<h2 id="upgrade-database-to-latest-version">Upgrade database to latest version</h2>
 <div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">CLI</label><label for="__tabbed_1_2">Shell</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
@@ -856,7 +857,7 @@ $<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>src
 </div>
 </div>
 <div class="tabbed-block">
-<p>Usando la consola</p>
+<p>Using the console</p>
 <div class="termy">
 <p><div class="highlight"><pre><span></span><code><span class="gp">$ </span>flask<span class="w"> </span>shell
 <span class="gp">$ </span>&gt;&gt;&gt;<span class="w"> </span>dir<span class="o">()</span>
@@ -868,12 +869,13 @@ $<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>src
 </div>
 </div>
 </div>
-<p>La consola lo guiara a través del proceso de instalción:</p>
+<p>The command line application will guide you through the rest of the setup
+process including:</p>
 <ul>
-<li>Crear tablas.</li>
-<li>Registrar perfiles por defecto.</li>
-<li>Crear administrador.</li>
-<li>Actualizar permisos por perfil.</li>
+<li>Create tables.</li>
+<li>Register default profiles.</li>
+<li>Create administrator.</li>
+<li>Update modules permissions by profile.</li>
 </ul>
 
 

@@ -5,7 +5,7 @@ const div = document.querySelector(".github-topic-projects");
 async function getDataBatch(page) {
   const response = await fetch(
     `https://api.github.com/search/repositories?q=topic:fastapi&per_page=100&page=${page}`,
-    { headers: { Accept: "application/vnd.github.mercy-preview+json" } },
+    { headers: { Accept: "application/vnd.github.mercy-preview+json" } }
   );
   const data = await response.json();
   return data;
