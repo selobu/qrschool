@@ -2,52 +2,67 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://github.com/selobu/qrschool/</loc>
-         <lastmod>2023-09-27</lastmod>
+         <lastmod>2024-07-29</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://github.com/selobu/qrschool/about/</loc>
-         <lastmod>2023-09-27</lastmod>
+         <lastmod>2024-07-29</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://github.com/selobu/qrschool/about/contact/</loc>
-         <lastmod>2023-09-27</lastmod>
+         <lastmod>2024-07-29</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://github.com/selobu/qrschool/about/license/</loc>
-         <lastmod>2023-09-27</lastmod>
+         <lastmod>2024-07-29</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://github.com/selobu/qrschool/admin/</loc>
-         <lastmod>2023-09-27</lastmod>
+         <lastmod>2024-07-29</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://github.com/selobu/qrschool/admin/admininterfase/</loc>
+         <lastmod>2024-07-29</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://github.com/selobu/qrschool/admin/cli/</loc>
-         <lastmod>2023-09-27</lastmod>
+         <lastmod>2024-07-29</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://github.com/selobu/qrschool/admin/userprofiles/</loc>
-         <lastmod>2023-09-27</lastmod>
+         <lastmod>2024-07-29</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://github.com/selobu/qrschool/user/</loc>
-         <lastmod>2023-09-27</lastmod>
+         <lastmod>2024-07-29</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://github.com/selobu/qrschool/user/absence/</loc>
+         <lastmod>2024-07-29</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://github.com/selobu/qrschool/user/attendance/</loc>
+         <lastmod>2024-07-29</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://github.com/selobu/qrschool/user/profiles/</loc>
-         <lastmod>2023-09-27</lastmod>
+         <lastmod>2024-07-29</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://github.com/selobu/qrschool/user/qr/</loc>
-         <lastmod>2023-09-27</lastmod>
+         <lastmod>2024-07-29</lastmod>
          <changefreq>daily</changefreq>
     </url>
 </urlset>
