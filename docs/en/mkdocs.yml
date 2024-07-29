@@ -37,6 +37,10 @@ repo_name: selobu/qrschool
 repo_url: https://github.com/selobu/qrschool
 edit_uri: ""
 nav:
+  - About:
+      - about/index.md
+      - about/license.md
+      - about/contact.md
   - QRschool:
       - index.md
   - Languages:
@@ -46,18 +50,31 @@ nav:
       - user/index.md
       - user/qr.md
       - user/profiles.md
+      - user/attendance.md
+      - user/absence.md
   - Administrator:
       - admin/index.md
       - admin/cli.md
-      - admin/userprofiles.md
-  - About:
-      - about/index.md
-      - about/license.md
-      - about/contact.md
+      - admin/admininterfase.md
+
 plugins:
   search: null
   markdownextradata:
     data: ../en/data
+  mermaid2:
+    version: 10.0.2
+  # exporter:
+  #   buttons:
+  #     - title: Download as PDF
+  #       icon: material-file-download-outline
+  #       enabled: !!python/name:mkdocs_exporter.formats.pdf.buttons.download.enabled
+  #       attributes: !!python/name:mkdocs_exporter.formats.pdf.buttons.download.attributes
+  #   formats:
+  #     pdf:
+  #       aggregator:
+  #         enabled: true
+  #         output: documentation.pdf
+  #         covers: all
 markdown_extensions:
   pymdownx.details: null
   pymdownx.superfences:
@@ -70,8 +87,8 @@ markdown_extensions:
   attr_list: null
   md_in_html: null
   pymdownx.emoji:
-    emoji_index: !!python/name:materialx.emoji.twemoji
-    emoji_generator: !!python/name:materialx.emoji.to_svg
+    emoji_index: !!python/name:material.extensions.emoji.twemoji
+    emoji_generator: !!python/name:material.extensions.emoji.to_svg
 extra_css:
   - css/termynal.css
   - css/custom.css
