@@ -14,6 +14,8 @@
 Attendance student list by reading QR codes
 
 [Project Documentation](https://selobu.github.io/qrschool/)
+# Tech manual (es)
+[tech manual](https://qrschooltechmanual.gestionhseq.com)
 
 ## Demos
 [backend](https://qrschool-selobu.pythonanywhere.com/)
@@ -41,3 +43,4 @@ Attendance student list by reading QR codes
 | DB migrations     | ![100%](https://progress-bar.dev/100) | 10/15/2023          |
 | Documentation     | ![25%](https://progress-bar.dev/25)   | 08/01/2024          |
 | Frontend          | ![75%](https://progress-bar.dev/75)   | 12/15/2024          |
+| Tech manual       | ![100%](https://progress-bar.dev/100) | 07/29/2024          |
