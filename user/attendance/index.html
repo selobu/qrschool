@@ -22,7 +22,7 @@
     
     
       
-        <title>Attendance - QRschool</title>
+        <title>Asistencia - QRschool</title>
       
     
     
@@ -77,6 +77,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#asistencia" class="md-skip">
+          Skip to content
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -108,7 +113,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Attendance
+              Asistencia
             
           </span>
         </div>
@@ -311,7 +316,7 @@
         
   
   <span class="md-ellipsis">
-    License
+    Licencia
   </span>
   
 
@@ -332,7 +337,7 @@
         
   
   <span class="md-ellipsis">
-    Contact
+    Contacto
   </span>
   
 
@@ -564,7 +569,7 @@
         
   
   <span class="md-ellipsis">
-    QR code
+    Código QR
   </span>
   
 
@@ -585,7 +590,7 @@
         
   
   <span class="md-ellipsis">
-    Profiles
+    Perfiles
   </span>
   
 
@@ -608,12 +613,14 @@
       <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
       
       
+        
+      
       
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
   <span class="md-ellipsis">
-    Attendance
+    Asistencia
   </span>
   
 
@@ -635,7 +642,7 @@
         
   
   <span class="md-ellipsis">
-    Absence
+    Ausencia
   </span>
   
 
@@ -773,6 +780,8 @@
   
   
   
+    
+  
   
 </nav>
                   </div>
@@ -787,9 +796,30 @@
                   
 
 
-  <h1>Attendance</h1>
-
-
+<h1 id="asistencia">Asistencia</h1>
+<p>Registro de asistencia</p>
+<p>Una vez haya ingresado vas al menú y seleccionas la opción de Asistencia</p>
+<p><img alt="Asistencia" src="../Asistencia.png" /></p>
+<p>Por defecto aparece el listado de asistencia actual registrado</p>
+<p><img alt="Asistencia" src="../Asistencia_current.png" /></p>
+<p>Para agregar un nuevo usuario selecionas el boton <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2Z"/></svg></span> y escaneas el código QR
+de los usuarios a registrar</p>
+<p><img alt="QR scanner" src="../Asistencia_scanqr0.png" /></p>
+<p><img alt="QR scanner" src="../Asistencia_scanqr02.png" /></p>
+<p>Se hace click en el boton grabar y si el registro es exitoso aparece "Registro exitoso"</p>
+<p><img alt="QR save" src="../Asistencia_save.png" /></p>
+<p><img alt="QR confirm" src="../Asistencia_confirm.png" /></p>
+<p>En el caso que haya un problema en el registro de la asistencia aparece el emensaje de envíos pendientes.</p>
+<p><img alt="QR pendientes" src="../qr_pendientes.png" /></p>
+<p>Haga click en enviar!</p>
+<p>Y aparecerá el nuevo registro</p>
+<p><img alt="QR agregado" src="../qr_agregado.png" /></p>
+<p>Para visualizar un listado de asistencia deberas de seleccionar un listado y moverte hacia la parte inferior de la pantalla, allí aparecerá los asistentes.</p>
+<details class="warning" open="open">
+<summary>refrescar el contenido</summary>
+<p>Los listados de asistencia no se reflejan inmediatamente en la pantalla, esto es debido al manejo de buffers y el tiempo por defecto.</p>
+</details>
+<p><img alt="QR listado" src="../qr_listado_asistencia.png" /></p>
 
 
 
