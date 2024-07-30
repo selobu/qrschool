@@ -44,6 +44,6 @@ Attendance student list by reading QR codes
 | Api test          | ![60%](https://progress-bar.dev/60)   | 08/20/2024          |
 | Postman file      | ![70%](https://progress-bar.dev/70)   | 08/20/2024          |
 | DB migrations     | ![100%](https://progress-bar.dev/100) | 10/15/2023          |
-| Documentation     | ![25%](https://progress-bar.dev/25)   | 08/01/2024          |
-| Frontend          | ![75%](https://progress-bar.dev/75)   | 12/15/2024          |
+| Documentation     | ![55%](https://progress-bar.dev/55)   | 08/01/2024          |
+| Frontend          | ![85%](https://progress-bar.dev/85)   | 12/15/2024          |
 | Tech manual       | ![100%](https://progress-bar.dev/100) | 07/29/2024          |
