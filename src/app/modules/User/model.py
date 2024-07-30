@@ -59,6 +59,9 @@ class User(Base):
     evaluacion: Mapped["Evaluacion"] = relationship(back_populates="evaluado")
     asistencia: Mapped["UsrAsistenciaLnk"] = relationship(back_populates="user")
 
+    def __repr__(self) -> str:
+        return f"<User> {self.nombres} {self.apellidos}"
+
     def get_id(self):
         return self.id
 

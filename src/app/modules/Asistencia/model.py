@@ -20,6 +20,9 @@ class Asistencia(Base):
         back_populates="asistencia", cascade="all, delete-orphan"
     )
 
+    def __repr__(self) -> str:
+        return f"<Asistencia> {self.id} {self.timestamp}"
+
 
 @map_name_to_table
 class UsrAsistenciaLnk(Base):

@@ -83,7 +83,36 @@ class AsistenciaView(PermisionView):
     can_edit = False
     can_delete = False
     page_size = 50  # the number of entries to display on the list view
-    column_filters = ["id", "timestamp"]
+    column_filters = ["user.nombres", "user.apellidos", "user.grado.nombre"]
+    column_list = [
+        "asistencia.id",
+        "user.nombres",
+        "user.apellidos",
+        "user.grado.nombre",
+    ]
+
+    def get_pk_value(self, model):
+        return f"{model.id}"
+
+
+class AusenciaView(PermisionView):
+    can_create = False
+    can_edit = True
+    can_delete = False
+    page_size = 50  # the number of entries to display on the list view
+    column_filters = [
+        "userausente.nombres",
+        "userausente.apellidos",
+        "userausente.grado.nombre",
+    ]
+    column_list = [
+        "fecha",
+        "userausente.nombres",
+        "userausente.apellidos",
+        "userausente.grado.nombre",
+        "comentario",
+    ]
+    column_editable_list = ["comentario"]
 
     def get_pk_value(self, model):
         return f"{model.id}"
@@ -125,7 +154,8 @@ def getviews() -> list:
     views = [
         UserView(Tb.User, app.Session()),  # type: ignore
         PerfilModuleview(Tb.PerfilModuloLnk, app.Session(), name="Permisos"),  # type: ignore
-        AsistenciaView(Tb.Asistencia, app.Session(), name="Asistencia"),  # type: ignore
+        AsistenciaView(Tb.UsrAsistenciaLnk, app.Session(), name="Asistencia"),  # type: ignore
+        AusenciaView(Tb.Ausentismo, app.Session(), name="Ausencia"),  # type: ignore
         MatriculaView(Tb.Matricula, app.Session(), name="Matricula"),  # type: ignore
         GradoView(Tb.Grado, app.Session(), name="Grado"),  # type: ignore
     ]
