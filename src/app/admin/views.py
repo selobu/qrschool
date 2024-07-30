@@ -44,6 +44,7 @@ class PerfilModuleview(PermisionView):
 
 class UserView(PermisionView):
     can_delete = False
+    can_create = False
     column_editable_list = ["is_active", "perfil_nombre"]
     column_filters = ["nombres", "apellidos", "numeroidentificacion", "grado", "correo"]
     column_details_exclude_list = (
@@ -106,6 +107,7 @@ class GradoView(PermisionView):
     can_delete = True
     page_size = 50  # the number of entries to display on the list view
     column_filters = ["id", "nombre"]
+    column_editable_list = ["matricula_id", "cupomaximo", "comentariomatricula"]
     column_details_exclude_list = (
         (
             [
@@ -113,7 +115,7 @@ class GradoView(PermisionView):
             ],
         ),
     )
-    form_columns = ["matricula", "nombre", "cupomaximo", "comentariomatricula"]
+    form_columns = ["matricula_id", "nombre", "cupomaximo", "comentariomatricula"]
 
     def get_pk_value(self, model):
         return f"{model.id}"
