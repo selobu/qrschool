@@ -20,10 +20,14 @@
 [tech manual](https://qrschooltechmanual.gestionhseq.com)
 
 # User's manual (es)
+
 [user's manual](https://selobu.github.io/qrschool/)
 
+# Frontend repo
+[<img src="https://github.githubassets.com/assets/GitHub-Mark-ea2971cee799.png" width="40" height="40">](https://github.com/selobu/qrschool_frontend)
+
 ## Demos
-[backend](https://qrschool-selobu.pythonanywhere.com/)
+[backend](https://qrschool-selobu.pythonanywhere.com/admin/) 
 
 [api](https://qrschool-selobu.pythonanywhere.com/api/)
 
