@@ -11,10 +11,12 @@
   </a>
 </p>
 
-Attendance student list by reading QR codes
+# Attached files
 
-[Project Documentation](https://selobu.github.io/qrschool/)
+[drive](https://drive.google.com/drive/folders/1P3j3Uf6pVflycSsLEuMCAk4HPR8giLLT)
+
 # Tech manual (es)
+
 [tech manual](https://qrschooltechmanual.gestionhseq.com)
 
 # User's manual (es)
