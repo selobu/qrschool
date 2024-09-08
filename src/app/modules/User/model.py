@@ -45,6 +45,9 @@ class User(Base):
     telefono: Mapped[String] = mapped_column(String(20))
     grupoetnico_id: Mapped[Optional[int]] = mapped_column(ForeignKey("grupoetnico.id"))
 
+    # -----------
+    # ORM Relationships
+    # ------------
     qr_id: Mapped["Qr"] = relationship(back_populates="usuario")
     password_id: Mapped["Auth"] = relationship(back_populates="usuario")
 
