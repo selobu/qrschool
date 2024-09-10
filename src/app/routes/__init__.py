@@ -5,9 +5,11 @@ from sqlalchemy import select
 from wtforms import EmailField, StringField, BooleanField
 from wtforms.validators import DataRequired, Length
 from os.path import join as pathjoin
+from werkzeug.utils import secure_filename
+from flask import flash
 
 
-def init_app(app):
+def init_app(app, csrf):
     class RegisterForm(FlaskForm):
         correo = EmailField(
             validators=[DataRequired("Ingrese el correo"), Length(min=8, max=40)],
@@ -52,3 +54,27 @@ def init_app(app):
             "favicon.ico",
             mimetype="image/vnd.microsoft.icon",
         )
+
+    def allowed_file(filename):
+        return (
+            "." in filename
+            and filename.rsplit(".", 1)[1].lower() in app.config["ALLOWED_EXTENSIONS"]
+        )
+
+    @app.route("/uploadpicture", methods=["POST"])
+    @csrf.exempt
+    def upload_file():
+        # check if the post request has the file part
+        if "file" not in request.files:
+            flash("No file part")
+            return redirect(request.url)
+        file = request.files["file"]
+        # If the user does not select a file, the browser submits an
+        # empty file without a filename.
+        if file.filename == "":
+            flash("No selected file")
+            return redirect(request.url)
+        if file and allowed_file(file.filename):
+            filename = secure_filename(file.filename)
+            file.save(pathjoin(app.config["STATIC_PATH"], "photos", filename))
+            return {"file": "photos/" + filename}
