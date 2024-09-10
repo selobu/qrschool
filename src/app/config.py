@@ -3,10 +3,11 @@ from os import environ
 from pathlib import Path
 from pydantic import BaseModel, SecretStr, EmailStr, HttpUrl
 from pydantic import Field, field_validator
-from typing import Union
+from typing import Union, Set
 import re
 
 _rootpath = Path(__file__).parent.parent.parent.joinpath("secrets", "")
+_staticpath = Path(__file__).parent / "static"
 
 
 # reading credentials
@@ -49,6 +50,8 @@ class Config(BaseModel):
     DBPORT: Union[int, str, None] = Field(
         union_mode="left_to_right", frozen=True, examples=[3306]
     )
+    UPLOAD_FOLDER: str = "static/photos"
+    ALLOWED_EXTENSIONS: Set[str] = {"png", "jpg", "jpeg", "gif"}
     DB: str = Field(frozen=True)
     ENG: str = Field(frozen=True)
     USER: str = environ.get("MYSQL_USER", "adminuser")
@@ -62,6 +65,7 @@ class Config(BaseModel):
     API_DESCRIPTION: str = Field(frozen=True, default="")
     admin_email: EmailStr = Field(frozen=True, default="")
     items_per_user: int = Field(frozen=True, default=50)
+    STATIC_PATH: str = str(_staticpath)
     API_CONTACT: APIContact = Field(
         default=APIContact(
             name="lteam",
@@ -100,6 +104,7 @@ class Config(BaseModel):
     ADMIN_TEMPLATE_NAME: str = Field(default="bootstrap4", frozen=True)
     TESTING: bool = Field(default=False, frozen=True)
     PER_PAGE: int = Field(default=50, frozen=True)
+    MAX_CONTENT_LENGTH: int = 2 * 1000 * 1000
 
     @property
     def SQLALCHEMY_DATABASE_URI(self) -> str:

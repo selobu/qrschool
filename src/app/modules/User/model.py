@@ -37,12 +37,14 @@ class User(Base):
     rh: Mapped[FactorRH] = mapped_column(String(3))
     telefonoContacto: Mapped[Optional[str]] = mapped_column(String(15))
     correo: Mapped[Optional[str]] = mapped_column(String(100), unique=True)
+    photourl: Mapped[Optional[str]] = mapped_column(String(42))
+    direccion: Mapped[String] = mapped_column(String(500))
+    telefono: Mapped[String] = mapped_column(String(20))
+
     perfil_nombre: Mapped[Optional[str]] = mapped_column(
         ForeignKey("perfil.nombreperfil")
     )
     grado_id: Mapped[Optional[int]] = mapped_column(ForeignKey("grado.id"))
-    direccion: Mapped[String] = mapped_column(String(500))
-    telefono: Mapped[String] = mapped_column(String(20))
     grupoetnico_id: Mapped[Optional[int]] = mapped_column(ForeignKey("grupoetnico.id"))
 
     # -----------
