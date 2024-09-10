@@ -168,4 +168,4 @@ qrschool.wpu
 qrschool.wpr
 
 # static/photos
-./src/static/photos/
+./src/app/static/photos/
