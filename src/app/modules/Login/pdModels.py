@@ -22,3 +22,4 @@ class LoginResponse(BaseMeta):
         description="Indica si el usuario está activo en la plataforma"
     )
     modules: List = List(String(description="Modulo con permiso"))
+    photourl: String = String(description="Nombre de la foto")
