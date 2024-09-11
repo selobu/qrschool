@@ -63,6 +63,7 @@ class LoginController:
 
             userfullname = f"{user.nombres} {user.apellidos}"
             userqr = user.generateqr()
+            photourl = user.photourl
             active = user.is_active
             if readedhash is None:
                 return "", 306
@@ -93,5 +94,6 @@ class LoginController:
                 "username": userfullname,
                 "qr": userqr,
                 "modules": modules,
+                "photourl": photourl,
             }, 200
         return "", 305
