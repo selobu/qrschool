@@ -52,6 +52,7 @@ class LoginController:
                     "username": "",
                     "qr": "",
                     "modules": [],
+                    "photourl": "",
                 }, 400
             readedhash, user = result[0]
             readmodules = False
