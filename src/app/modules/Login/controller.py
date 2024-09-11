@@ -64,7 +64,7 @@ class LoginController:
 
             userfullname = f"{user.nombres} {user.apellidos}"
             userqr = user.generateqr()
-            photourl = user.Photourl
+            photourl = user.photourl
             active = user.is_active
             if readedhash is None:
                 return "", 306
