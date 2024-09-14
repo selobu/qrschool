@@ -56,16 +56,16 @@ The software aims to quickly register the access of users and reduce the time at
 
 | Item              | status                                | Due date MM/DD/YYYY |
 | ----------------- | ------------------------------------- | ------------------- |
-| GitHub Actions    | ![100%](https://progress-bar.dev/100) | 08/11/2023          |
-| precommit checks  | ![100%](https://progress-bar.dev/100) | 08/14/2023          |
-| Gunicorn & Docker | ![100%](https://progress-bar.dev/100) | 10/04/2023          |
-| admin shell       | ![100%](https://progress-bar.dev/100) | 09/25/2023          |
-| create profiles   | ![100%](https://progress-bar.dev/100) | 08/16/2023          |
-| Admin interfase   | ![100%](https://progress-bar.dev/100) | 10/25/2023          |
-| Api               | ![94%](https://progress-bar.dev/94)   | 03/25/2024          |
-| Api test          | ![60%](https://progress-bar.dev/60)   | 08/20/2024          |
-| Postman file      | ![70%](https://progress-bar.dev/70)   | 08/20/2024          |
-| DB migrations     | ![100%](https://progress-bar.dev/100) | 10/15/2023          |
-| Documentation     | ![55%](https://progress-bar.dev/55)   | 08/01/2024          |
-| Frontend          | ![100%](https://progress-bar.dev/100) | 09/09/2024          |
-| Tech manual       | ![100%](https://progress-bar.dev/100) | 07/29/2024          |
+| GitHub Actions    | ![100%](https://progress-bar.xyz/100) | 08/11/2023          |
+| precommit checks  | ![100%](https://progress-bar.xyz/100) | 08/14/2023          |
+| Gunicorn & Docker | ![100%](https://progress-bar.xyz/100) | 10/04/2023          |
+| admin shell       | ![100%](https://progress-bar.xyz/100) | 09/25/2023          |
+| create profiles   | ![100%](https://progress-bar.xyz/100) | 08/16/2023          |
+| Admin interfase   | ![100%](https://progress-bar.xyz/100) | 10/25/2023          |
+| Api               | ![100%](https://progress-bar.xyz/100) | 03/25/2024          |
+| Api test          | ![70%](https://progress-bar.xyz/70)   | 08/20/2024          |
+| Postman file      | ![75%](https://progress-bar.xyz/75)   | 08/20/2024          |
+| DB migrations     | ![100%](https://progress-bar.xyz/100) | 10/15/2023          |
+| Documentation     | ![65%](https://progress-bar.xyz/65)   | 08/01/2024          |
+| Frontend          | ![100%](https://progress-bar.xyz/100) | 09/09/2024          |
+| Tech manual       | ![100%](https://progress-bar.xyz/100) | 07/29/2024          |
