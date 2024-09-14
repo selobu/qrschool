@@ -7,7 +7,7 @@
 
 <p align="center">
   <a href="https://qrschool.gestionhseq.com">
-    <img src="https://raw.githubusercontent.com/selobu/qrschool/main/.github/assets/qrschool.svg" width="320" alt="QRSCHOOL">
+    <img src="https://raw.githubusercontent.com/selobu/qrschool/main/.github/assets/qrschool.svg" width="240" alt="QRSCHOOL">
   </a>
 </p>
 
