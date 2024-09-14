@@ -11,38 +11,49 @@
   </a>
 </p>
 
-# Attached files
+The software aims to quickly register the access of users and reduce the time at the beginning of many classes before starting to study; also in certain institutions, students leave at noon to rest in nearby parks and it is necessary and in an agile way to identify if students were needed. Timely recording of student absence can help to quickly report student absences to attendees.
 
-[drive](https://drive.google.com/drive/folders/1P3j3Uf6pVflycSsLEuMCAk4HPR8giLLT)
 
-# Tech manual (es)
+**Frontend repo**
 
-[tech manual](https://qrschooltechmanual.gestionhseq.com)
-
-# User's manual (es)
-
-[user's manual](https://selobu.github.io/qrschool/)
-
-# Frontend repo
 [<img src="https://github.githubassets.com/assets/GitHub-Mark-ea2971cee799.png" width="40" height="40">](https://github.com/selobu/qrschool_frontend)
 
-# Frontend Video
-[![Frontend video](https://img.youtube.com/vi/SmmdnBZbM10/0.jpg)](https://www.youtube.com/watch?v=SmmdnBZbM10)
+<details>
 
+  <summary> Manuals </summary>
+  
+[tech manual (es)](https://qrschooltechmanual.gestionhseq.com)
 
+[User's manual (es)](https://selobu.github.io/qrschool/)
 
-## Demos
-[backend](https://qrschool-selobu.pythonanywhere.com/admin/) 
+[Attached files](https://drive.google.com/drive/folders/1P3j3Uf6pVflycSsLEuMCAk4HPR8giLLT)
 
-[api](https://qrschool-selobu.pythonanywhere.com/api/)
+ </details>
 
-[frontend](https://qrschoolapp.gestionhseq.com)
+<details>
+  <summary> Demos </summary>
+  
+  [backend](https://qrschool-selobu.pythonanywhere.com/admin/) 
+  
+  [api](https://qrschool-selobu.pythonanywhere.com/api/)
+  
+  [frontend](https://qrschoolapp.gestionhseq.com)
+  
+  [Postman file](https://github.com/selobu/qrschool/blob/main/scripts/postman.json)
 
-[Postman file](https://github.com/selobu/qrschool/blob/main/scripts/postman.json)
+</details>
+
+<details>
+  <summary>  🎬  Videos </summary>
+
+  Frontend
+  [![Frontend](https://img.youtube.com/vi/SmmdnBZbM10/0.jpg)](https://www.youtube.com/watch?v=SmmdnBZbM10)
+
+</details>
 
 
 ## Project status
-º
+
 | Item              | status                                | Due date MM/DD/YYYY |
 | ----------------- | ------------------------------------- | ------------------- |
 | GitHub Actions    | ![100%](https://progress-bar.dev/100) | 08/11/2023          |
